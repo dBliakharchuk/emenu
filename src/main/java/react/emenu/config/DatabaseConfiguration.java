@@ -1,7 +1,6 @@
 package react.emenu.config;
 
 import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.config.h2.H2ConfigurationHelper;
 import io.github.jhipster.config.liquibase.AsyncSpringLiquibase;
 
 import liquibase.integration.spring.SpringLiquibase;
@@ -12,9 +11,8 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+
 import org.springframework.core.env.Environment;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -22,13 +20,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 @Configuration
 @EnableJpaRepositories("react.emenu.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
-@EnableElasticsearchRepositories("react.emenu.repository.search")
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
@@ -40,18 +36,6 @@ public class DatabaseConfiguration {
     public DatabaseConfiguration(Environment env, CacheManager cacheManager) {
         this.env = env;
         this.cacheManager = cacheManager;
-    }
-
-    /**
-     * Open the TCP port for the H2 database, so it is available remotely.
-     *
-     * @return the H2 database TCP server
-     * @throws SQLException if the server failed to start
-     */
-    @Bean(initMethod = "start", destroyMethod = "stop")
-    @Profile(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)
-    public Object h2TCPServer() throws SQLException {
-        return H2ConfigurationHelper.createServer();
     }
 
     @Bean

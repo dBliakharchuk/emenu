@@ -5,7 +5,6 @@ import react.emenu.domain.User;
 import react.emenu.repository.AuthorityRepository;
 import react.emenu.config.Constants;
 import react.emenu.repository.UserRepository;
-import react.emenu.repository.search.UserSearchRepository;
 import react.emenu.security.AuthoritiesConstants;
 import react.emenu.security.SecurityUtils;
 import react.emenu.service.util.RandomUtil;
@@ -40,16 +39,13 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserSearchRepository userSearchRepository;
-
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
@@ -61,7 +57,6 @@ public class UserService {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
-                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Activated user: {}", user);
                 return user;
@@ -113,7 +108,6 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -145,7 +139,6 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(true);
         userRepository.save(user);
-        userSearchRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -169,7 +162,6 @@ public class UserService {
                 user.setEmail(email);
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
-                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
@@ -202,7 +194,6 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
-                userSearchRepository.save(user);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
                 return user;
@@ -213,7 +204,6 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
-            userSearchRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);
         });
@@ -265,7 +255,6 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
-            userSearchRepository.delete(user);
             this.clearUserCaches(user);
         }
     }

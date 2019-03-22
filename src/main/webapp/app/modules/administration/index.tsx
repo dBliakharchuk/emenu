@@ -8,12 +8,10 @@ import Metrics from './metrics/metrics';
 import Configuration from './configuration/configuration';
 import Audits from './audits/audits';
 import Docs from './docs/docs';
-import Tracker from './tracker/tracker';
 
 const Routes = ({ match }) => (
   <div>
     <ErrorBoundaryRoute path={`${match.url}/user-management`} component={UserManagement} />
-    <ErrorBoundaryRoute exact path={`${match.url}/tracker`} component={Tracker} />
     <ErrorBoundaryRoute exact path={`${match.url}/health`} component={Health} />
     <ErrorBoundaryRoute exact path={`${match.url}/metrics`} component={Metrics} />
     <ErrorBoundaryRoute exact path={`${match.url}/docs`} component={Docs} />

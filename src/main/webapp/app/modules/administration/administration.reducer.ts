@@ -11,8 +11,7 @@ export const ACTION_TYPES = {
   FETCH_THREAD_DUMP: 'administration/FETCH_THREAD_DUMP',
   FETCH_CONFIGURATIONS: 'administration/FETCH_CONFIGURATIONS',
   FETCH_ENV: 'administration/FETCH_ENV',
-  FETCH_AUDITS: 'administration/FETCH_AUDITS',
-  WEBSOCKET_ACTIVITY_MESSAGE: 'administration/WEBSOCKET_ACTIVITY_MESSAGE'
+  FETCH_AUDITS: 'administration/FETCH_AUDITS'
 };
 
 const initialState = {
@@ -32,9 +31,6 @@ const initialState = {
     env: {} as any
   },
   audits: [],
-  tracker: {
-    activities: []
-  },
   totalItems: 0
 };
 
@@ -138,15 +134,6 @@ export default (state: AdministrationState = initialState, action): Administrati
         ...state,
         loading: false,
         health: action.payload.data
-      };
-    case ACTION_TYPES.WEBSOCKET_ACTIVITY_MESSAGE:
-      // filter out activities from the same session
-      const uniqueActivities = state.tracker.activities.filter(activity => activity.sessionId !== action.payload.sessionId);
-      // remove any activities with the page of logout
-      const activities = [...uniqueActivities, action.payload].filter(activity => activity.page !== 'logout');
-      return {
-        ...state,
-        tracker: { activities }
       };
     default:
       return state;

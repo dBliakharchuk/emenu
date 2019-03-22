@@ -6,16 +6,18 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <property name="now" value="now()" dbms="h2"/>
-    <property name="now" value="now()" dbms="mysql"/>
-    <property name="autoIncrement" value="true"/>
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="mysql"/>
+    <property name="now" value="GETDATE()" dbms="mssql"/>
 
     <!--
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000001" author="jhipster">
-        <createTable tableName="jhi_user">
+    <changeSet id="00000000000001" author="jhipster" dbms="mysql">
+    	 <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="1"/>
+    	
+        <!-- <createTable tableName="jhi_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -135,6 +137,6 @@
                                  baseTableName="jhi_persistent_audit_evt_data"
                                  constraintName="fk_evt_pers_audit_evt_data"
                                  referencedColumnNames="event_id"
-                                 referencedTableName="jhi_persistent_audit_event"/>
+                                 referencedTableName="jhi_persistent_audit_event"/> -->
     </changeSet>
 </databaseChangeLog>
