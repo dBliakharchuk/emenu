@@ -7,6 +7,13 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Encje",
+        "authoritySql": "Authority Sql",
+        "restaurant": "Restaurant",
+        "location": "Location",
+        "photo": "Photo",
+        "menu": "Menu",
+        "category": "Category",
+        "dish": "Dish",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

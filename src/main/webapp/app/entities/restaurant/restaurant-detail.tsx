@@ -49,11 +49,11 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
             <dt>
               <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
             </dt>
-            <dd>{restaurantEntity.idRestaurant ? restaurantEntity.id : ''}</dd>
+            <dd>{restaurantEntity.idRestaurant ? restaurantEntity.idRestaurant.id : ''}</dd>
             <dt>
               <Translate contentKey="emenuApp.restaurant.user">User</Translate>
             </dt>
-            <dd>{restaurantEntity.user ? restaurantEntity.user.id : ''}</dd>
+            <dd>{restaurantEntity.user ? restaurantEntity.user.idUser : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/restaurant" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
