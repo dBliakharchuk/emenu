@@ -1,0 +1,25 @@
+{
+  "emenuApp": {
+    "restaurant": {
+      "home": {
+        "title": "Restaurants",
+        "createLabel": "Restaurant erstellen",
+        "createOrEditLabel": "Restaurant erstellen oder bearbeiten"
+      },
+      "created": "Restaurant erstellt mit ID {{ param }}",
+      "updated": "Restaurant aktualisiert mit ID {{ param }}",
+      "deleted": "Restaurant gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Restaurant {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Restaurant"
+      },
+      "idRestaurant": "Id Restaurant",
+      "name": "Name",
+      "description": "Description",
+      "idRestaurant": "Id Restaurant",
+      "user": "User"
+    }
+  }
+}

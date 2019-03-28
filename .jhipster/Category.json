@@ -1,0 +1,41 @@
+{
+    "name": "Category",
+    "fields": [
+        {
+            "fieldName": "idCategory",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "menu",
+            "otherEntityRelationshipName": "category",
+            "relationshipName": "menu",
+            "otherEntityField": "idMenu"
+        }
+    ],
+    "changelogDate": "20190327210649",
+    "entityTableName": "category",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

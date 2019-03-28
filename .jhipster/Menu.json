@@ -1,0 +1,46 @@
+{
+    "name": "Menu",
+    "fields": [
+        {
+            "fieldName": "idMenu",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "menu",
+            "relationshipName": "restaurant",
+            "otherEntityField": "idRestaurant"
+        }
+    ],
+    "changelogDate": "20190327210648",
+    "entityTableName": "menu",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

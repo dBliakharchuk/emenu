@@ -24,3 +24,6 @@ export const cleanEntity = entity => {
  */
 export const keysToValues = (keyList: ReadonlyArray<any>, data: ReadonlyArray<any>, fieldName: string) =>
   keyList.map((k: any) => data.find((e: any) => e[fieldName] === k));
+
+export const mapIdList = (idList: ReadonlyArray<any>) =>
+  idList.filter((entityId: any) => entityId !== '').map((entityId: any) => ({ id: entityId }));

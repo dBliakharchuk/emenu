@@ -1,0 +1,25 @@
+{
+  "emenuApp": {
+    "restaurant": {
+      "home": {
+        "title": "Restaurant",
+        "createLabel": "Dodaj Restaurant",
+        "createOrEditLabel": "Dodaj lub edytuj: Restaurant"
+      },
+      "created": "Utworzono nowy obiekt typu Restaurant z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Restaurant z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Restaurant z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Restaurant {{ id }}?"
+      },
+      "detail": {
+        "title": "Restaurant"
+      },
+      "idRestaurant": "Id Restaurant",
+      "name": "Name",
+      "description": "Description",
+      "idRestaurant": "Id Restaurant",
+      "user": "User"
+    }
+  }
+}
