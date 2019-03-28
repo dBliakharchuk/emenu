@@ -26,7 +26,8 @@ export class AuthoritySql extends React.Component<IAuthoritySqlProps> {
         <h2 id="authority-sql-heading">
           <Translate contentKey="emenuApp.authoritySql.home.title">Authority Sqls</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.authoritySql.home.createLabel">Create new Authority Sql</Translate>
           </Link>
         </h2>
@@ -59,7 +60,7 @@ export class AuthoritySql extends React.Component<IAuthoritySqlProps> {
                     {authoritySql.users
                       ? authoritySql.users.map((val, j) => (
                           <span key={j}>
-                            {val.id}
+                            {val.idUser}
                             {j === authoritySql.users.length - 1 ? '' : ', '}
                           </span>
                         ))
@@ -108,4 +109,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthoritySql);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuthoritySql);

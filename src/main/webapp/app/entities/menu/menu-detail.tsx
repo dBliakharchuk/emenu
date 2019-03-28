@@ -73,7 +73,8 @@ export class MenuDetail extends React.Component<IMenuDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/menu/${menuEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
@@ -95,4 +96,7 @@ const mapDispatchToProps = { getEntity };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuDetail);

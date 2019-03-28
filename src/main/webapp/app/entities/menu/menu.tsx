@@ -26,7 +26,8 @@ export class Menu extends React.Component<IMenuProps> {
         <h2 id="menu-heading">
           <Translate contentKey="emenuApp.menu.home.title">Menus</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.menu.home.createLabel">Create new Menu</Translate>
           </Link>
         </h2>
@@ -123,4 +124,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu);

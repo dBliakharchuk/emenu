@@ -26,7 +26,8 @@ export class Category extends React.Component<ICategoryProps> {
         <h2 id="category-heading">
           <Translate contentKey="emenuApp.category.home.title">Categories</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.category.home.createLabel">Create new Category</Translate>
           </Link>
         </h2>
@@ -107,4 +108,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Category);

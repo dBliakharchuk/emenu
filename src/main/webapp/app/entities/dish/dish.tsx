@@ -26,7 +26,8 @@ export class Dish extends React.Component<IDishProps> {
         <h2 id="dish-heading">
           <Translate contentKey="emenuApp.dish.home.title">Dishes</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.dish.home.createLabel">Create new Dish</Translate>
           </Link>
         </h2>
@@ -111,4 +112,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dish);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dish);

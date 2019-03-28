@@ -26,7 +26,8 @@ export class Restaurant extends React.Component<IRestaurantProps> {
         <h2 id="restaurant-heading">
           <Translate contentKey="emenuApp.restaurant.home.title">Restaurants</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.restaurant.home.createLabel">Create new Restaurant</Translate>
           </Link>
         </h2>
@@ -66,8 +67,10 @@ export class Restaurant extends React.Component<IRestaurantProps> {
                   <td>{restaurant.idRestaurant}</td>
                   <td>{restaurant.name}</td>
                   <td>{restaurant.description}</td>
-                  <td>{restaurant.idRestaurant ? <Link to={`location/${restaurant.id}`}>{restaurant.id}</Link> : ''}</td>
-                  <td>{restaurant.user ? restaurant.user.id : ''}</td>
+                  <td>
+                    {restaurant.idRestaurant ? <Link to={`location/${restaurant.idRestaurant.id}`}>{restaurant.idRestaurant.id}</Link> : ''}
+                  </td>
+                  <td>{restaurant.user ? restaurant.user.idUser : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${restaurant.id}`} color="info" size="sm">
@@ -111,4 +114,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restaurant);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Restaurant);

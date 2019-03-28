@@ -49,18 +49,19 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
             <dt>
               <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
             </dt>
-            <dd>{restaurantEntity.idRestaurant ? restaurantEntity.id : ''}</dd>
+            <dd>{restaurantEntity.idRestaurant ? restaurantEntity.idRestaurant.id : ''}</dd>
             <dt>
               <Translate contentKey="emenuApp.restaurant.user">User</Translate>
             </dt>
-            <dd>{restaurantEntity.user ? restaurantEntity.user.id : ''}</dd>
+            <dd>{restaurantEntity.user ? restaurantEntity.user.idUser : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/restaurant" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/restaurant/${restaurantEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
@@ -82,4 +83,7 @@ const mapDispatchToProps = { getEntity };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RestaurantDetail);

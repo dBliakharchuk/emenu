@@ -28,7 +28,7 @@ public class AuthoritySql implements Serializable {
 
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;//this field supoused to be id--> change it later
+    private String name;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

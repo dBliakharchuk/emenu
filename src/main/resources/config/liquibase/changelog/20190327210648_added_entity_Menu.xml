@@ -18,11 +18,6 @@
         Added the entity Menu.
     -->
     <changeSet id="20190327210648-1" author="jhipster">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="menu"/>
-            </not>
-        </preConditions>
         <createTable tableName="menu">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>

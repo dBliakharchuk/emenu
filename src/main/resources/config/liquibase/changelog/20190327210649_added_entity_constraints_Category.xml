@@ -7,11 +7,7 @@
         Added the constraints for entity Category.
     -->
     <changeSet id="20190327210649-2" author="jhipster">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <foreignKeyConstraintExists foreignKeyName="fk_category_menu_id"/>
-            </not>
-        </preConditions>
+        
         <addForeignKeyConstraint baseColumnNames="menu_id"
                                  baseTableName="category"
                                  constraintName="fk_category_menu_id"

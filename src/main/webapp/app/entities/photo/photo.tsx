@@ -26,7 +26,8 @@ export class Photo extends React.Component<IPhotoProps> {
         <h2 id="photo-heading">
           <Translate contentKey="emenuApp.photo.home.title">Photos</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.photo.home.createLabel">Create new Photo</Translate>
           </Link>
         </h2>
@@ -147,4 +148,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Photo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Photo);

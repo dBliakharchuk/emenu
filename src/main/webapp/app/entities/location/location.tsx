@@ -26,7 +26,8 @@ export class Location extends React.Component<ILocationProps> {
         <h2 id="location-heading">
           <Translate contentKey="emenuApp.location.home.title">Locations</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.location.home.createLabel">Create new Location</Translate>
           </Link>
         </h2>
@@ -119,4 +120,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Location);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Location);
