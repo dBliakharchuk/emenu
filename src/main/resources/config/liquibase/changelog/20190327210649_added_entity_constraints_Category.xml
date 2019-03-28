@@ -12,11 +12,11 @@
                 <foreignKeyConstraintExists foreignKeyName="fk_category_menu_id"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseColumnNames="menu_id"
-                                 baseTableName="category"
+        <addForeignKeyConstraint baseColumnNames="id_menu"
+                                 baseTableName="jhi_category"
                                  constraintName="fk_category_menu_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="menu"/>
+                                 referencedColumnNames="id_menu"
+                                 referencedTableName="jhi_menu"/>
 
     </changeSet>
 </databaseChangeLog>

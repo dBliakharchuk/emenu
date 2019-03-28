@@ -20,17 +20,13 @@
     <changeSet id="20190327210646-1" author="jhipster">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="location"/>
+                <tableExists tableName="jhi_location"/>
             </not>
         </preConditions>
-        <createTable tableName="location">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+        <createTable tableName="jhi_location">
+            <column name="id_location" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_location" type="integer">
-                <constraints nullable="false" />
-            </column>
-
             <column name="address_gm" type="varchar(255)">
                 <constraints nullable="true" />
             </column>

@@ -20,17 +20,13 @@
     <changeSet id="20190327210648-1" author="jhipster">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="menu"/>
+                <tableExists tableName="jhi_menu"/>
             </not>
         </preConditions>
-        <createTable tableName="menu">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+        <createTable tableName="jhi_menu">
+            <column name="id_menu" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_menu" type="integer">
-                <constraints nullable="false" />
-            </column>
-
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -46,7 +42,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="restaurant_id" type="bigint">
+            <column name="id_restaurant" type="bigint">
                 <constraints nullable="true" />
             </column>
 

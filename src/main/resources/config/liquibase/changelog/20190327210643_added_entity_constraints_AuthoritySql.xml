@@ -13,7 +13,7 @@
                 <foreignKeyConstraintExists foreignKeyName="fk_authority_sql_user_user_id"/>
             </not>
         </preConditions>
-        
+        <!--Do wywalenia-->
         <addForeignKeyConstraint baseColumnNames="authority_sql_id"
                                  baseTableName="authority_sql_user"
                                  constraintName="fk_authority_sql_user_authority_sql_id"

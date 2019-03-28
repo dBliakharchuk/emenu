@@ -11,19 +11,19 @@
         <preConditions onFail="MARK_RAN">
             <not>
                 <foreignKeyConstraintExists foreignKeyName="fk_restaurant_id_restaurant_id"/>
-                <foreignKeyConstraintExists foreignKeyName="fk_restaurant_user_id"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_restaurant_id_user_id"/>
             </not>
         </preConditions>
 
-        <addForeignKeyConstraint baseColumnNames="id_restaurant_id"
-                                 baseTableName="restaurant"
-                                 constraintName="fk_restaurant_id_restaurant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="location"/>
+        <addForeignKeyConstraint baseColumnNames="id_restaurant"
+                                 baseTableName="jhi_restaurant"
+                                 constraintName="fk_restaurant_id_location_id"
+                                 referencedColumnNames="id_location"
+                                 referencedTableName="jhi_location"/>
 
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="restaurant"
-                                 constraintName="fk_restaurant_user_id"
+        <addForeignKeyConstraint baseColumnNames="id_user"
+                                 baseTableName="jhi_restaurant"
+                                 constraintName="fk_restaurant_id_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 

@@ -20,7 +20,6 @@
                 <tableExists tableName="jhi_user_authority"/>
                 <tableExists tableName="jhi_persistent_audit_event"/>
                 <tableExists tableName="jhi_persistent_audit_evt_data"/>
-                <tableExists tableName="jhi_date_time_wrapper"/>
                 <foreignKeyConstraintExists foreignKeyName="fk_authority_name"/>
                 <foreignKeyConstraintExists foreignKeyName="fk_user_id"/>
                 <foreignKeyConstraintExists foreignKeyName="fk_authority_name"/>

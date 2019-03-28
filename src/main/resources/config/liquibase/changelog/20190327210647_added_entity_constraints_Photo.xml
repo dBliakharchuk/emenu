@@ -13,17 +13,17 @@
                 <foreignKeyConstraintExists foreignKeyName="fk_photo_dish_id"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseColumnNames="restaurant_id"
-                                 baseTableName="photo"
+        <addForeignKeyConstraint baseColumnNames="id_restaurant"
+                                 baseTableName="jhi_photo"
                                  constraintName="fk_photo_restaurant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="restaurant"/>
+                                 referencedColumnNames="id_restaurant"
+                                 referencedTableName="jhi_restaurant"/>
 
-        <addForeignKeyConstraint baseColumnNames="dish_id"
-                                 baseTableName="photo"
+        <addForeignKeyConstraint baseColumnNames="id_dish"
+                                 baseTableName="jhi_photo"
                                  constraintName="fk_photo_dish_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="dish"/>
+                                 referencedColumnNames="id_dish"
+                                 referencedTableName="jhi_dish"/>
 
     </changeSet>
 </databaseChangeLog>
