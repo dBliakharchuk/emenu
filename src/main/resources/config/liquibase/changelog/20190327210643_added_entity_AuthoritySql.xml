@@ -18,6 +18,12 @@
         Added the entity AuthoritySql.
     -->
     <changeSet id="20190327210643-1" author="jhipster">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="authority_sql"/>
+                <tableExists tableName="authority_sql_user"/>
+            </not>
+        </preConditions>
         <createTable tableName="authority_sql">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>

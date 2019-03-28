@@ -7,7 +7,12 @@
         Added the constraints for entity Photo.
     -->
     <changeSet id="20190327210647-2" author="jhipster">
-        
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_photo_restaurant_id"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_photo_dish_id"/>
+            </not>
+        </preConditions>
         <addForeignKeyConstraint baseColumnNames="restaurant_id"
                                  baseTableName="photo"
                                  constraintName="fk_photo_restaurant_id"

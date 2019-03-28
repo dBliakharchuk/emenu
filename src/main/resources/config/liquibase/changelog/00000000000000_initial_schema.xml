@@ -13,6 +13,20 @@
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
     <changeSet id="00000000000001" author="jhipster">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="jhi_user"/>
+                <tableExists tableName="jhi_authority"/>
+                <tableExists tableName="jhi_user_authority"/>
+                <tableExists tableName="jhi_persistent_audit_event"/>
+                <tableExists tableName="jhi_persistent_audit_evt_data"/>
+                <tableExists tableName="jhi_date_time_wrapper"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_authority_name"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_user_id"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_authority_name"/>
+
+            </not>
+        </preConditions>
         <createTable tableName="jhi_user">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -136,6 +150,12 @@
     </changeSet>
 
     <changeSet author="jhipster" id="00000000000002" context="test">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="jhi_date_time_wrapper"/>
+
+            </not>
+        </preConditions>
         <createTable tableName="jhi_date_time_wrapper">
             <column autoIncrement="${autoIncrement}" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="jhi_date_time_wrapperPK"/>

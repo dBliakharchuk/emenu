@@ -7,7 +7,14 @@
         Added the constraints for entity Restaurant.
     -->
     <changeSet id="20190327210645-2" author="jhipster">
-        
+        <validCheckSum>7:bc77cd0ab04add73f3a9ded193ff1f9d</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_restaurant_id_restaurant_id"/>
+                <foreignKeyConstraintExists foreignKeyName="fk_restaurant_user_id"/>
+            </not>
+        </preConditions>
+
         <addForeignKeyConstraint baseColumnNames="id_restaurant_id"
                                  baseTableName="restaurant"
                                  constraintName="fk_restaurant_id_restaurant_id"
