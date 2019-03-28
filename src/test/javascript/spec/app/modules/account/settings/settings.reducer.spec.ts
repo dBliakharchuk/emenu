@@ -3,12 +3,18 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
+import { TranslatorContext } from 'react-jhipster';
 
-import account, { ACTION_TYPES, saveAccountSettings } from 'app/modules/account/settings/settings.reducer';
+import account, { ACTION_TYPES, saveAccountSettings, reset } from 'app/modules/account/settings/settings.reducer';
 import { ACTION_TYPES as authActionTypes } from 'app/shared/reducers/authentication';
+import { ACTION_TYPES as localeActionTypes } from 'app/shared/reducers/locale';
 
 describe('Settings reducer tests', () => {
+  beforeAll(() => {
+    TranslatorContext.registerTranslations('en', {});
+  });
+
   describe('Common tests', () => {
     it('should return the initial state', () => {
       const toTest = account(undefined, {});
@@ -46,6 +52,25 @@ describe('Settings reducer tests', () => {
         loading: false
       });
     });
+
+    it('should reset the state', () => {
+      const initialState = {
+        loading: false,
+        errorMessage: null,
+        updateSuccess: false,
+        updateFailure: false
+      };
+      expect(
+        account(
+          { ...initialState, loading: true },
+          {
+            type: ACTION_TYPES.RESET
+          }
+        )
+      ).toEqual({
+        ...initialState
+      });
+    });
   });
 
   describe('Actions', () => {
@@ -54,7 +79,7 @@ describe('Settings reducer tests', () => {
     const resolvedObject = { value: 'whatever' };
     beforeEach(() => {
       const mockStore = configureStore([thunk, promiseMiddleware()]);
-      store = mockStore({});
+      store = mockStore({ authentication: { account: { langKey: 'en' } } });
       axios.get = sinon.stub().returns(Promise.resolve(resolvedObject));
       axios.post = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
@@ -80,9 +105,22 @@ describe('Settings reducer tests', () => {
         {
           type: SUCCESS(authActionTypes.GET_SESSION),
           payload: resolvedObject
+        },
+        {
+          type: localeActionTypes.SET_LOCALE,
+          locale: 'en'
         }
       ];
       await store.dispatch(saveAccountSettings({})).then(() => expect(store.getActions()).toEqual(expectedActions));
+    });
+    it('dispatches ACTION_TYPES.RESET actions', async () => {
+      const expectedActions = [
+        {
+          type: ACTION_TYPES.RESET
+        }
+      ];
+      await store.dispatch(reset());
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

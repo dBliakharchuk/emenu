@@ -1,10 +1,11 @@
+import 'react-toastify/dist/ReactToastify.css';
 import './app.css';
 
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'reactstrap';
 import { HashRouter as Router } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, ToastPosition, toast } from 'react-toastify';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
@@ -30,7 +31,11 @@ export class App extends React.Component<IAppProps> {
     return (
       <Router>
         <div className="app-container" style={{ paddingTop }}>
-          <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
+          <ToastContainer
+            position={toast.POSITION.TOP_LEFT as ToastPosition}
+            className="toastify-container"
+            toastClassName="toastify-toast"
+          />
           <ErrorBoundary>
             <Header
               isAuthenticated={this.props.isAuthenticated}
@@ -70,4 +75,7 @@ const mapDispatchToProps = { setLocale, getSession, getProfile };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

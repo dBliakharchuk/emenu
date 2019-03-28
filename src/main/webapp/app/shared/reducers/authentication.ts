@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Storage } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { setLocale } from 'app/shared/reducers/locale';
 
 export const ACTION_TYPES = {
   LOGIN: 'authentication/LOGIN',
@@ -21,7 +22,10 @@ const initialState = {
   showModalLogin: false,
   account: {} as any,
   errorMessage: null as string, // Errors returned from server side
-  redirectMessage: null as string
+  redirectMessage: null as string,
+  sessionHasBeenFetched: false,
+  idToken: null as string,
+  logoutUrl: null as string
 };
 
 export type AuthenticationState = Readonly<typeof initialState>;
@@ -48,6 +52,7 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         ...state,
         loading: false,
         isAuthenticated: false,
+        sessionHasBeenFetched: true,
         showModalLogin: true,
         errorMessage: action.payload
       };
@@ -70,6 +75,7 @@ export default (state: AuthenticationState = initialState, action): Authenticati
         ...state,
         isAuthenticated,
         loading: false,
+        sessionHasBeenFetched: true,
         account: action.payload.data
       };
     }
@@ -93,16 +99,23 @@ export default (state: AuthenticationState = initialState, action): Authenticati
 
 export const displayAuthError = message => ({ type: ACTION_TYPES.ERROR_MESSAGE, message });
 
-export const getSession = () => dispatch =>
-  dispatch({
+export const getSession = () => async (dispatch, getState) => {
+  await dispatch({
     type: ACTION_TYPES.GET_SESSION,
-    payload: axios.get('/api/account')
+    payload: axios.get('api/account')
   });
+
+  const { account } = getState().authentication;
+  if (account && account.langKey) {
+    const langKey = Storage.session.get('locale', account.langKey);
+    await dispatch(setLocale(langKey));
+  }
+};
 
 export const login = (username, password, rememberMe = false) => async (dispatch, getState) => {
   const result = await dispatch({
     type: ACTION_TYPES.LOGIN,
-    payload: axios.post('/api/authenticate', { username, password, rememberMe })
+    payload: axios.post('api/authenticate', { username, password, rememberMe })
   });
   const bearerToken = result.value.headers.authorization;
   if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
@@ -113,7 +126,7 @@ export const login = (username, password, rememberMe = false) => async (dispatch
       Storage.session.set(AUTH_TOKEN_KEY, jwt);
     }
   }
-  dispatch(getSession());
+  await dispatch(getSession());
 };
 
 export const clearAuthToken = () => {

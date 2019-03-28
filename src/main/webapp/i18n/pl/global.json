@@ -1,20 +1,12 @@
 {
   "global": {
     "title": "Emenu",
-    "browsehappy":
-      "Używasz <strong>przestarzałej</strong> przeglądarki. Proszę <a href=\"http://browsehappy.com/\">uaktualnij swoją przeglądarkę</a> aby poprawić wrażenia z użytkowania tej aplikacji.",
+    "browsehappy": "Używasz <strong>przestarzałej</strong> przeglądarki. Proszę <a href=\"http://browsehappy.com/\">uaktualnij swoją przeglądarkę</a> aby poprawić wrażenia z użytkowania tej aplikacji.",
     "menu": {
       "home": "Strona domowa",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Encje",
-        "authoritySql": "Authority Sql",
-        "restaurant": "Restaurant",
-        "location": "Location",
-        "photo": "Photo",
-        "menu": "Menu",
-        "category": "Category",
-        "dish": "Dish",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -44,8 +36,8 @@
     "form": {
       "username": "Nazwa użytkownika",
       "username.placeholder": "Twój login",
-      "currentpassword": "Current password",
-      "currentpassword.placeholder": "Current password",
+      "currentpassword": "Aktualne hasło",
+      "currentpassword.placeholder": "Aktualne hasło",
       "newpassword": "Nowe hasło",
       "newpassword.placeholder": "Nowe hasło",
       "confirmpassword": "Potwierdź nowe hasło",
@@ -58,8 +50,7 @@
         "authenticated": {
           "prefix": "Jeśli chcesz się ",
           "link": "zalogować",
-          "suffix":
-            ", możesz spróbować któregoś z domyślnych kont:<br/>- Administrator (login=\"admin\" i hasło=\"admin\") <br/>- Użytkownik (login=\"user\" i hasło=\"user\")."
+          "suffix": ", możesz spróbować któregoś z domyślnych kont:<br/>- Administrator (login=\"admin\" i hasło=\"admin\") <br/>- Użytkownik (login=\"user\" i hasło=\"user\")."
         },
         "register": {
           "noaccount": "Nie masz jeszcze konta?",
@@ -95,7 +86,7 @@
     "ribbon": {
       "dev": "Development"
     },
-    "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+    "item-count": "Wyświetlono {{first}} - {{second}} z {{total}} elementów."
   },
   "entity": {
     "action": {
@@ -138,7 +129,7 @@
     "userexists": "Użytkownik o takiej nazwie już istnieje!",
     "emailexists": "Użytkownik z takim adresem email już istnieje!",
     "idexists": "Nowy {{entityName}} nie może jeszcze mieć przypisanego ID",
-    "idnull": "Invalid ID"
+    "idnull": "Błędne ID"
   },
   "footer": "To jest stopka"
 }

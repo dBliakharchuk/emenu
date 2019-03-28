@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table, Row, Badge } from 'reactstrap';
@@ -12,7 +12,7 @@ import {
   getSortState,
   IPaginationBaseState
 } from 'react-jhipster';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
@@ -63,7 +63,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
     const { users, account, match, totalItems } = this.props;
     return (
       <div>
-        <h2 className="userManagement-page-heading">
+        <h2 id="user-management-page-heading">
           <Translate contentKey="userManagement.home.title">Users</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="userManagement.home.createLabel">Create a new user</Translate>
@@ -100,7 +100,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                 <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
                 <FontAwesomeIcon icon="sort" />
               </th>
-              <th className="hand" onClick={this.sort('lastModifiedDate')}>
+              <th id="modified-date-sort" className="hand" onClick={this.sort('lastModifiedDate')}>
                 <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
                 <FontAwesomeIcon icon="sort" />
               </th>
@@ -201,4 +201,7 @@ const mapDispatchToProps = { getUsers, updateUser };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManagement);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserManagement);

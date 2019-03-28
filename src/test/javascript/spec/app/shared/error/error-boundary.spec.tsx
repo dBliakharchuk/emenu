@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import ErrorBoundary from 'app/shared/error/error-boundary';
@@ -10,8 +10,8 @@ const ErrorComp = () => {
 describe('error component', () => {
   beforeEach(() => {
     // ignore console and jsdom errors
-    jest.spyOn(window._virtualConsole, 'emit').mockImplementation(() => false);
-    jest.spyOn(global.console, 'error').mockImplementation(() => false);
+    jest.spyOn((window as any)._virtualConsole, 'emit').mockImplementation(() => false);
+    jest.spyOn((window as any).console, 'error').mockImplementation(() => false);
   });
 
   it('Should throw an error when componnet is not enclosed in Error Boundary', () => {

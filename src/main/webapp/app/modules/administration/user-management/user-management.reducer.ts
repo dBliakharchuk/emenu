@@ -67,7 +67,6 @@ export default (state: UserManagementState = initialState, action): UserManageme
     case SUCCESS(ACTION_TYPES.FETCH_ROLES):
       return {
         ...state,
-        loading: false,
         authorities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_USERS):
@@ -96,19 +95,18 @@ export default (state: UserManagementState = initialState, action): UserManageme
         ...state,
         updating: false,
         updateSuccess: true,
-        user: {}
+        user: defaultValue
       };
     case ACTION_TYPES.RESET:
       return {
-        ...state,
-        user: {}
+        ...initialState
       };
     default:
       return state;
   }
 };
 
-const apiUrl = '/api/users';
+const apiUrl = 'api/users';
 // Actions
 export const getUsers: ICrudGetAllAction<IUser> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;

@@ -2,24 +2,34 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
-  coverageDirectory: '<rootDir>/target/test-results/',
   rootDir: '../../../',
+  testURL: 'http://localhost/',
+  coverageDirectory: '<rootDir>/target/test-results/',
   testMatch: ['<rootDir>/src/test/javascript/spec/**/+(*.)+(spec.ts?(x))'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/test/javascript'
+  ],
   moduleNameMapper: {
     'app/(.*)': '<rootDir>/src/main/webapp/app/$1',
     '\\.(css|scss)$': 'identity-obj-proxy'
   },
   reporters: [
-    'default'
+    'default',
+    [ 'jest-junit', { output: './target/test-results/TESTS-results-jest.xml' } ]
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   testPathIgnorePatterns: [
-    '<rootDir>/node_modules/',
-    '<rootDir>/src/test/javascript/spec/app/modules/account/sessions/sessions.reducer.spec.ts'
+    '<rootDir>/node_modules/'
   ],
   setupFiles: [
-    '<rootDir>/src/test/javascript/enzyme-setup.ts',
-    '<rootDir>/src/test/javascript/storage-mock.ts'
-  ]
+    '<rootDir>/src/test/javascript/spec/enzyme-setup.ts',
+    '<rootDir>/src/test/javascript/spec/storage-mock.ts'
+  ],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  globals: {
+    'ts-jest': {
+      tsConfigFile: './tsconfig.test.json'
+    }
+  }
 };

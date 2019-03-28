@@ -1,13 +1,18 @@
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
+import { TranslatorContext } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import password, { ACTION_TYPES, savePassword } from 'app/modules/account/password/password.reducer';
+import password, { ACTION_TYPES, savePassword, reset } from 'app/modules/account/password/password.reducer';
 
 describe('Password reducer tests', () => {
+  beforeAll(() => {
+    TranslatorContext.registerTranslations('en', {});
+  });
+
   describe('Common tests', () => {
     it('should return the initial state', () => {
       const toTest = password(undefined, {});
@@ -45,6 +50,25 @@ describe('Password reducer tests', () => {
         loading: false
       });
     });
+
+    it('should reset the state', () => {
+      const initialState = {
+        loading: false,
+        errorMessage: null,
+        updateSuccess: false,
+        updateFailure: false
+      };
+      expect(
+        password(
+          { ...initialState, loading: true },
+          {
+            type: ACTION_TYPES.RESET
+          }
+        )
+      ).toEqual({
+        ...initialState
+      });
+    });
   });
 
   describe('Actions', () => {
@@ -75,6 +99,15 @@ describe('Password reducer tests', () => {
         }
       ];
       await store.dispatch(savePassword('', '')).then(() => expect(store.getActions()).toEqual(expectedActions));
+    });
+    it('dispatches ACTION_TYPES.RESET actions', async () => {
+      const expectedActions = [
+        {
+          type: ACTION_TYPES.RESET
+        }
+      ];
+      await store.dispatch(reset());
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

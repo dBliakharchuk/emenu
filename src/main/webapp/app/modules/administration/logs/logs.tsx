@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Translate } from 'react-jhipster';
 
@@ -46,7 +46,7 @@ export class LogsPage extends React.Component<ILogsPageProps, ILogsPageState> {
     const loggers = logs ? logs.loggers : [];
     return (
       <div>
-        <h2 className="logs-page-heading">
+        <h2 id="logs-page-heading">
           <Translate contentKey="logs.title">Logs</Translate>
         </h2>
         <p>
@@ -144,4 +144,7 @@ const mapDispatchToProps = { getLoggers, changeLogLevel };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogsPage);

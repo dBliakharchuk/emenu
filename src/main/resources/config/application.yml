@@ -19,10 +19,12 @@ management:
         web:
             base-path: /management
             exposure:
-                include: ["configprops", "env", "health", "info", "threaddump"]
+                include: ["configprops", "env", "health", "info", "threaddump", "logfile", "jhi-metrics", "prometheus" ]
     endpoint:
         health:
-            show-details: when_authorized
+            show-details: when-authorized
+        jhi-metrics:
+            enabled: true
     info:
         git:
             mode: full
@@ -30,7 +32,32 @@ management:
         mail:
             enabled: false # When using the MailService, configure an SMTP server and set this to true
     metrics:
-        enabled: false # http://micrometer.io/ is disabled by default, as we use http://metrics.dropwizard.io/ instead
+        export:
+            # Prometheus is the default metrics backend
+            prometheus:
+                enabled: true
+                step: 60
+        binders:
+            jvm:
+                enabled: true
+            processor:
+                enabled: true
+            uptime:
+                enabled: true
+            logback:
+                enabled: true
+            files:
+                enabled: true
+            integration:
+                enabled: true
+        distribution:
+            percentiles-histogram:
+                all: true
+            percentiles:
+                all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+        web:
+            server:
+                auto-time-requests: true
 
 spring:
     application:
@@ -42,12 +69,13 @@ spring:
         active: #spring.profiles.active#
     jpa:
         open-in-view: false
+        properties:
+            hibernate.jdbc.time_zone: UTC
         hibernate:
             ddl-auto: none
             naming:
-                naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
-                #physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-                #implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     messages:
         basename: i18n/messages
     mvc:

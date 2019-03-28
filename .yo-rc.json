@@ -4,7 +4,7 @@
       "packageName": "react.emenu",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "5.0.1",
+    "jhipsterVersion": "5.8.2",
     "applicationType": "monolith",
     "baseName": "emenu",
     "packageName": "react.emenu",
@@ -26,16 +26,13 @@
     "clientFramework": "react",
     "useSass": false,
     "clientPackageManager": "yarn",
-    "testFrameworks": [
-      "protractor"
-    ],
+    "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": [
-      "en",
-      "de",
-      "pl"
-    ]
+    "languages": ["en", "de", "pl"],
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
   }
 }

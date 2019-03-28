@@ -1,20 +1,12 @@
 {
   "global": {
     "title": "Emenu",
-    "browsehappy":
-      "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=de/\">aktualisieren Sie Ihren Browser</a>, um die Benutzerfreundlichkeit zu erhöhen.",
+    "browsehappy": "Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href=\"http://browsehappy.com/?locale=de/\">aktualisieren Sie Ihren Browser</a>, um die Benutzerfreundlichkeit zu erhöhen.",
     "menu": {
       "home": "Startseite",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entitäten",
-        "authoritySql": "Authority Sql",
-        "restaurant": "Restaurant",
-        "location": "Location",
-        "photo": "Photo",
-        "menu": "Menu",
-        "category": "Category",
-        "dish": "Dish",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -44,8 +36,8 @@
     "form": {
       "username": "Benutzername",
       "username.placeholder": "Ihr Benutzername",
-      "currentpassword": "Current password",
-      "currentpassword.placeholder": "Current password",
+      "currentpassword": "Aktuelles Passwort",
+      "currentpassword.placeholder": "Aktuelles Passwort",
       "newpassword": "Neues Passwort",
       "newpassword.placeholder": "Neues Passwort",
       "confirmpassword": "Neues Passwort bestätigen",
@@ -58,8 +50,7 @@
         "authenticated": {
           "prefix": "Wenn Sie sich ",
           "link": "anmelden",
-          "suffix":
-            " möchten, versuchen Sie es mit <br/>- Administrator (Name=\"admin\" und Passwort=\"admin\")<br/>- Benutzer (Name=\"user\" und Passwort=\"user\")."
+          "suffix": " möchten, versuchen Sie es mit <br/>- Administrator (Name=\"admin\" und Passwort=\"admin\")<br/>- Benutzer (Name=\"user\" und Passwort=\"user\")."
         },
         "register": {
           "noaccount": "Sie haben noch keinen Zugang?",
@@ -130,7 +121,7 @@
     }
   },
   "error": {
-    "internalServerError": "Internal server error",
+    "internalServerError": "Interner Serverfehler",
     "server.not.reachable": "Server ist nicht erreichbar",
     "url.not.found": "Nicht gefunden",
     "NotNull": "Feld {{fieldName}} kann nicht leer sein!",
@@ -138,7 +129,7 @@
     "userexists": "Benutzername bereits vergeben!",
     "emailexists": "Email wird bereits verwendet!",
     "idexists": "Ein neuer {{entityName}} kann noch keine ID haben",
-    "idnull": "Invalid ID"
+    "idnull": "Ungültige ID"
   },
   "footer": "Dies ist Ihre Fußzeile"
 }

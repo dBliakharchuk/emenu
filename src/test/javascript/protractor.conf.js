@@ -1,3 +1,4 @@
+
 const os = require('os');
 
 exports.config = {
@@ -13,7 +14,9 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-        args: [ '--disable-gpu', '--window-size=800,600' ]
+        args: process.env.JHI_E2E_HEADLESS
+          ? [ '--headless', '--disable-gpu', '--window-size=800,600' ]
+          : [ '--disable-gpu', '--window-size=800,600' ]
     }
   },
 
@@ -22,6 +25,8 @@ exports.config = {
   baseUrl: 'http://localhost:8080/',
 
   framework: 'mocha',
+
+  SELENIUM_PROMISE_MANAGER: false,
 
   mochaOpts: {
     reporter: 'spec',
@@ -32,7 +37,7 @@ exports.config = {
 
   beforeLaunch () {
     require('ts-node').register({
-      project: 'src/test/javascript/tsconfig.e2e.json'
+      project: './tsconfig.e2e.json'
     });
   },
 
