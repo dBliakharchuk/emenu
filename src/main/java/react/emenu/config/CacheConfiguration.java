@@ -38,14 +38,6 @@ public class CacheConfiguration {
             cm.createCache(react.emenu.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(react.emenu.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(react.emenu.domain.User.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(react.emenu.domain.AuthoritySql.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.AuthoritySql.class.getName() + ".users", jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Restaurant.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Location.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Photo.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Menu.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Category.class.getName(), jcacheConfiguration);
-            cm.createCache(react.emenu.domain.Dish.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

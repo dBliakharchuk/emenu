@@ -41,7 +41,7 @@ export class AuthoritySqlDetail extends React.Component<IAuthoritySqlDetailProps
               {authoritySqlEntity.users
                 ? authoritySqlEntity.users.map((val, i) => (
                     <span key={val.id}>
-                      <a>{val.idUser}</a>
+                      <a>{val.id}</a>
                       {i === authoritySqlEntity.users.length - 1 ? '' : ', '}
                     </span>
                   ))

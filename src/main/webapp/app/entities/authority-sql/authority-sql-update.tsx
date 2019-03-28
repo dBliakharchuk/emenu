@@ -125,7 +125,7 @@ export class AuthoritySqlUpdate extends React.Component<IAuthoritySqlUpdateProps
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.idUser}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}

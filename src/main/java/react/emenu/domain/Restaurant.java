@@ -38,7 +38,7 @@ public class Restaurant implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Location idRestaurant;
+    private Location idRestaurantLocation;
 
     @ManyToOne
     @JsonIgnoreProperties("restaurants")
@@ -53,7 +53,7 @@ public class Restaurant implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdRestaurant() {
+    public Integer getIdRestaurantLocation() {
         return idRestaurant;
     }
 
@@ -62,8 +62,8 @@ public class Restaurant implements Serializable {
         return this;
     }
 
-    public void setIdRestaurant(Integer idRestaurant) {
-        this.idRestaurant = idRestaurant;
+    public void setIdRestaurantLocation(Integer idRestaurantLocation) {
+        this.idRestaurant = idRestaurantLocation;
     }
 
     public String getName() {
@@ -93,16 +93,16 @@ public class Restaurant implements Serializable {
     }
 
     public Location getIdRestaurant() {
-        return idRestaurant;
+        return idRestaurantLocation;
     }
 
     public Restaurant idRestaurant(Location location) {
-        this.idRestaurant = location;
+        this.idRestaurantLocation = location;
         return this;
     }
 
     public void setIdRestaurant(Location location) {
-        this.idRestaurant = location;
+        this.idRestaurantLocation = location;
     }
 
     public User getUser() {
@@ -143,7 +143,7 @@ public class Restaurant implements Serializable {
     public String toString() {
         return "Restaurant{" +
             "id=" + getId() +
-            ", idRestaurant=" + getIdRestaurant() +
+            ", idRestaurantLocation=" + getIdRestaurant() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

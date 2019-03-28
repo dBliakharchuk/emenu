@@ -6,7 +6,7 @@ export interface IRestaurant {
   idRestaurant?: number;
   name?: string;
   description?: string;
-  idRestaurant?: ILocation;
+  idRestaurantLocation?: ILocation;
   user?: IUser;
 }
 
