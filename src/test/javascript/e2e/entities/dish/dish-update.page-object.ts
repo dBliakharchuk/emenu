@@ -4,7 +4,6 @@ export default class DishUpdatePage {
   pageTitle: ElementFinder = element(by.id('emenuApp.dish.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idDishInput: ElementFinder = element(by.css('input#dish-idDish'));
   nameInput: ElementFinder = element(by.css('input#dish-name'));
   descriptionInput: ElementFinder = element(by.css('input#dish-description'));
   priceInput: ElementFinder = element(by.css('input#dish-price'));
@@ -12,14 +11,6 @@ export default class DishUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdDishInput(idDish) {
-    await this.idDishInput.sendKeys(idDish);
-  }
-
-  async getIdDishInput() {
-    return this.idDishInput.getAttribute('value');
   }
 
   async setNameInput(name) {

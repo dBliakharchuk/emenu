@@ -4,6 +4,9 @@ import react.emenu.EmenuApp;
 
 import react.emenu.domain.Category;
 import react.emenu.repository.CategoryRepository;
+import react.emenu.service.CategoryService;
+import react.emenu.service.dto.CategoryDTO;
+import react.emenu.service.mapper.CategoryMapper;
 import react.emenu.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -40,9 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = EmenuApp.class)
 public class CategoryResourceIntTest {
 
-    private static final Integer DEFAULT_ID_CATEGORY = 1;
-    private static final Integer UPDATED_ID_CATEGORY = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -51,6 +51,12 @@ public class CategoryResourceIntTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -74,7 +80,7 @@ public class CategoryResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CategoryResource categoryResource = new CategoryResource(categoryRepository);
+        final CategoryResource categoryResource = new CategoryResource(categoryService);
         this.restCategoryMockMvc = MockMvcBuilders.standaloneSetup(categoryResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -91,7 +97,6 @@ public class CategoryResourceIntTest {
      */
     public static Category createEntity(EntityManager em) {
         Category category = new Category()
-            .idCategory(DEFAULT_ID_CATEGORY)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION);
         return category;
@@ -108,16 +113,16 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeCreate = categoryRepository.findAll().size();
 
         // Create the Category
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate + 1);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getIdCategory()).isEqualTo(DEFAULT_ID_CATEGORY);
         assertThat(testCategory.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
@@ -129,34 +134,17 @@ public class CategoryResourceIntTest {
 
         // Create the Category with an existing ID
         category.setId(1L);
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkIdCategoryIsRequired() throws Exception {
-        int databaseSizeBeforeTest = categoryRepository.findAll().size();
-        // set the field null
-        category.setIdCategory(null);
-
-        // Create the Category, which fails.
-
-        restCategoryMockMvc.perform(post("/api/categories")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
-            .andExpect(status().isBadRequest());
-
-        List<Category> categoryList = categoryRepository.findAll();
-        assertThat(categoryList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -167,10 +155,11 @@ public class CategoryResourceIntTest {
         category.setName(null);
 
         // Create the Category, which fails.
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isBadRequest());
 
         List<Category> categoryList = categoryRepository.findAll();
@@ -188,7 +177,6 @@ public class CategoryResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idCategory").value(hasItem(DEFAULT_ID_CATEGORY)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
@@ -204,7 +192,6 @@ public class CategoryResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(category.getId().intValue()))
-            .andExpect(jsonPath("$.idCategory").value(DEFAULT_ID_CATEGORY))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
@@ -230,20 +217,19 @@ public class CategoryResourceIntTest {
         // Disconnect from session so that the updates on updatedCategory are not directly saved in db
         em.detach(updatedCategory);
         updatedCategory
-            .idCategory(UPDATED_ID_CATEGORY)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION);
+        CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
 
         restCategoryMockMvc.perform(put("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCategory)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isOk());
 
         // Validate the Category in the database
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
         Category testCategory = categoryList.get(categoryList.size() - 1);
-        assertThat(testCategory.getIdCategory()).isEqualTo(UPDATED_ID_CATEGORY);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
@@ -254,11 +240,12 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeUpdate = categoryRepository.findAll().size();
 
         // Create the Category
+        CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCategoryMockMvc.perform(put("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(category)))
+            .content(TestUtil.convertObjectToJsonBytes(categoryDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Category in the database
@@ -297,5 +284,28 @@ public class CategoryResourceIntTest {
         assertThat(category1).isNotEqualTo(category2);
         category1.setId(null);
         assertThat(category1).isNotEqualTo(category2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CategoryDTO.class);
+        CategoryDTO categoryDTO1 = new CategoryDTO();
+        categoryDTO1.setId(1L);
+        CategoryDTO categoryDTO2 = new CategoryDTO();
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+        categoryDTO2.setId(categoryDTO1.getId());
+        assertThat(categoryDTO1).isEqualTo(categoryDTO2);
+        categoryDTO2.setId(2L);
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+        categoryDTO1.setId(null);
+        assertThat(categoryDTO1).isNotEqualTo(categoryDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(categoryMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(categoryMapper.fromId(null)).isNull();
     }
 }

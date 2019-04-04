@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, element, by, protractor } from 'protractor';
+import { browser, element, by } from 'protractor';
 
 import NavBarPage from './../../page-objects/navbar-page';
 import SignInPage from './../../page-objects/signin-page';
@@ -48,21 +48,11 @@ describe('Photo e2e test', () => {
   it('should create and save Photos', async () => {
     const nbButtonsBeforeCreate = await photoComponentsPage.countDeleteButtons();
 
-    await photoUpdatePage.setIdPhotoInput('5');
-    expect(await photoUpdatePage.getIdPhotoInput()).to.eq('5');
     await photoUpdatePage.setTitleInput('title');
     expect(await photoUpdatePage.getTitleInput()).to.match(/title/);
     await photoUpdatePage.setDescriptionInput('description');
     expect(await photoUpdatePage.getDescriptionInput()).to.match(/description/);
     await photoUpdatePage.setImageInput(absolutePath);
-    await photoUpdatePage.setHeightInput('5');
-    expect(await photoUpdatePage.getHeightInput()).to.eq('5');
-    await photoUpdatePage.setWidthInput('5');
-    expect(await photoUpdatePage.getWidthInput()).to.eq('5');
-    await photoUpdatePage.setTakenInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await photoUpdatePage.getTakenInput()).to.contain('2001-01-01T02:30');
-    await photoUpdatePage.setUploadedInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
-    expect(await photoUpdatePage.getUploadedInput()).to.contain('2001-01-01T02:30');
     await photoUpdatePage.restaurantSelectLastOption();
     await photoUpdatePage.dishSelectLastOption();
     await waitUntilDisplayed(photoUpdatePage.getSaveButton());

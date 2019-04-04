@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -27,10 +26,6 @@ public class Photo implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_photo", nullable = false)
-    private Integer idPhoto;
-
-    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -44,18 +39,6 @@ public class Photo implements Serializable {
 
     @Column(name = "image_content_type", nullable = false)
     private String imageContentType;
-
-    @Column(name = "height")
-    private Integer height;
-
-    @Column(name = "width")
-    private Integer width;
-
-    @Column(name = "taken")
-    private Instant taken;
-
-    @Column(name = "uploaded")
-    private Instant uploaded;
 
     @ManyToOne
     @JsonIgnoreProperties("photos")
@@ -72,19 +55,6 @@ public class Photo implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdPhoto() {
-        return idPhoto;
-    }
-
-    public Photo idPhoto(Integer idPhoto) {
-        this.idPhoto = idPhoto;
-        return this;
-    }
-
-    public void setIdPhoto(Integer idPhoto) {
-        this.idPhoto = idPhoto;
     }
 
     public String getTitle() {
@@ -139,58 +109,6 @@ public class Photo implements Serializable {
         this.imageContentType = imageContentType;
     }
 
-    public Integer getHeight() {
-        return height;
-    }
-
-    public Photo height(Integer height) {
-        this.height = height;
-        return this;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Photo width(Integer width) {
-        this.width = width;
-        return this;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Instant getTaken() {
-        return taken;
-    }
-
-    public Photo taken(Instant taken) {
-        this.taken = taken;
-        return this;
-    }
-
-    public void setTaken(Instant taken) {
-        this.taken = taken;
-    }
-
-    public Instant getUploaded() {
-        return uploaded;
-    }
-
-    public Photo uploaded(Instant uploaded) {
-        this.uploaded = uploaded;
-        return this;
-    }
-
-    public void setUploaded(Instant uploaded) {
-        this.uploaded = uploaded;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -242,15 +160,10 @@ public class Photo implements Serializable {
     public String toString() {
         return "Photo{" +
             "id=" + getId() +
-            ", idPhoto=" + getIdPhoto() +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
-            ", height=" + getHeight() +
-            ", width=" + getWidth() +
-            ", taken='" + getTaken() + "'" +
-            ", uploaded='" + getUploaded() + "'" +
             "}";
     }
 }

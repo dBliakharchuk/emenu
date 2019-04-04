@@ -29,12 +29,6 @@ export class MenuDetail extends React.Component<IMenuDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="idMenu">
-                <Translate contentKey="emenuApp.menu.idMenu">Id Menu</Translate>
-              </span>
-            </dt>
-            <dd>{menuEntity.idMenu}</dd>
-            <dt>
               <span id="name">
                 <Translate contentKey="emenuApp.menu.name">Name</Translate>
               </span>
@@ -64,17 +58,22 @@ export class MenuDetail extends React.Component<IMenuDetailProps> {
               ) : null}
             </dd>
             <dt>
+              <span id="imageContent">
+                <Translate contentKey="emenuApp.menu.imageContent">Image Content</Translate>
+              </span>
+            </dt>
+            <dd>{menuEntity.imageContent}</dd>
+            <dt>
               <Translate contentKey="emenuApp.menu.restaurant">Restaurant</Translate>
             </dt>
-            <dd>{menuEntity.restaurant ? menuEntity.restaurant.idRestaurant : ''}</dd>
+            <dd>{menuEntity.restaurantIdRestaurant ? menuEntity.restaurantIdRestaurant : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/menu" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>
-          &nbsp;
+          </Button>&nbsp;
           <Button tag={Link} to={`/entity/menu/${menuEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

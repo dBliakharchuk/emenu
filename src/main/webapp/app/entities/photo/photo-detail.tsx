@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, openFile, byteSize, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -28,12 +28,6 @@ export class PhotoDetail extends React.Component<IPhotoDetailProps> {
             <Translate contentKey="emenuApp.photo.detail.title">Photo</Translate> [<b>{photoEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
-            <dt>
-              <span id="idPhoto">
-                <Translate contentKey="emenuApp.photo.idPhoto">Id Photo</Translate>
-              </span>
-            </dt>
-            <dd>{photoEntity.idPhoto}</dd>
             <dt>
               <span id="title">
                 <Translate contentKey="emenuApp.photo.title">Title</Translate>
@@ -64,49 +58,20 @@ export class PhotoDetail extends React.Component<IPhotoDetailProps> {
               ) : null}
             </dd>
             <dt>
-              <span id="height">
-                <Translate contentKey="emenuApp.photo.height">Height</Translate>
-              </span>
-            </dt>
-            <dd>{photoEntity.height}</dd>
-            <dt>
-              <span id="width">
-                <Translate contentKey="emenuApp.photo.width">Width</Translate>
-              </span>
-            </dt>
-            <dd>{photoEntity.width}</dd>
-            <dt>
-              <span id="taken">
-                <Translate contentKey="emenuApp.photo.taken">Taken</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={photoEntity.taken} type="date" format={APP_DATE_FORMAT} />
-            </dd>
-            <dt>
-              <span id="uploaded">
-                <Translate contentKey="emenuApp.photo.uploaded">Uploaded</Translate>
-              </span>
-            </dt>
-            <dd>
-              <TextFormat value={photoEntity.uploaded} type="date" format={APP_DATE_FORMAT} />
-            </dd>
-            <dt>
               <Translate contentKey="emenuApp.photo.restaurant">Restaurant</Translate>
             </dt>
-            <dd>{photoEntity.restaurant ? photoEntity.restaurant.idRestaurant : ''}</dd>
+            <dd>{photoEntity.restaurantIdRestaurant ? photoEntity.restaurantIdRestaurant : ''}</dd>
             <dt>
               <Translate contentKey="emenuApp.photo.dish">Dish</Translate>
             </dt>
-            <dd>{photoEntity.dish ? photoEntity.dish.idDish : ''}</dd>
+            <dd>{photoEntity.dishIdDish ? photoEntity.dishIdDish : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/photo" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>
-          &nbsp;
+          </Button>&nbsp;
           <Button tag={Link} to={`/entity/photo/${photoEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

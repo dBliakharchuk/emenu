@@ -2,13 +2,6 @@
     "name": "Menu",
     "fields": [
         {
-            "fieldName": "idMenu",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -23,6 +16,10 @@
             "fieldName": "image",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "imageContent",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -34,11 +31,11 @@
             "otherEntityField": "idRestaurant"
         }
     ],
-    "changelogDate": "20190327210648",
+    "changelogDate": "20190404183001",
     "entityTableName": "menu",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

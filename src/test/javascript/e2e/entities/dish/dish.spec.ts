@@ -45,8 +45,6 @@ describe('Dish e2e test', () => {
   it('should create and save Dishes', async () => {
     const nbButtonsBeforeCreate = await dishComponentsPage.countDeleteButtons();
 
-    await dishUpdatePage.setIdDishInput('5');
-    expect(await dishUpdatePage.getIdDishInput()).to.eq('5');
     await dishUpdatePage.setNameInput('name');
     expect(await dishUpdatePage.getNameInput()).to.match(/name/);
     await dishUpdatePage.setDescriptionInput('description');

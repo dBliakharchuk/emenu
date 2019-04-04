@@ -26,10 +26,6 @@ public class Category implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_category", nullable = false)
-    private Integer idCategory;
-
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -47,19 +43,6 @@ public class Category implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdCategory() {
-        return idCategory;
-    }
-
-    public Category idCategory(Integer idCategory) {
-        this.idCategory = idCategory;
-        return this;
-    }
-
-    public void setIdCategory(Integer idCategory) {
-        this.idCategory = idCategory;
     }
 
     public String getName() {
@@ -126,7 +109,6 @@ public class Category implements Serializable {
     public String toString() {
         return "Category{" +
             "id=" + getId() +
-            ", idCategory=" + getIdCategory() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

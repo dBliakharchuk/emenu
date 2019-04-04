@@ -1,0 +1,56 @@
+entity Restaurant {
+    name String required,
+    description String
+}
+
+entity Location {
+	addressGM String,
+    country String,
+    city String,
+    street String,
+    bilding String
+    postcode Integer
+}
+
+entity Photo {
+	title String required,
+    description String,
+    image ImageBlob required,
+}
+
+entity Menu {
+    name String required,
+    description String,
+    image ImageBlob,
+    imageContent String
+}
+
+entity Category {
+    name String required,
+    description String
+}
+
+entity Dish {
+    name String required,
+    description String,
+    price Float required,
+}
+
+relationship ManyToOne {
+	Restaurant{user(idUser)} to User,
+    Menu{restaurant(idRestaurant)} to Restaurant,
+    Photo{restaurant(idRestaurant)} to Restaurant,
+    Category{menu(idMenu)} to Menu,
+    Dish{category(idCategory)} to Category,
+    Photo{dish(idDish)} to Dish
+}
+
+relationship OneToOne {
+	Restaurant{idLocation} to Location
+}
+
+paginate Restaurant, Location, Photo, Menu, Category, Dish with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl

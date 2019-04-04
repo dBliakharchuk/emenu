@@ -1,0 +1,52 @@
+entity Restaurant {
+    name String required,
+    description String
+}
+
+entity Location {
+	addressGM String,
+    country String,
+    city String,
+    street String,
+    bilding String
+    postcode Integer
+}
+
+entity Photo {
+	title String required,
+    description String,
+    image ImageBlob required,
+}
+
+entity Menu {
+    name String required,
+    description String,
+    image ImageBlob,
+    imageContent String
+}
+
+entity Category {
+    name String required,
+    description String
+}
+
+entity Dish {
+    name String required,
+    description String,
+    price Float required,
+}
+
+relationship OneToMany {
+	User{id} to Restaurant,
+    Restaurant{idRestaurant} to Menu,
+    Restaurant{idRestaurant} to Photo,
+    Menu{idMenu} to Category,
+    Category{idCategory} to Dish,
+    Dish{idDish} to Photo
+}
+
+relationship OneToOne {
+	Restaurant{idRestaurant} to Location
+}
+
+

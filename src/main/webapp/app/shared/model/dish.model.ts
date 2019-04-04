@@ -1,12 +1,10 @@
-import { ICategory } from 'app/shared/model/category.model';
-
 export interface IDish {
   id?: number;
-  idDish?: number;
   name?: string;
   description?: string;
   price?: number;
-  category?: ICategory;
+  categoryIdCategory?: string;
+  categoryId?: number;
 }
 
 export const defaultValue: Readonly<IDish> = {};

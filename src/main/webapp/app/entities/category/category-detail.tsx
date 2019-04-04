@@ -29,12 +29,6 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="idCategory">
-                <Translate contentKey="emenuApp.category.idCategory">Id Category</Translate>
-              </span>
-            </dt>
-            <dd>{categoryEntity.idCategory}</dd>
-            <dt>
               <span id="name">
                 <Translate contentKey="emenuApp.category.name">Name</Translate>
               </span>
@@ -49,15 +43,14 @@ export class CategoryDetail extends React.Component<ICategoryDetailProps> {
             <dt>
               <Translate contentKey="emenuApp.category.menu">Menu</Translate>
             </dt>
-            <dd>{categoryEntity.menu ? categoryEntity.menu.idMenu : ''}</dd>
+            <dd>{categoryEntity.menuIdMenu ? categoryEntity.menuIdMenu : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/category" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>
-          &nbsp;
+          </Button>&nbsp;
           <Button tag={Link} to={`/entity/category/${categoryEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

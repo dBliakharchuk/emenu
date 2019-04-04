@@ -15,10 +15,9 @@
       "detail": {
         "title": "Restaurant"
       },
-      "idRestaurant": "Id Restaurant",
       "name": "Name",
       "description": "Description",
-      "idRestaurant": "Id Restaurant",
+      "idLocation": "Id Location",
       "user": "User"
     }
   }

@@ -15,10 +15,10 @@
       "detail": {
         "title": "Menu"
       },
-      "idMenu": "Id Menu",
       "name": "Name",
       "description": "Description",
       "image": "Image",
+      "imageContent": "Image Content",
       "restaurant": "Restaurant"
     }
   }

@@ -45,8 +45,6 @@ describe('Category e2e test', () => {
   it('should create and save Categories', async () => {
     const nbButtonsBeforeCreate = await categoryComponentsPage.countDeleteButtons();
 
-    await categoryUpdatePage.setIdCategoryInput('5');
-    expect(await categoryUpdatePage.getIdCategoryInput()).to.eq('5');
     await categoryUpdatePage.setNameInput('name');
     expect(await categoryUpdatePage.getNameInput()).to.match(/name/);
     await categoryUpdatePage.setDescriptionInput('description');

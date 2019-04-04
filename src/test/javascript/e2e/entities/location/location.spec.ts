@@ -45,8 +45,6 @@ describe('Location e2e test', () => {
   it('should create and save Locations', async () => {
     const nbButtonsBeforeCreate = await locationComponentsPage.countDeleteButtons();
 
-    await locationUpdatePage.setIdLocationInput('5');
-    expect(await locationUpdatePage.getIdLocationInput()).to.eq('5');
     await locationUpdatePage.setAddressGMInput('addressGM');
     expect(await locationUpdatePage.getAddressGMInput()).to.match(/addressGM/);
     await locationUpdatePage.setCountryInput('country');
@@ -57,8 +55,8 @@ describe('Location e2e test', () => {
     expect(await locationUpdatePage.getStreetInput()).to.match(/street/);
     await locationUpdatePage.setBildingInput('bilding');
     expect(await locationUpdatePage.getBildingInput()).to.match(/bilding/);
-    await locationUpdatePage.setPostcodeInput('postcode');
-    expect(await locationUpdatePage.getPostcodeInput()).to.match(/postcode/);
+    await locationUpdatePage.setPostcodeInput('5');
+    expect(await locationUpdatePage.getPostcodeInput()).to.eq('5');
     await waitUntilDisplayed(locationUpdatePage.getSaveButton());
     await locationUpdatePage.save();
     await waitUntilHidden(locationUpdatePage.getSaveButton());

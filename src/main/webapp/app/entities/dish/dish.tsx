@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -11,23 +11,51 @@ import { getEntities } from './dish.reducer';
 import { IDish } from 'app/shared/model/dish.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IDishProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export class Dish extends React.Component<IDishProps> {
+export type IDishState = IPaginationBaseState;
+
+export class Dish extends React.Component<IDishProps, IDishState> {
+  state: IDishState = {
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+  };
+
   componentDidMount() {
-    this.props.getEntities();
+    this.getEntities();
   }
 
+  sort = prop => () => {
+    this.setState(
+      {
+        order: this.state.order === 'asc' ? 'desc' : 'asc',
+        sort: prop
+      },
+      () => this.sortEntities()
+    );
+  };
+
+  sortEntities() {
+    this.getEntities();
+    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
+  }
+
+  handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
+
+  getEntities = () => {
+    const { activePage, itemsPerPage, sort, order } = this.state;
+    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+  };
+
   render() {
-    const { dishList, match } = this.props;
+    const { dishList, match, totalItems } = this.props;
     return (
       <div>
         <h2 id="dish-heading">
           <Translate contentKey="emenuApp.dish.home.title">Dishes</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
+            <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="emenuApp.dish.home.createLabel">Create new Dish</Translate>
           </Link>
         </h2>
@@ -35,23 +63,20 @@ export class Dish extends React.Component<IDishProps> {
           <Table responsive>
             <thead>
               <tr>
-                <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
+                <th className="hand" onClick={this.sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('name')}>
+                  <Translate contentKey="emenuApp.dish.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('description')}>
+                  <Translate contentKey="emenuApp.dish.description">Description</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('price')}>
+                  <Translate contentKey="emenuApp.dish.price">Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="emenuApp.dish.idDish">Id Dish</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.dish.name">Name</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.dish.description">Description</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.dish.price">Price</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.dish.category">Category</Translate>
+                  <Translate contentKey="emenuApp.dish.category">Category</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -64,11 +89,10 @@ export class Dish extends React.Component<IDishProps> {
                       {dish.id}
                     </Button>
                   </td>
-                  <td>{dish.idDish}</td>
                   <td>{dish.name}</td>
                   <td>{dish.description}</td>
                   <td>{dish.price}</td>
-                  <td>{dish.category ? <Link to={`category/${dish.category.id}`}>{dish.category.idCategory}</Link> : ''}</td>
+                  <td>{dish.categoryIdCategory ? <Link to={`category/${dish.categoryId}`}>{dish.categoryIdCategory}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${dish.id}`} color="info" size="sm">
@@ -96,13 +120,22 @@ export class Dish extends React.Component<IDishProps> {
             </tbody>
           </Table>
         </div>
+        <Row className="justify-content-center">
+          <JhiPagination
+            items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+            activePage={this.state.activePage}
+            onSelect={this.handlePagination}
+            maxButtons={5}
+          />
+        </Row>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ dish }: IRootState) => ({
-  dishList: dish.entities
+  dishList: dish.entities,
+  totalItems: dish.totalItems
 });
 
 const mapDispatchToProps = {

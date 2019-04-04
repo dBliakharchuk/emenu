@@ -4,6 +4,9 @@ import react.emenu.EmenuApp;
 
 import react.emenu.domain.Dish;
 import react.emenu.repository.DishRepository;
+import react.emenu.service.DishService;
+import react.emenu.service.dto.DishDTO;
+import react.emenu.service.mapper.DishMapper;
 import react.emenu.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -40,9 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = EmenuApp.class)
 public class DishResourceIntTest {
 
-    private static final Integer DEFAULT_ID_DISH = 1;
-    private static final Integer UPDATED_ID_DISH = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -54,6 +54,12 @@ public class DishResourceIntTest {
 
     @Autowired
     private DishRepository dishRepository;
+
+    @Autowired
+    private DishMapper dishMapper;
+
+    @Autowired
+    private DishService dishService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -77,7 +83,7 @@ public class DishResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final DishResource dishResource = new DishResource(dishRepository);
+        final DishResource dishResource = new DishResource(dishService);
         this.restDishMockMvc = MockMvcBuilders.standaloneSetup(dishResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -94,7 +100,6 @@ public class DishResourceIntTest {
      */
     public static Dish createEntity(EntityManager em) {
         Dish dish = new Dish()
-            .idDish(DEFAULT_ID_DISH)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .price(DEFAULT_PRICE);
@@ -112,16 +117,16 @@ public class DishResourceIntTest {
         int databaseSizeBeforeCreate = dishRepository.findAll().size();
 
         // Create the Dish
+        DishDTO dishDTO = dishMapper.toDto(dish);
         restDishMockMvc.perform(post("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Dish in the database
         List<Dish> dishList = dishRepository.findAll();
         assertThat(dishList).hasSize(databaseSizeBeforeCreate + 1);
         Dish testDish = dishList.get(dishList.size() - 1);
-        assertThat(testDish.getIdDish()).isEqualTo(DEFAULT_ID_DISH);
         assertThat(testDish.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDish.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testDish.getPrice()).isEqualTo(DEFAULT_PRICE);
@@ -134,34 +139,17 @@ public class DishResourceIntTest {
 
         // Create the Dish with an existing ID
         dish.setId(1L);
+        DishDTO dishDTO = dishMapper.toDto(dish);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDishMockMvc.perform(post("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Dish in the database
         List<Dish> dishList = dishRepository.findAll();
         assertThat(dishList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkIdDishIsRequired() throws Exception {
-        int databaseSizeBeforeTest = dishRepository.findAll().size();
-        // set the field null
-        dish.setIdDish(null);
-
-        // Create the Dish, which fails.
-
-        restDishMockMvc.perform(post("/api/dishes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
-            .andExpect(status().isBadRequest());
-
-        List<Dish> dishList = dishRepository.findAll();
-        assertThat(dishList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -172,10 +160,11 @@ public class DishResourceIntTest {
         dish.setName(null);
 
         // Create the Dish, which fails.
+        DishDTO dishDTO = dishMapper.toDto(dish);
 
         restDishMockMvc.perform(post("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isBadRequest());
 
         List<Dish> dishList = dishRepository.findAll();
@@ -190,10 +179,11 @@ public class DishResourceIntTest {
         dish.setPrice(null);
 
         // Create the Dish, which fails.
+        DishDTO dishDTO = dishMapper.toDto(dish);
 
         restDishMockMvc.perform(post("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isBadRequest());
 
         List<Dish> dishList = dishRepository.findAll();
@@ -211,7 +201,6 @@ public class DishResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(dish.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idDish").value(hasItem(DEFAULT_ID_DISH)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
@@ -228,7 +217,6 @@ public class DishResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(dish.getId().intValue()))
-            .andExpect(jsonPath("$.idDish").value(DEFAULT_ID_DISH))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
@@ -255,21 +243,20 @@ public class DishResourceIntTest {
         // Disconnect from session so that the updates on updatedDish are not directly saved in db
         em.detach(updatedDish);
         updatedDish
-            .idDish(UPDATED_ID_DISH)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .price(UPDATED_PRICE);
+        DishDTO dishDTO = dishMapper.toDto(updatedDish);
 
         restDishMockMvc.perform(put("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedDish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isOk());
 
         // Validate the Dish in the database
         List<Dish> dishList = dishRepository.findAll();
         assertThat(dishList).hasSize(databaseSizeBeforeUpdate);
         Dish testDish = dishList.get(dishList.size() - 1);
-        assertThat(testDish.getIdDish()).isEqualTo(UPDATED_ID_DISH);
         assertThat(testDish.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDish.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testDish.getPrice()).isEqualTo(UPDATED_PRICE);
@@ -281,11 +268,12 @@ public class DishResourceIntTest {
         int databaseSizeBeforeUpdate = dishRepository.findAll().size();
 
         // Create the Dish
+        DishDTO dishDTO = dishMapper.toDto(dish);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDishMockMvc.perform(put("/api/dishes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dish)))
+            .content(TestUtil.convertObjectToJsonBytes(dishDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Dish in the database
@@ -324,5 +312,28 @@ public class DishResourceIntTest {
         assertThat(dish1).isNotEqualTo(dish2);
         dish1.setId(null);
         assertThat(dish1).isNotEqualTo(dish2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(DishDTO.class);
+        DishDTO dishDTO1 = new DishDTO();
+        dishDTO1.setId(1L);
+        DishDTO dishDTO2 = new DishDTO();
+        assertThat(dishDTO1).isNotEqualTo(dishDTO2);
+        dishDTO2.setId(dishDTO1.getId());
+        assertThat(dishDTO1).isEqualTo(dishDTO2);
+        dishDTO2.setId(2L);
+        assertThat(dishDTO1).isNotEqualTo(dishDTO2);
+        dishDTO1.setId(null);
+        assertThat(dishDTO1).isNotEqualTo(dishDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(dishMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(dishMapper.fromId(null)).isNull();
     }
 }

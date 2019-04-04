@@ -62,9 +62,6 @@ export class PhotoUpdate extends React.Component<IPhotoUpdateProps, IPhotoUpdate
   };
 
   saveEntity = (event, errors, values) => {
-    values.taken = convertDateTimeToServer(values.taken);
-    values.uploaded = convertDateTimeToServer(values.uploaded);
-
     if (errors.length === 0) {
       const { photoEntity } = this.props;
       const entity = {
@@ -113,21 +110,6 @@ export class PhotoUpdate extends React.Component<IPhotoUpdateProps, IPhotoUpdate
                     <AvInput id="photo-id" type="text" className="form-control" name="id" required readOnly />
                   </AvGroup>
                 ) : null}
-                <AvGroup>
-                  <Label id="idPhotoLabel" for="idPhoto">
-                    <Translate contentKey="emenuApp.photo.idPhoto">Id Photo</Translate>
-                  </Label>
-                  <AvField
-                    id="photo-idPhoto"
-                    type="string"
-                    className="form-control"
-                    name="idPhoto"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
                 <AvGroup>
                   <Label id="titleLabel" for="title">
                     <Translate contentKey="emenuApp.photo.title">Title</Translate>
@@ -185,48 +167,10 @@ export class PhotoUpdate extends React.Component<IPhotoUpdateProps, IPhotoUpdate
                   </AvGroup>
                 </AvGroup>
                 <AvGroup>
-                  <Label id="heightLabel" for="height">
-                    <Translate contentKey="emenuApp.photo.height">Height</Translate>
-                  </Label>
-                  <AvField id="photo-height" type="string" className="form-control" name="height" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="widthLabel" for="width">
-                    <Translate contentKey="emenuApp.photo.width">Width</Translate>
-                  </Label>
-                  <AvField id="photo-width" type="string" className="form-control" name="width" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="takenLabel" for="taken">
-                    <Translate contentKey="emenuApp.photo.taken">Taken</Translate>
-                  </Label>
-                  <AvInput
-                    id="photo-taken"
-                    type="datetime-local"
-                    className="form-control"
-                    name="taken"
-                    placeholder={'YYYY-MM-DD HH:mm'}
-                    value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.taken)}
-                  />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="uploadedLabel" for="uploaded">
-                    <Translate contentKey="emenuApp.photo.uploaded">Uploaded</Translate>
-                  </Label>
-                  <AvInput
-                    id="photo-uploaded"
-                    type="datetime-local"
-                    className="form-control"
-                    name="uploaded"
-                    placeholder={'YYYY-MM-DD HH:mm'}
-                    value={isNew ? null : convertDateTimeFromServer(this.props.photoEntity.uploaded)}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label for="restaurant.idRestaurant">
                     <Translate contentKey="emenuApp.photo.restaurant">Restaurant</Translate>
                   </Label>
-                  <AvInput id="photo-restaurant" type="select" className="form-control" name="restaurant.id">
+                  <AvInput id="photo-restaurant" type="select" className="form-control" name="restaurantId">
                     <option value="" key="0" />
                     {restaurants
                       ? restaurants.map(otherEntity => (
@@ -241,7 +185,7 @@ export class PhotoUpdate extends React.Component<IPhotoUpdateProps, IPhotoUpdate
                   <Label for="dish.idDish">
                     <Translate contentKey="emenuApp.photo.dish">Dish</Translate>
                   </Label>
-                  <AvInput id="photo-dish" type="select" className="form-control" name="dish.id">
+                  <AvInput id="photo-dish" type="select" className="form-control" name="dishId">
                     <option value="" key="0" />
                     {dishes
                       ? dishes.map(otherEntity => (
@@ -253,16 +197,14 @@ export class PhotoUpdate extends React.Component<IPhotoUpdateProps, IPhotoUpdate
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/photo" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

@@ -1,11 +1,9 @@
-import { IMenu } from 'app/shared/model/menu.model';
-
 export interface ICategory {
   id?: number;
-  idCategory?: number;
   name?: string;
   description?: string;
-  menu?: IMenu;
+  menuIdMenu?: string;
+  menuId?: number;
 }
 
 export const defaultValue: Readonly<ICategory> = {};

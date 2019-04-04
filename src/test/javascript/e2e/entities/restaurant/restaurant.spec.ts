@@ -45,13 +45,11 @@ describe('Restaurant e2e test', () => {
   it('should create and save Restaurants', async () => {
     const nbButtonsBeforeCreate = await restaurantComponentsPage.countDeleteButtons();
 
-    await restaurantUpdatePage.setIdRestaurantInput('5');
-    expect(await restaurantUpdatePage.getIdRestaurantInput()).to.eq('5');
     await restaurantUpdatePage.setNameInput('name');
     expect(await restaurantUpdatePage.getNameInput()).to.match(/name/);
     await restaurantUpdatePage.setDescriptionInput('description');
     expect(await restaurantUpdatePage.getDescriptionInput()).to.match(/description/);
-    await restaurantUpdatePage.idRestaurantSelectLastOption();
+    await restaurantUpdatePage.idLocationSelectLastOption();
     await restaurantUpdatePage.userSelectLastOption();
     await waitUntilDisplayed(restaurantUpdatePage.getSaveButton());
     await restaurantUpdatePage.save();

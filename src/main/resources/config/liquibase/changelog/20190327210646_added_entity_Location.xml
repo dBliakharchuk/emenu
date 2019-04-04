@@ -24,7 +24,7 @@
             </not>
         </preConditions>
         <createTable tableName="jhi_location">
-            <column name="id_location" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id_location" type="integer" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="address_gm" type="varchar(255)">

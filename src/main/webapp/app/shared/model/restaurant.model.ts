@@ -1,13 +1,10 @@
-import { ILocation } from 'app/shared/model/location.model';
-import { IUser } from 'app/shared/model/user.model';
-
 export interface IRestaurant {
   id?: number;
-  idRestaurant?: number;
   name?: string;
   description?: string;
-  idRestaurantLocation?: ILocation;
-  user?: IUser;
+  idLocationId?: number;
+  userIdUser?: string;
+  userId?: number;
 }
 
 export const defaultValue: Readonly<IRestaurant> = {};

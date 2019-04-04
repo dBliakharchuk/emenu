@@ -22,7 +22,7 @@ export interface IRestaurantUpdateProps extends StateProps, DispatchProps, Route
 
 export interface IRestaurantUpdateState {
   isNew: boolean;
-  idRestaurantId: string;
+  idLocationId: string;
   userId: string;
 }
 
@@ -30,7 +30,7 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
   constructor(props) {
     super(props);
     this.state = {
-      idRestaurantId: '0',
+      idLocationId: '0',
       userId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
@@ -101,21 +101,6 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="idRestaurantLabel" for="idRestaurant">
-                    <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
-                  </Label>
-                  <AvField
-                    id="restaurant-idRestaurant"
-                    type="string"
-                    className="form-control"
-                    name="idRestaurant"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="nameLabel" for="name">
                     <Translate contentKey="emenuApp.restaurant.name">Name</Translate>
                   </Label>
@@ -135,10 +120,10 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                   <AvField id="restaurant-description" type="text" name="description" />
                 </AvGroup>
                 <AvGroup>
-                  <Label for="idRestaurant.id">
-                    <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
+                  <Label for="idLocation.id">
+                    <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate>
                   </Label>
-                  <AvInput id="restaurant-idRestaurant" type="select" className="form-control" name="idRestaurant.id">
+                  <AvInput id="restaurant-idLocation" type="select" className="form-control" name="idLocationId">
                     <option value="" key="0" />
                     {locations
                       ? locations.map(otherEntity => (
@@ -153,12 +138,12 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                   <Label for="user.idUser">
                     <Translate contentKey="emenuApp.restaurant.user">User</Translate>
                   </Label>
-                  <AvInput id="restaurant-user" type="select" className="form-control" name="user.id">
+                  <AvInput id="restaurant-user" type="select" className="form-control" name="userId">
                     <option value="" key="0" />
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.idUser}
                           </option>
                         ))
                       : null}

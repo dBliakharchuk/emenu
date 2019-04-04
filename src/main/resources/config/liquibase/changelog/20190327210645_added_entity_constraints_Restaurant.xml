@@ -14,8 +14,8 @@
                 <foreignKeyConstraintExists foreignKeyName="fk_restaurant_id_user_id"/>
             </not>
         </preConditions>
-
-        <addForeignKeyConstraint baseColumnNames="id_restaurant"
+<!--baseColumnNames="id_restaurant"-->
+        <addForeignKeyConstraint baseColumnNames="id_location"
                                  baseTableName="jhi_restaurant"
                                  constraintName="fk_restaurant_id_location_id"
                                  referencedColumnNames="id_location"

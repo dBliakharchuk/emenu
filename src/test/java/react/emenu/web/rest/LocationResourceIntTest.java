@@ -4,6 +4,9 @@ import react.emenu.EmenuApp;
 
 import react.emenu.domain.Location;
 import react.emenu.repository.LocationRepository;
+import react.emenu.service.LocationService;
+import react.emenu.service.dto.LocationDTO;
+import react.emenu.service.mapper.LocationMapper;
 import react.emenu.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -40,9 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = EmenuApp.class)
 public class LocationResourceIntTest {
 
-    private static final Integer DEFAULT_ID_LOCATION = 1;
-    private static final Integer UPDATED_ID_LOCATION = 2;
-
     private static final String DEFAULT_ADDRESS_GM = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS_GM = "BBBBBBBBBB";
 
@@ -58,11 +58,17 @@ public class LocationResourceIntTest {
     private static final String DEFAULT_BILDING = "AAAAAAAAAA";
     private static final String UPDATED_BILDING = "BBBBBBBBBB";
 
-    private static final String DEFAULT_POSTCODE = "AAAAAAAAAA";
-    private static final String UPDATED_POSTCODE = "BBBBBBBBBB";
+    private static final Integer DEFAULT_POSTCODE = 1;
+    private static final Integer UPDATED_POSTCODE = 2;
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private LocationMapper locationMapper;
+
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -86,7 +92,7 @@ public class LocationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LocationResource locationResource = new LocationResource(locationRepository);
+        final LocationResource locationResource = new LocationResource(locationService);
         this.restLocationMockMvc = MockMvcBuilders.standaloneSetup(locationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -103,7 +109,6 @@ public class LocationResourceIntTest {
      */
     public static Location createEntity(EntityManager em) {
         Location location = new Location()
-            .idLocation(DEFAULT_ID_LOCATION)
             .addressGM(DEFAULT_ADDRESS_GM)
             .country(DEFAULT_COUNTRY)
             .city(DEFAULT_CITY)
@@ -124,16 +129,16 @@ public class LocationResourceIntTest {
         int databaseSizeBeforeCreate = locationRepository.findAll().size();
 
         // Create the Location
+        LocationDTO locationDTO = locationMapper.toDto(location);
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Location in the database
         List<Location> locationList = locationRepository.findAll();
         assertThat(locationList).hasSize(databaseSizeBeforeCreate + 1);
         Location testLocation = locationList.get(locationList.size() - 1);
-        assertThat(testLocation.getIdLocation()).isEqualTo(DEFAULT_ID_LOCATION);
         assertThat(testLocation.getAddressGM()).isEqualTo(DEFAULT_ADDRESS_GM);
         assertThat(testLocation.getCountry()).isEqualTo(DEFAULT_COUNTRY);
         assertThat(testLocation.getCity()).isEqualTo(DEFAULT_CITY);
@@ -149,34 +154,17 @@ public class LocationResourceIntTest {
 
         // Create the Location with an existing ID
         location.setId(1L);
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Location in the database
         List<Location> locationList = locationRepository.findAll();
         assertThat(locationList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkIdLocationIsRequired() throws Exception {
-        int databaseSizeBeforeTest = locationRepository.findAll().size();
-        // set the field null
-        location.setIdLocation(null);
-
-        // Create the Location, which fails.
-
-        restLocationMockMvc.perform(post("/api/locations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
-            .andExpect(status().isBadRequest());
-
-        List<Location> locationList = locationRepository.findAll();
-        assertThat(locationList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -190,13 +178,12 @@ public class LocationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idLocation").value(hasItem(DEFAULT_ID_LOCATION)))
             .andExpect(jsonPath("$.[*].addressGM").value(hasItem(DEFAULT_ADDRESS_GM.toString())))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
             .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY.toString())))
             .andExpect(jsonPath("$.[*].street").value(hasItem(DEFAULT_STREET.toString())))
             .andExpect(jsonPath("$.[*].bilding").value(hasItem(DEFAULT_BILDING.toString())))
-            .andExpect(jsonPath("$.[*].postcode").value(hasItem(DEFAULT_POSTCODE.toString())));
+            .andExpect(jsonPath("$.[*].postcode").value(hasItem(DEFAULT_POSTCODE)));
     }
     
     @Test
@@ -210,13 +197,12 @@ public class LocationResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(location.getId().intValue()))
-            .andExpect(jsonPath("$.idLocation").value(DEFAULT_ID_LOCATION))
             .andExpect(jsonPath("$.addressGM").value(DEFAULT_ADDRESS_GM.toString()))
             .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
             .andExpect(jsonPath("$.city").value(DEFAULT_CITY.toString()))
             .andExpect(jsonPath("$.street").value(DEFAULT_STREET.toString()))
             .andExpect(jsonPath("$.bilding").value(DEFAULT_BILDING.toString()))
-            .andExpect(jsonPath("$.postcode").value(DEFAULT_POSTCODE.toString()));
+            .andExpect(jsonPath("$.postcode").value(DEFAULT_POSTCODE));
     }
 
     @Test
@@ -240,24 +226,23 @@ public class LocationResourceIntTest {
         // Disconnect from session so that the updates on updatedLocation are not directly saved in db
         em.detach(updatedLocation);
         updatedLocation
-            .idLocation(UPDATED_ID_LOCATION)
             .addressGM(UPDATED_ADDRESS_GM)
             .country(UPDATED_COUNTRY)
             .city(UPDATED_CITY)
             .street(UPDATED_STREET)
             .bilding(UPDATED_BILDING)
             .postcode(UPDATED_POSTCODE);
+        LocationDTO locationDTO = locationMapper.toDto(updatedLocation);
 
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLocation)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isOk());
 
         // Validate the Location in the database
         List<Location> locationList = locationRepository.findAll();
         assertThat(locationList).hasSize(databaseSizeBeforeUpdate);
         Location testLocation = locationList.get(locationList.size() - 1);
-        assertThat(testLocation.getIdLocation()).isEqualTo(UPDATED_ID_LOCATION);
         assertThat(testLocation.getAddressGM()).isEqualTo(UPDATED_ADDRESS_GM);
         assertThat(testLocation.getCountry()).isEqualTo(UPDATED_COUNTRY);
         assertThat(testLocation.getCity()).isEqualTo(UPDATED_CITY);
@@ -272,11 +257,12 @@ public class LocationResourceIntTest {
         int databaseSizeBeforeUpdate = locationRepository.findAll().size();
 
         // Create the Location
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Location in the database
@@ -315,5 +301,28 @@ public class LocationResourceIntTest {
         assertThat(location1).isNotEqualTo(location2);
         location1.setId(null);
         assertThat(location1).isNotEqualTo(location2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(LocationDTO.class);
+        LocationDTO locationDTO1 = new LocationDTO();
+        locationDTO1.setId(1L);
+        LocationDTO locationDTO2 = new LocationDTO();
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
+        locationDTO2.setId(locationDTO1.getId());
+        assertThat(locationDTO1).isEqualTo(locationDTO2);
+        locationDTO2.setId(2L);
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
+        locationDTO1.setId(null);
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(locationMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(locationMapper.fromId(null)).isNull();
     }
 }

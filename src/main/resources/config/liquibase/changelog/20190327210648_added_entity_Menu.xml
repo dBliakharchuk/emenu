@@ -24,7 +24,7 @@
             </not>
         </preConditions>
         <createTable tableName="jhi_menu">
-            <column name="id_menu" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id_menu" type="integer" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -42,7 +42,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="id_restaurant" type="bigint">
+            <column name="id_restaurant" type="integer">
                 <constraints nullable="true" />
             </column>
 

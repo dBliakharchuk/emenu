@@ -13,10 +13,6 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import authoritySql, {
-  AuthoritySqlState
-} from 'app/entities/authority-sql/authority-sql.reducer';
-// prettier-ignore
 import restaurant, {
   RestaurantState
 } from 'app/entities/restaurant/restaurant.reducer';
@@ -53,7 +49,6 @@ export interface IRootState {
   readonly passwordReset: PasswordResetState;
   readonly password: PasswordState;
   readonly settings: SettingsState;
-  readonly authoritySql: AuthoritySqlState;
   readonly restaurant: RestaurantState;
   readonly location: LocationState;
   readonly photo: PhotoState;
@@ -75,7 +70,6 @@ const rootReducer = combineReducers<IRootState>({
   passwordReset,
   password,
   settings,
-  authoritySql,
   restaurant,
   location,
   photo,

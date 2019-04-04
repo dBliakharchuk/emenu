@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { openFile, byteSize, Translate, ICrudGetAllAction } from 'react-jhipster';
+import {
+  openFile,
+  byteSize,
+  Translate,
+  ICrudGetAllAction,
+  getSortState,
+  IPaginationBaseState,
+  getPaginationItemsNumber,
+  JhiPagination
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -11,23 +20,51 @@ import { getEntities } from './menu.reducer';
 import { IMenu } from 'app/shared/model/menu.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 
 export interface IMenuProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export class Menu extends React.Component<IMenuProps> {
+export type IMenuState = IPaginationBaseState;
+
+export class Menu extends React.Component<IMenuProps, IMenuState> {
+  state: IMenuState = {
+    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+  };
+
   componentDidMount() {
-    this.props.getEntities();
+    this.getEntities();
   }
 
+  sort = prop => () => {
+    this.setState(
+      {
+        order: this.state.order === 'asc' ? 'desc' : 'asc',
+        sort: prop
+      },
+      () => this.sortEntities()
+    );
+  };
+
+  sortEntities() {
+    this.getEntities();
+    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
+  }
+
+  handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
+
+  getEntities = () => {
+    const { activePage, itemsPerPage, sort, order } = this.state;
+    this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
+  };
+
   render() {
-    const { menuList, match } = this.props;
+    const { menuList, match, totalItems } = this.props;
     return (
       <div>
         <h2 id="menu-heading">
           <Translate contentKey="emenuApp.menu.home.title">Menus</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
+            <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="emenuApp.menu.home.createLabel">Create new Menu</Translate>
           </Link>
         </h2>
@@ -35,23 +72,23 @@ export class Menu extends React.Component<IMenuProps> {
           <Table responsive>
             <thead>
               <tr>
-                <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
+                <th className="hand" onClick={this.sort('id')}>
+                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('name')}>
+                  <Translate contentKey="emenuApp.menu.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('description')}>
+                  <Translate contentKey="emenuApp.menu.description">Description</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('image')}>
+                  <Translate contentKey="emenuApp.menu.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('imageContent')}>
+                  <Translate contentKey="emenuApp.menu.imageContent">Image Content</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="emenuApp.menu.idMenu">Id Menu</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.menu.name">Name</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.menu.description">Description</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.menu.image">Image</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="emenuApp.menu.restaurant">Restaurant</Translate>
+                  <Translate contentKey="emenuApp.menu.restaurant">Restaurant</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -64,7 +101,6 @@ export class Menu extends React.Component<IMenuProps> {
                       {menu.id}
                     </Button>
                   </td>
-                  <td>{menu.idMenu}</td>
                   <td>{menu.name}</td>
                   <td>{menu.description}</td>
                   <td>
@@ -80,7 +116,10 @@ export class Menu extends React.Component<IMenuProps> {
                       </div>
                     ) : null}
                   </td>
-                  <td>{menu.restaurant ? <Link to={`restaurant/${menu.restaurant.id}`}>{menu.restaurant.idRestaurant}</Link> : ''}</td>
+                  <td>{menu.imageContent}</td>
+                  <td>
+                    {menu.restaurantIdRestaurant ? <Link to={`restaurant/${menu.restaurantId}`}>{menu.restaurantIdRestaurant}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${menu.id}`} color="info" size="sm">
@@ -108,13 +147,22 @@ export class Menu extends React.Component<IMenuProps> {
             </tbody>
           </Table>
         </div>
+        <Row className="justify-content-center">
+          <JhiPagination
+            items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+            activePage={this.state.activePage}
+            onSelect={this.handlePagination}
+            maxButtons={5}
+          />
+        </Row>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ menu }: IRootState) => ({
-  menuList: menu.entities
+  menuList: menu.entities,
+  totalItems: menu.totalItems
 });
 
 const mapDispatchToProps = {

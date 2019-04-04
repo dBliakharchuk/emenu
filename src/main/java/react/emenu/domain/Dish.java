@@ -26,10 +26,6 @@ public class Dish implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_dish", nullable = false)
-    private Integer idDish;
-
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -51,19 +47,6 @@ public class Dish implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdDish() {
-        return idDish;
-    }
-
-    public Dish idDish(Integer idDish) {
-        this.idDish = idDish;
-        return this;
-    }
-
-    public void setIdDish(Integer idDish) {
-        this.idDish = idDish;
     }
 
     public String getName() {
@@ -143,7 +126,6 @@ public class Dish implements Serializable {
     public String toString() {
         return "Dish{" +
             "id=" + getId() +
-            ", idDish=" + getIdDish() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price=" + getPrice() +

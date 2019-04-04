@@ -26,10 +26,6 @@ public class Restaurant implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_restaurant", nullable = false)
-    private Integer idRestaurant;
-
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -38,7 +34,7 @@ public class Restaurant implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Location idRestaurantLocation;
+    private Location idLocation;
 
     @ManyToOne
     @JsonIgnoreProperties("restaurants")
@@ -51,19 +47,6 @@ public class Restaurant implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdRestaurantLocation() {
-        return idRestaurant;
-    }
-
-    public Restaurant idRestaurant(Integer idRestaurant) {
-        this.idRestaurant = idRestaurant;
-        return this;
-    }
-
-    public void setIdRestaurantLocation(Integer idRestaurant) {
-        this.idRestaurant = idRestaurant;
     }
 
     public String getName() {
@@ -92,17 +75,17 @@ public class Restaurant implements Serializable {
         this.description = description;
     }
 
-    public Location getIdRestaurant() {
-        return idRestaurantLocation;
+    public Location getIdLocation() {
+        return idLocation;
     }
 
-    public Restaurant idRestaurant(Location location) {
-        this.idRestaurantLocation = location;
+    public Restaurant idLocation(Location location) {
+        this.idLocation = location;
         return this;
     }
 
-    public void setIdRestaurant(Location location) {
-        this.idRestaurantLocation = location;
+    public void setIdLocation(Location location) {
+        this.idLocation = location;
     }
 
     public User getUser() {
@@ -143,7 +126,6 @@ public class Restaurant implements Serializable {
     public String toString() {
         return "Restaurant{" +
             "id=" + getId() +
-            ", idRestaurantLocation=" + getIdRestaurant() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             "}";

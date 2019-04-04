@@ -2,13 +2,6 @@
     "name": "Photo",
     "fields": [
         {
-            "fieldName": "idPhoto",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "title",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -26,22 +19,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "height",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "width",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "taken",
-            "fieldType": "Instant"
-        },
-        {
-            "fieldName": "uploaded",
-            "fieldType": "Instant"
         }
     ],
     "relationships": [
@@ -60,11 +37,11 @@
             "otherEntityField": "idDish"
         }
     ],
-    "changelogDate": "20190327210647",
+    "changelogDate": "20190404183000",
     "entityTableName": "photo",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

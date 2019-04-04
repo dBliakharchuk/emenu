@@ -4,7 +4,6 @@ export default class LocationUpdatePage {
   pageTitle: ElementFinder = element(by.id('emenuApp.location.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idLocationInput: ElementFinder = element(by.css('input#location-idLocation'));
   addressGMInput: ElementFinder = element(by.css('input#location-addressGM'));
   countryInput: ElementFinder = element(by.css('input#location-country'));
   cityInput: ElementFinder = element(by.css('input#location-city'));
@@ -14,14 +13,6 @@ export default class LocationUpdatePage {
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdLocationInput(idLocation) {
-    await this.idLocationInput.sendKeys(idLocation);
-  }
-
-  async getIdLocationInput() {
-    return this.idLocationInput.getAttribute('value');
   }
 
   async setAddressGMInput(addressGM) {

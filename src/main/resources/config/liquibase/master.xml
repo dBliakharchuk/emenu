@@ -5,19 +5,17 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <!--<include file="config/liquibase/changelog/20190327210643_added_entity_AuthoritySql.xml" relativeToChangelogFile="false"/>-->
-    <include file="config/liquibase/changelog/20190327210645_added_entity_Restaurant.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210646_added_entity_Location.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210647_added_entity_Photo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210648_added_entity_Menu.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210649_added_entity_Category.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210650_added_entity_Dish.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404182958_added_entity_Restaurant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404182959_added_entity_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183000_added_entity_Photo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183001_added_entity_Menu.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183002_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183003_added_entity_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <!--<include file="config/liquibase/changelog/20190327210643_added_entity_constraints_AuthoritySql.xml" relativeToChangelogFile="false"/>-->
-    <include file="config/liquibase/changelog/20190327210645_added_entity_constraints_Restaurant.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210647_added_entity_constraints_Photo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210648_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210649_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190327210650_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404182958_added_entity_constraints_Restaurant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183000_added_entity_constraints_Photo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183001_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183002_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190404183003_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

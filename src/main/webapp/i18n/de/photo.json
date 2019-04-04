@@ -15,14 +15,9 @@
       "detail": {
         "title": "Photo"
       },
-      "idPhoto": "Id Photo",
       "title": "Title",
       "description": "Description",
       "image": "Image",
-      "height": "Height",
-      "width": "Width",
-      "taken": "Taken",
-      "uploaded": "Uploaded",
       "restaurant": "Restaurant",
       "dish": "Dish"
     }

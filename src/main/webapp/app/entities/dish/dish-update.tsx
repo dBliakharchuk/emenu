@@ -96,21 +96,6 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="idDishLabel" for="idDish">
-                    <Translate contentKey="emenuApp.dish.idDish">Id Dish</Translate>
-                  </Label>
-                  <AvField
-                    id="dish-idDish"
-                    type="string"
-                    className="form-control"
-                    name="idDish"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="nameLabel" for="name">
                     <Translate contentKey="emenuApp.dish.name">Name</Translate>
                   </Label>
@@ -148,7 +133,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                   <Label for="category.idCategory">
                     <Translate contentKey="emenuApp.dish.category">Category</Translate>
                   </Label>
-                  <AvInput id="dish-category" type="select" className="form-control" name="category.id">
+                  <AvInput id="dish-category" type="select" className="form-control" name="categoryId">
                     <option value="" key="0" />
                     {categories
                       ? categories.map(otherEntity => (
@@ -160,16 +145,14 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/dish" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

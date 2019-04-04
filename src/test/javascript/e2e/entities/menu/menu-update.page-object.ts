@@ -4,22 +4,14 @@ export default class MenuUpdatePage {
   pageTitle: ElementFinder = element(by.id('emenuApp.menu.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idMenuInput: ElementFinder = element(by.css('input#menu-idMenu'));
   nameInput: ElementFinder = element(by.css('input#menu-name'));
   descriptionInput: ElementFinder = element(by.css('input#menu-description'));
   imageInput: ElementFinder = element(by.css('input#file_image'));
+  imageContentInput: ElementFinder = element(by.css('input#menu-imageContent'));
   restaurantSelect: ElementFinder = element(by.css('select#menu-restaurant'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdMenuInput(idMenu) {
-    await this.idMenuInput.sendKeys(idMenu);
-  }
-
-  async getIdMenuInput() {
-    return this.idMenuInput.getAttribute('value');
   }
 
   async setNameInput(name) {
@@ -44,6 +36,14 @@ export default class MenuUpdatePage {
 
   async getImageInput() {
     return this.imageInput.getAttribute('value');
+  }
+
+  async setImageContentInput(imageContent) {
+    await this.imageContentInput.sendKeys(imageContent);
+  }
+
+  async getImageContentInput() {
+    return this.imageContentInput.getAttribute('value');
   }
 
   async restaurantSelectLastOption() {

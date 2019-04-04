@@ -2,13 +2,6 @@
     "name": "Dish",
     "fields": [
         {
-            "fieldName": "idDish",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -36,11 +29,11 @@
             "otherEntityField": "idCategory"
         }
     ],
-    "changelogDate": "20190327210650",
+    "changelogDate": "20190404183003",
     "entityTableName": "dish",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

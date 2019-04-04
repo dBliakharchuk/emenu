@@ -21,6 +21,7 @@ const initialState = {
   entities: [] as ReadonlyArray<ICategory>,
   entity: defaultValue,
   updating: false,
+  totalItems: 0,
   updateSuccess: false
 };
 
@@ -63,6 +64,7 @@ export default (state: CategoryState = initialState, action): CategoryState => {
       return {
         ...state,
         loading: false,
+        totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_CATEGORY):
@@ -99,10 +101,13 @@ const apiUrl = 'api/categories';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<ICategory> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_CATEGORY_LIST,
-  payload: axios.get<ICategory>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
+export const getEntities: ICrudGetAllAction<ICategory> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_CATEGORY_LIST,
+    payload: axios.get<ICategory>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntity: ICrudGetAction<ICategory> = id => {
   const requestUrl = `${apiUrl}/${id}`;

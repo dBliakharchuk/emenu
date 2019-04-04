@@ -29,12 +29,6 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="idRestaurant">
-                <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
-              </span>
-            </dt>
-            <dd>{restaurantEntity.idRestaurant}</dd>
-            <dt>
               <span id="name">
                 <Translate contentKey="emenuApp.restaurant.name">Name</Translate>
               </span>
@@ -47,13 +41,13 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
             </dt>
             <dd>{restaurantEntity.description}</dd>
             <dt>
-              <Translate contentKey="emenuApp.restaurant.idRestaurant">Id Restaurant</Translate>
+              <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate>
             </dt>
-            <dd>{restaurantEntity.idRestaurant ? restaurantEntity.id : ''}</dd>
+            <dd>{restaurantEntity.idLocationId ? restaurantEntity.idLocationId : ''}</dd>
             <dt>
               <Translate contentKey="emenuApp.restaurant.user">User</Translate>
             </dt>
-            <dd>{restaurantEntity.user ? restaurantEntity.user.id : ''}</dd>
+            <dd>{restaurantEntity.userIdUser ? restaurantEntity.userIdUser : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/restaurant" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -33,6 +33,8 @@
     "languages": ["en", "de", "pl"],
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "otherModules": []
+    "otherModules": [],
+    "skipServer": false,
+    "skipClient": false
   }
 }

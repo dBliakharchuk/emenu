@@ -4,6 +4,9 @@ import react.emenu.EmenuApp;
 
 import react.emenu.domain.Photo;
 import react.emenu.repository.PhotoRepository;
+import react.emenu.service.PhotoService;
+import react.emenu.service.dto.PhotoDTO;
+import react.emenu.service.mapper.PhotoMapper;
 import react.emenu.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -23,8 +26,6 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -43,9 +44,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = EmenuApp.class)
 public class PhotoResourceIntTest {
 
-    private static final Integer DEFAULT_ID_PHOTO = 1;
-    private static final Integer UPDATED_ID_PHOTO = 2;
-
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
@@ -57,20 +55,14 @@ public class PhotoResourceIntTest {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
-    private static final Integer DEFAULT_HEIGHT = 1;
-    private static final Integer UPDATED_HEIGHT = 2;
-
-    private static final Integer DEFAULT_WIDTH = 1;
-    private static final Integer UPDATED_WIDTH = 2;
-
-    private static final Instant DEFAULT_TAKEN = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_TAKEN = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final Instant DEFAULT_UPLOADED = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_UPLOADED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
     @Autowired
     private PhotoRepository photoRepository;
+
+    @Autowired
+    private PhotoMapper photoMapper;
+
+    @Autowired
+    private PhotoService photoService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -94,7 +86,7 @@ public class PhotoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PhotoResource photoResource = new PhotoResource(photoRepository);
+        final PhotoResource photoResource = new PhotoResource(photoService);
         this.restPhotoMockMvc = MockMvcBuilders.standaloneSetup(photoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -111,15 +103,10 @@ public class PhotoResourceIntTest {
      */
     public static Photo createEntity(EntityManager em) {
         Photo photo = new Photo()
-            .idPhoto(DEFAULT_ID_PHOTO)
             .title(DEFAULT_TITLE)
             .description(DEFAULT_DESCRIPTION)
             .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .height(DEFAULT_HEIGHT)
-            .width(DEFAULT_WIDTH)
-            .taken(DEFAULT_TAKEN)
-            .uploaded(DEFAULT_UPLOADED);
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return photo;
     }
 
@@ -134,24 +121,20 @@ public class PhotoResourceIntTest {
         int databaseSizeBeforeCreate = photoRepository.findAll().size();
 
         // Create the Photo
+        PhotoDTO photoDTO = photoMapper.toDto(photo);
         restPhotoMockMvc.perform(post("/api/photos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(photo)))
+            .content(TestUtil.convertObjectToJsonBytes(photoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Photo in the database
         List<Photo> photoList = photoRepository.findAll();
         assertThat(photoList).hasSize(databaseSizeBeforeCreate + 1);
         Photo testPhoto = photoList.get(photoList.size() - 1);
-        assertThat(testPhoto.getIdPhoto()).isEqualTo(DEFAULT_ID_PHOTO);
         assertThat(testPhoto.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testPhoto.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testPhoto.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testPhoto.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
-        assertThat(testPhoto.getHeight()).isEqualTo(DEFAULT_HEIGHT);
-        assertThat(testPhoto.getWidth()).isEqualTo(DEFAULT_WIDTH);
-        assertThat(testPhoto.getTaken()).isEqualTo(DEFAULT_TAKEN);
-        assertThat(testPhoto.getUploaded()).isEqualTo(DEFAULT_UPLOADED);
     }
 
     @Test
@@ -161,34 +144,17 @@ public class PhotoResourceIntTest {
 
         // Create the Photo with an existing ID
         photo.setId(1L);
+        PhotoDTO photoDTO = photoMapper.toDto(photo);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPhotoMockMvc.perform(post("/api/photos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(photo)))
+            .content(TestUtil.convertObjectToJsonBytes(photoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Photo in the database
         List<Photo> photoList = photoRepository.findAll();
         assertThat(photoList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkIdPhotoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = photoRepository.findAll().size();
-        // set the field null
-        photo.setIdPhoto(null);
-
-        // Create the Photo, which fails.
-
-        restPhotoMockMvc.perform(post("/api/photos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(photo)))
-            .andExpect(status().isBadRequest());
-
-        List<Photo> photoList = photoRepository.findAll();
-        assertThat(photoList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -199,10 +165,11 @@ public class PhotoResourceIntTest {
         photo.setTitle(null);
 
         // Create the Photo, which fails.
+        PhotoDTO photoDTO = photoMapper.toDto(photo);
 
         restPhotoMockMvc.perform(post("/api/photos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(photo)))
+            .content(TestUtil.convertObjectToJsonBytes(photoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Photo> photoList = photoRepository.findAll();
@@ -220,15 +187,10 @@ public class PhotoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(photo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idPhoto").value(hasItem(DEFAULT_ID_PHOTO)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].height").value(hasItem(DEFAULT_HEIGHT)))
-            .andExpect(jsonPath("$.[*].width").value(hasItem(DEFAULT_WIDTH)))
-            .andExpect(jsonPath("$.[*].taken").value(hasItem(DEFAULT_TAKEN.toString())))
-            .andExpect(jsonPath("$.[*].uploaded").value(hasItem(DEFAULT_UPLOADED.toString())));
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
     
     @Test
@@ -242,15 +204,10 @@ public class PhotoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(photo.getId().intValue()))
-            .andExpect(jsonPath("$.idPhoto").value(DEFAULT_ID_PHOTO))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.height").value(DEFAULT_HEIGHT))
-            .andExpect(jsonPath("$.width").value(DEFAULT_WIDTH))
-            .andExpect(jsonPath("$.taken").value(DEFAULT_TAKEN.toString()))
-            .andExpect(jsonPath("$.uploaded").value(DEFAULT_UPLOADED.toString()));
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -274,34 +231,25 @@ public class PhotoResourceIntTest {
         // Disconnect from session so that the updates on updatedPhoto are not directly saved in db
         em.detach(updatedPhoto);
         updatedPhoto
-            .idPhoto(UPDATED_ID_PHOTO)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .height(UPDATED_HEIGHT)
-            .width(UPDATED_WIDTH)
-            .taken(UPDATED_TAKEN)
-            .uploaded(UPDATED_UPLOADED);
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
+        PhotoDTO photoDTO = photoMapper.toDto(updatedPhoto);
 
         restPhotoMockMvc.perform(put("/api/photos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPhoto)))
+            .content(TestUtil.convertObjectToJsonBytes(photoDTO)))
             .andExpect(status().isOk());
 
         // Validate the Photo in the database
         List<Photo> photoList = photoRepository.findAll();
         assertThat(photoList).hasSize(databaseSizeBeforeUpdate);
         Photo testPhoto = photoList.get(photoList.size() - 1);
-        assertThat(testPhoto.getIdPhoto()).isEqualTo(UPDATED_ID_PHOTO);
         assertThat(testPhoto.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testPhoto.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testPhoto.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testPhoto.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testPhoto.getHeight()).isEqualTo(UPDATED_HEIGHT);
-        assertThat(testPhoto.getWidth()).isEqualTo(UPDATED_WIDTH);
-        assertThat(testPhoto.getTaken()).isEqualTo(UPDATED_TAKEN);
-        assertThat(testPhoto.getUploaded()).isEqualTo(UPDATED_UPLOADED);
     }
 
     @Test
@@ -310,11 +258,12 @@ public class PhotoResourceIntTest {
         int databaseSizeBeforeUpdate = photoRepository.findAll().size();
 
         // Create the Photo
+        PhotoDTO photoDTO = photoMapper.toDto(photo);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPhotoMockMvc.perform(put("/api/photos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(photo)))
+            .content(TestUtil.convertObjectToJsonBytes(photoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Photo in the database
@@ -353,5 +302,28 @@ public class PhotoResourceIntTest {
         assertThat(photo1).isNotEqualTo(photo2);
         photo1.setId(null);
         assertThat(photo1).isNotEqualTo(photo2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PhotoDTO.class);
+        PhotoDTO photoDTO1 = new PhotoDTO();
+        photoDTO1.setId(1L);
+        PhotoDTO photoDTO2 = new PhotoDTO();
+        assertThat(photoDTO1).isNotEqualTo(photoDTO2);
+        photoDTO2.setId(photoDTO1.getId());
+        assertThat(photoDTO1).isEqualTo(photoDTO2);
+        photoDTO2.setId(2L);
+        assertThat(photoDTO1).isNotEqualTo(photoDTO2);
+        photoDTO1.setId(null);
+        assertThat(photoDTO1).isNotEqualTo(photoDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(photoMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(photoMapper.fromId(null)).isNull();
     }
 }

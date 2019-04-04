@@ -22,6 +22,7 @@ const initialState = {
   entities: [] as ReadonlyArray<IPhoto>,
   entity: defaultValue,
   updating: false,
+  totalItems: 0,
   updateSuccess: false
 };
 
@@ -64,6 +65,7 @@ export default (state: PhotoState = initialState, action): PhotoState => {
       return {
         ...state,
         loading: false,
+        totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PHOTO):
@@ -110,10 +112,13 @@ const apiUrl = 'api/photos';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IPhoto> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_PHOTO_LIST,
-  payload: axios.get<IPhoto>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
+export const getEntities: ICrudGetAllAction<IPhoto> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_PHOTO_LIST,
+    payload: axios.get<IPhoto>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntity: ICrudGetAction<IPhoto> = id => {
   const requestUrl = `${apiUrl}/${id}`;

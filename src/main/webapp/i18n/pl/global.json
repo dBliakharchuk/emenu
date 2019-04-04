@@ -1,13 +1,13 @@
 {
   "global": {
     "title": "Emenu",
-    "browsehappy": "Używasz <strong>przestarzałej</strong> przeglądarki. Proszę <a href=\"http://browsehappy.com/\">uaktualnij swoją przeglądarkę</a> aby poprawić wrażenia z użytkowania tej aplikacji.",
+    "browsehappy":
+      "Używasz <strong>przestarzałej</strong> przeglądarki. Proszę <a href=\"http://browsehappy.com/\">uaktualnij swoją przeglądarkę</a> aby poprawić wrażenia z użytkowania tej aplikacji.",
     "menu": {
       "home": "Strona domowa",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Encje",
-        "authoritySql": "Authority Sql",
         "restaurant": "Restaurant",
         "location": "Location",
         "photo": "Photo",
@@ -57,7 +57,8 @@
         "authenticated": {
           "prefix": "Jeśli chcesz się ",
           "link": "zalogować",
-          "suffix": ", możesz spróbować któregoś z domyślnych kont:<br/>- Administrator (login=\"admin\" i hasło=\"admin\") <br/>- Użytkownik (login=\"user\" i hasło=\"user\")."
+          "suffix":
+            ", możesz spróbować któregoś z domyślnych kont:<br/>- Administrator (login=\"admin\" i hasło=\"admin\") <br/>- Użytkownik (login=\"user\" i hasło=\"user\")."
         },
         "register": {
           "noaccount": "Nie masz jeszcze konta?",

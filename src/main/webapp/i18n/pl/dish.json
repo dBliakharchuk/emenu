@@ -15,7 +15,6 @@
       "detail": {
         "title": "Dish"
       },
-      "idDish": "Id Dish",
       "name": "Name",
       "description": "Description",
       "price": "Price",

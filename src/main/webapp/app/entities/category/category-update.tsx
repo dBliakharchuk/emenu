@@ -96,21 +96,6 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="idCategoryLabel" for="idCategory">
-                    <Translate contentKey="emenuApp.category.idCategory">Id Category</Translate>
-                  </Label>
-                  <AvField
-                    id="category-idCategory"
-                    type="string"
-                    className="form-control"
-                    name="idCategory"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="nameLabel" for="name">
                     <Translate contentKey="emenuApp.category.name">Name</Translate>
                   </Label>
@@ -133,7 +118,7 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
                   <Label for="menu.idMenu">
                     <Translate contentKey="emenuApp.category.menu">Menu</Translate>
                   </Label>
-                  <AvInput id="category-menu" type="select" className="form-control" name="menu.id">
+                  <AvInput id="category-menu" type="select" className="form-control" name="menuId">
                     <option value="" key="0" />
                     {menus
                       ? menus.map(otherEntity => (
@@ -145,16 +130,14 @@ export class CategoryUpdate extends React.Component<ICategoryUpdateProps, ICateg
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/category" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

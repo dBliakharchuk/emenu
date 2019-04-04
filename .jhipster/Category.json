@@ -2,13 +2,6 @@
     "name": "Category",
     "fields": [
         {
-            "fieldName": "idCategory",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -29,11 +22,11 @@
             "otherEntityField": "idMenu"
         }
     ],
-    "changelogDate": "20190327210649",
+    "changelogDate": "20190404183002",
     "entityTableName": "category",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

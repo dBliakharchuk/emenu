@@ -48,13 +48,13 @@ describe('Menu e2e test', () => {
   it('should create and save Menus', async () => {
     const nbButtonsBeforeCreate = await menuComponentsPage.countDeleteButtons();
 
-    await menuUpdatePage.setIdMenuInput('5');
-    expect(await menuUpdatePage.getIdMenuInput()).to.eq('5');
     await menuUpdatePage.setNameInput('name');
     expect(await menuUpdatePage.getNameInput()).to.match(/name/);
     await menuUpdatePage.setDescriptionInput('description');
     expect(await menuUpdatePage.getDescriptionInput()).to.match(/description/);
     await menuUpdatePage.setImageInput(absolutePath);
+    await menuUpdatePage.setImageContentInput('imageContent');
+    expect(await menuUpdatePage.getImageContentInput()).to.match(/imageContent/);
     await menuUpdatePage.restaurantSelectLastOption();
     await waitUntilDisplayed(menuUpdatePage.getSaveButton());
     await menuUpdatePage.save();

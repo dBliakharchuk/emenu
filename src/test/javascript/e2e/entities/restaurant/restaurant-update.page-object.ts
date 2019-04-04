@@ -4,22 +4,13 @@ export default class RestaurantUpdatePage {
   pageTitle: ElementFinder = element(by.id('emenuApp.restaurant.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idRestaurantInput: ElementFinder = element(by.css('input#restaurant-idRestaurant'));
   nameInput: ElementFinder = element(by.css('input#restaurant-name'));
   descriptionInput: ElementFinder = element(by.css('input#restaurant-description'));
-  idRestaurantSelect: ElementFinder = element(by.css('select#restaurant-idRestaurant'));
+  idLocationSelect: ElementFinder = element(by.css('select#restaurant-idLocation'));
   userSelect: ElementFinder = element(by.css('select#restaurant-user'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdRestaurantInput(idRestaurant) {
-    await this.idRestaurantInput.sendKeys(idRestaurant);
-  }
-
-  async getIdRestaurantInput() {
-    return this.idRestaurantInput.getAttribute('value');
   }
 
   async setNameInput(name) {
@@ -38,23 +29,23 @@ export default class RestaurantUpdatePage {
     return this.descriptionInput.getAttribute('value');
   }
 
-  async idRestaurantSelectLastOption() {
-    await this.idRestaurantSelect
+  async idLocationSelectLastOption() {
+    await this.idLocationSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async idRestaurantSelectOption(option) {
-    await this.idRestaurantSelect.sendKeys(option);
+  async idLocationSelectOption(option) {
+    await this.idLocationSelect.sendKeys(option);
   }
 
-  getIdRestaurantSelect() {
-    return this.idRestaurantSelect;
+  getIdLocationSelect() {
+    return this.idLocationSelect;
   }
 
-  async getIdRestaurantSelectedOption() {
-    return this.idRestaurantSelect.element(by.css('option:checked')).getText();
+  async getIdLocationSelectedOption() {
+    return this.idLocationSelect.element(by.css('option:checked')).getText();
   }
 
   async userSelectLastOption() {

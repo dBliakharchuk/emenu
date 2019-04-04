@@ -36,7 +36,7 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/emenudb?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/emenu?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
         password:
         hikari:
@@ -98,7 +98,7 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-                base64-secret: YTg3OTc5MTJhOWY0ZTI2YTcwYTA1NzExZjk1MWIzOGMzNGQyYTZlNTNiYzU5YTEyZWMzNjU1ZjczYmUzYzAzZDM4YjYwODM1YWExNDllY2ZlZDllMzFlYmViOTRiOWMzM2MwOQ==
+                base64-secret: eb953d094f32c524ea6671268075d1fd773dded8
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000

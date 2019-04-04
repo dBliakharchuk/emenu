@@ -2,13 +2,6 @@
     "name": "Location",
     "fields": [
         {
-            "fieldName": "idLocation",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "addressGM",
             "fieldType": "String"
         },
@@ -30,15 +23,15 @@
         },
         {
             "fieldName": "postcode",
-            "fieldType": "String"
+            "fieldType": "Integer"
         }
     ],
     "relationships": [],
-    "changelogDate": "20190327210646",
+    "changelogDate": "20190404182959",
     "entityTableName": "location",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

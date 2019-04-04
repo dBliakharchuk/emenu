@@ -1,11 +1,16 @@
 package react.emenu.web.rest;
-import react.emenu.domain.Restaurant;
-import react.emenu.repository.RestaurantRepository;
+import react.emenu.service.RestaurantService;
 import react.emenu.web.rest.errors.BadRequestAlertException;
 import react.emenu.web.rest.util.HeaderUtil;
+import react.emenu.web.rest.util.PaginationUtil;
+import react.emenu.service.dto.RestaurantDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,26 +32,26 @@ public class RestaurantResource {
 
     private static final String ENTITY_NAME = "restaurant";
 
-    private final RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
 
-    public RestaurantResource(RestaurantRepository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
+    public RestaurantResource(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
     }
 
     /**
      * POST  /restaurants : Create a new restaurant.
      *
-     * @param restaurant the restaurant to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new restaurant, or with status 400 (Bad Request) if the restaurant has already an ID
+     * @param restaurantDTO the restaurantDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new restaurantDTO, or with status 400 (Bad Request) if the restaurant has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/restaurants")
-    public ResponseEntity<Restaurant> createRestaurant(@Valid @RequestBody Restaurant restaurant) throws URISyntaxException {
-        log.debug("REST request to save Restaurant : {}", restaurant);
-        if (restaurant.getId() != null) {
+    public ResponseEntity<RestaurantDTO> createRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO) throws URISyntaxException {
+        log.debug("REST request to save Restaurant : {}", restaurantDTO);
+        if (restaurantDTO.getId() != null) {
             throw new BadRequestAlertException("A new restaurant cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Restaurant result = restaurantRepository.save(restaurant);
+        RestaurantDTO result = restaurantService.save(restaurantDTO);
         return ResponseEntity.created(new URI("/api/restaurants/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -55,58 +60,61 @@ public class RestaurantResource {
     /**
      * PUT  /restaurants : Updates an existing restaurant.
      *
-     * @param restaurant the restaurant to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated restaurant,
-     * or with status 400 (Bad Request) if the restaurant is not valid,
-     * or with status 500 (Internal Server Error) if the restaurant couldn't be updated
+     * @param restaurantDTO the restaurantDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated restaurantDTO,
+     * or with status 400 (Bad Request) if the restaurantDTO is not valid,
+     * or with status 500 (Internal Server Error) if the restaurantDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/restaurants")
-    public ResponseEntity<Restaurant> updateRestaurant(@Valid @RequestBody Restaurant restaurant) throws URISyntaxException {
-        log.debug("REST request to update Restaurant : {}", restaurant);
-        if (restaurant.getId() == null) {
+    public ResponseEntity<RestaurantDTO> updateRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO) throws URISyntaxException {
+        log.debug("REST request to update Restaurant : {}", restaurantDTO);
+        if (restaurantDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Restaurant result = restaurantRepository.save(restaurant);
+        RestaurantDTO result = restaurantService.save(restaurantDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, restaurant.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, restaurantDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * GET  /restaurants : get all the restaurants.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
      */
     @GetMapping("/restaurants")
-    public List<Restaurant> getAllRestaurants() {
-        log.debug("REST request to get all Restaurants");
-        return restaurantRepository.findAll();
+    public ResponseEntity<List<RestaurantDTO>> getAllRestaurants(Pageable pageable) {
+        log.debug("REST request to get a page of Restaurants");
+        Page<RestaurantDTO> page = restaurantService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
      * GET  /restaurants/:id : get the "id" restaurant.
      *
-     * @param id the id of the restaurant to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the restaurant, or with status 404 (Not Found)
+     * @param id the id of the restaurantDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the restaurantDTO, or with status 404 (Not Found)
      */
     @GetMapping("/restaurants/{id}")
-    public ResponseEntity<Restaurant> getRestaurant(@PathVariable Long id) {
+    public ResponseEntity<RestaurantDTO> getRestaurant(@PathVariable Long id) {
         log.debug("REST request to get Restaurant : {}", id);
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(restaurant);
+        Optional<RestaurantDTO> restaurantDTO = restaurantService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(restaurantDTO);
     }
 
     /**
      * DELETE  /restaurants/:id : delete the "id" restaurant.
      *
-     * @param id the id of the restaurant to delete
+     * @param id the id of the restaurantDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/restaurants/{id}")
     public ResponseEntity<Void> deleteRestaurant(@PathVariable Long id) {
         log.debug("REST request to delete Restaurant : {}", id);
-        restaurantRepository.deleteById(id);
+        restaurantService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

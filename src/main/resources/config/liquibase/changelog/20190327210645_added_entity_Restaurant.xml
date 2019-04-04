@@ -24,7 +24,7 @@
             </not>
         </preConditions>
         <createTable tableName="jhi_restaurant">
-            <column name="id_restaurant" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id_restaurant" type="integer" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">
@@ -36,6 +36,11 @@
             </column>
             <column name="id_user" type="bigint">
                 <constraints nullable="false" />
+            </column>
+			
+			<!-- added for test -->
+			<column name="id_location" type="integer">
+                <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

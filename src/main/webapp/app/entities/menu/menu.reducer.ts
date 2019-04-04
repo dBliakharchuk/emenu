@@ -22,6 +22,7 @@ const initialState = {
   entities: [] as ReadonlyArray<IMenu>,
   entity: defaultValue,
   updating: false,
+  totalItems: 0,
   updateSuccess: false
 };
 
@@ -64,6 +65,7 @@ export default (state: MenuState = initialState, action): MenuState => {
       return {
         ...state,
         loading: false,
+        totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_MENU):
@@ -110,10 +112,13 @@ const apiUrl = 'api/menus';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IMenu> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_MENU_LIST,
-  payload: axios.get<IMenu>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
+export const getEntities: ICrudGetAllAction<IMenu> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_MENU_LIST,
+    payload: axios.get<IMenu>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntity: ICrudGetAction<IMenu> = id => {
   const requestUrl = `${apiUrl}/${id}`;

@@ -2,13 +2,6 @@
     "name": "Restaurant",
     "fields": [
         {
-            "fieldName": "idRestaurant",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -25,7 +18,7 @@
             "relationshipType": "one-to-one",
             "otherEntityName": "location",
             "otherEntityRelationshipName": "restaurant",
-            "relationshipName": "idRestaurant",
+            "relationshipName": "idLocation",
             "otherEntityField": "id",
             "ownerSide": true
         },
@@ -37,11 +30,11 @@
             "otherEntityField": "idUser"
         }
     ],
-    "changelogDate": "20190327210645",
+    "changelogDate": "20190404182958",
     "entityTableName": "restaurant",
-    "dto": "no",
-    "pagination": "no",
-    "service": "no",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

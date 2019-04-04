@@ -26,10 +26,6 @@ public class Menu implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "id_menu", nullable = false)
-    private Integer idMenu;
-
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -43,6 +39,9 @@ public class Menu implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
+    @Column(name = "image_content")
+    private String imageContent;
+
     @ManyToOne
     @JsonIgnoreProperties("menus")
     private Restaurant restaurant;
@@ -54,19 +53,6 @@ public class Menu implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdMenu() {
-        return idMenu;
-    }
-
-    public Menu idMenu(Integer idMenu) {
-        this.idMenu = idMenu;
-        return this;
-    }
-
-    public void setIdMenu(Integer idMenu) {
-        this.idMenu = idMenu;
     }
 
     public String getName() {
@@ -121,6 +107,19 @@ public class Menu implements Serializable {
         this.imageContentType = imageContentType;
     }
 
+    public String getImageContent() {
+        return imageContent;
+    }
+
+    public Menu imageContent(String imageContent) {
+        this.imageContent = imageContent;
+        return this;
+    }
+
+    public void setImageContent(String imageContent) {
+        this.imageContent = imageContent;
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -159,11 +158,11 @@ public class Menu implements Serializable {
     public String toString() {
         return "Menu{" +
             "id=" + getId() +
-            ", idMenu=" + getIdMenu() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
+            ", imageContent='" + getImageContent() + "'" +
             "}";
     }
 }

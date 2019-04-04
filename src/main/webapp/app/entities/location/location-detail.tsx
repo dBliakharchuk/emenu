@@ -29,12 +29,6 @@ export class LocationDetail extends React.Component<ILocationDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="idLocation">
-                <Translate contentKey="emenuApp.location.idLocation">Id Location</Translate>
-              </span>
-            </dt>
-            <dd>{locationEntity.idLocation}</dd>
-            <dt>
               <span id="addressGM">
                 <Translate contentKey="emenuApp.location.addressGM">Address GM</Translate>
               </span>
@@ -76,8 +70,7 @@ export class LocationDetail extends React.Component<ILocationDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>
-          &nbsp;
+          </Button>&nbsp;
           <Button tag={Link} to={`/entity/location/${locationEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

@@ -4,7 +4,6 @@ import { Switch } from 'react-router-dom';
 // tslint:disable-next-line:no-unused-variable
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 
-import AuthoritySql from './authority-sql';
 import Restaurant from './restaurant';
 import Location from './location';
 import Photo from './photo';
@@ -17,7 +16,6 @@ const Routes = ({ match }) => (
   <div>
     <Switch>
       {/* prettier-ignore */}
-      <ErrorBoundaryRoute path={`${match.url}/authority-sql`} component={AuthoritySql} />
       <ErrorBoundaryRoute path={`${match.url}/restaurant`} component={Restaurant} />
       <ErrorBoundaryRoute path={`${match.url}/location`} component={Location} />
       <ErrorBoundaryRoute path={`${match.url}/photo`} component={Photo} />

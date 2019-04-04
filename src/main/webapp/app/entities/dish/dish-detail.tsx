@@ -29,12 +29,6 @@ export class DishDetail extends React.Component<IDishDetailProps> {
           </h2>
           <dl className="jh-entity-details">
             <dt>
-              <span id="idDish">
-                <Translate contentKey="emenuApp.dish.idDish">Id Dish</Translate>
-              </span>
-            </dt>
-            <dd>{dishEntity.idDish}</dd>
-            <dt>
               <span id="name">
                 <Translate contentKey="emenuApp.dish.name">Name</Translate>
               </span>
@@ -55,15 +49,14 @@ export class DishDetail extends React.Component<IDishDetailProps> {
             <dt>
               <Translate contentKey="emenuApp.dish.category">Category</Translate>
             </dt>
-            <dd>{dishEntity.category ? dishEntity.category.idCategory : ''}</dd>
+            <dd>{dishEntity.categoryIdCategory ? dishEntity.categoryIdCategory : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/dish" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>
-          &nbsp;
+          </Button>&nbsp;
           <Button tag={Link} to={`/entity/dish/${dishEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

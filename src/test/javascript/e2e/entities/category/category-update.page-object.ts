@@ -4,21 +4,12 @@ export default class CategoryUpdatePage {
   pageTitle: ElementFinder = element(by.id('emenuApp.category.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
-  idCategoryInput: ElementFinder = element(by.css('input#category-idCategory'));
   nameInput: ElementFinder = element(by.css('input#category-name'));
   descriptionInput: ElementFinder = element(by.css('input#category-description'));
   menuSelect: ElementFinder = element(by.css('select#category-menu'));
 
   getPageTitle() {
     return this.pageTitle;
-  }
-
-  async setIdCategoryInput(idCategory) {
-    await this.idCategoryInput.sendKeys(idCategory);
-  }
-
-  async getIdCategoryInput() {
-    return this.idCategoryInput.getAttribute('value');
   }
 
   async setNameInput(name) {

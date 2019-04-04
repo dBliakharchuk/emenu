@@ -106,21 +106,6 @@ export class MenuUpdate extends React.Component<IMenuUpdateProps, IMenuUpdateSta
                   </AvGroup>
                 ) : null}
                 <AvGroup>
-                  <Label id="idMenuLabel" for="idMenu">
-                    <Translate contentKey="emenuApp.menu.idMenu">Id Menu</Translate>
-                  </Label>
-                  <AvField
-                    id="menu-idMenu"
-                    type="string"
-                    className="form-control"
-                    name="idMenu"
-                    validate={{
-                      required: { value: true, errorMessage: translate('entity.validation.required') },
-                      number: { value: true, errorMessage: translate('entity.validation.number') }
-                    }}
-                  />
-                </AvGroup>
-                <AvGroup>
                   <Label id="nameLabel" for="name">
                     <Translate contentKey="emenuApp.menu.name">Name</Translate>
                   </Label>
@@ -170,10 +155,16 @@ export class MenuUpdate extends React.Component<IMenuUpdateProps, IMenuUpdateSta
                   </AvGroup>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="imageContentLabel" for="imageContent">
+                    <Translate contentKey="emenuApp.menu.imageContent">Image Content</Translate>
+                  </Label>
+                  <AvField id="menu-imageContent" type="text" name="imageContent" />
+                </AvGroup>
+                <AvGroup>
                   <Label for="restaurant.idRestaurant">
                     <Translate contentKey="emenuApp.menu.restaurant">Restaurant</Translate>
                   </Label>
-                  <AvInput id="menu-restaurant" type="select" className="form-control" name="restaurant.id">
+                  <AvInput id="menu-restaurant" type="select" className="form-control" name="restaurantId">
                     <option value="" key="0" />
                     {restaurants
                       ? restaurants.map(otherEntity => (
@@ -185,16 +176,14 @@ export class MenuUpdate extends React.Component<IMenuUpdateProps, IMenuUpdateSta
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/menu" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />
-                  &nbsp;
+                  <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

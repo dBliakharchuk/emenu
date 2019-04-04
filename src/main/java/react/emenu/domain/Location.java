@@ -5,7 +5,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,10 +23,6 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "id_location", nullable = false)
-    private Integer idLocation;
-
     @Column(name = "address_gm")
     private String addressGM;
 
@@ -44,7 +39,7 @@ public class Location implements Serializable {
     private String bilding;
 
     @Column(name = "postcode")
-    private String postcode;
+    private Integer postcode;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -53,19 +48,6 @@ public class Location implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdLocation() {
-        return idLocation;
-    }
-
-    public Location idLocation(Integer idLocation) {
-        this.idLocation = idLocation;
-        return this;
-    }
-
-    public void setIdLocation(Integer idLocation) {
-        this.idLocation = idLocation;
     }
 
     public String getAddressGM() {
@@ -133,16 +115,16 @@ public class Location implements Serializable {
         this.bilding = bilding;
     }
 
-    public String getPostcode() {
+    public Integer getPostcode() {
         return postcode;
     }
 
-    public Location postcode(String postcode) {
+    public Location postcode(Integer postcode) {
         this.postcode = postcode;
         return this;
     }
 
-    public void setPostcode(String postcode) {
+    public void setPostcode(Integer postcode) {
         this.postcode = postcode;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -171,13 +153,12 @@ public class Location implements Serializable {
     public String toString() {
         return "Location{" +
             "id=" + getId() +
-            ", idLocation=" + getIdLocation() +
             ", addressGM='" + getAddressGM() + "'" +
             ", country='" + getCountry() + "'" +
             ", city='" + getCity() + "'" +
             ", street='" + getStreet() + "'" +
             ", bilding='" + getBilding() + "'" +
-            ", postcode='" + getPostcode() + "'" +
+            ", postcode=" + getPostcode() +
             "}";
     }
 }

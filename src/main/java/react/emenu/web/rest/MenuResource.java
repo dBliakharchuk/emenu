@@ -1,11 +1,16 @@
 package react.emenu.web.rest;
-import react.emenu.domain.Menu;
-import react.emenu.repository.MenuRepository;
+import react.emenu.service.MenuService;
 import react.emenu.web.rest.errors.BadRequestAlertException;
 import react.emenu.web.rest.util.HeaderUtil;
+import react.emenu.web.rest.util.PaginationUtil;
+import react.emenu.service.dto.MenuDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,26 +32,26 @@ public class MenuResource {
 
     private static final String ENTITY_NAME = "menu";
 
-    private final MenuRepository menuRepository;
+    private final MenuService menuService;
 
-    public MenuResource(MenuRepository menuRepository) {
-        this.menuRepository = menuRepository;
+    public MenuResource(MenuService menuService) {
+        this.menuService = menuService;
     }
 
     /**
      * POST  /menus : Create a new menu.
      *
-     * @param menu the menu to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new menu, or with status 400 (Bad Request) if the menu has already an ID
+     * @param menuDTO the menuDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new menuDTO, or with status 400 (Bad Request) if the menu has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/menus")
-    public ResponseEntity<Menu> createMenu(@Valid @RequestBody Menu menu) throws URISyntaxException {
-        log.debug("REST request to save Menu : {}", menu);
-        if (menu.getId() != null) {
+    public ResponseEntity<MenuDTO> createMenu(@Valid @RequestBody MenuDTO menuDTO) throws URISyntaxException {
+        log.debug("REST request to save Menu : {}", menuDTO);
+        if (menuDTO.getId() != null) {
             throw new BadRequestAlertException("A new menu cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Menu result = menuRepository.save(menu);
+        MenuDTO result = menuService.save(menuDTO);
         return ResponseEntity.created(new URI("/api/menus/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -55,58 +60,61 @@ public class MenuResource {
     /**
      * PUT  /menus : Updates an existing menu.
      *
-     * @param menu the menu to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated menu,
-     * or with status 400 (Bad Request) if the menu is not valid,
-     * or with status 500 (Internal Server Error) if the menu couldn't be updated
+     * @param menuDTO the menuDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated menuDTO,
+     * or with status 400 (Bad Request) if the menuDTO is not valid,
+     * or with status 500 (Internal Server Error) if the menuDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/menus")
-    public ResponseEntity<Menu> updateMenu(@Valid @RequestBody Menu menu) throws URISyntaxException {
-        log.debug("REST request to update Menu : {}", menu);
-        if (menu.getId() == null) {
+    public ResponseEntity<MenuDTO> updateMenu(@Valid @RequestBody MenuDTO menuDTO) throws URISyntaxException {
+        log.debug("REST request to update Menu : {}", menuDTO);
+        if (menuDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Menu result = menuRepository.save(menu);
+        MenuDTO result = menuService.save(menuDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, menu.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, menuDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * GET  /menus : get all the menus.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of menus in body
      */
     @GetMapping("/menus")
-    public List<Menu> getAllMenus() {
-        log.debug("REST request to get all Menus");
-        return menuRepository.findAll();
+    public ResponseEntity<List<MenuDTO>> getAllMenus(Pageable pageable) {
+        log.debug("REST request to get a page of Menus");
+        Page<MenuDTO> page = menuService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/menus");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
      * GET  /menus/:id : get the "id" menu.
      *
-     * @param id the id of the menu to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the menu, or with status 404 (Not Found)
+     * @param id the id of the menuDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the menuDTO, or with status 404 (Not Found)
      */
     @GetMapping("/menus/{id}")
-    public ResponseEntity<Menu> getMenu(@PathVariable Long id) {
+    public ResponseEntity<MenuDTO> getMenu(@PathVariable Long id) {
         log.debug("REST request to get Menu : {}", id);
-        Optional<Menu> menu = menuRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(menu);
+        Optional<MenuDTO> menuDTO = menuService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(menuDTO);
     }
 
     /**
      * DELETE  /menus/:id : delete the "id" menu.
      *
-     * @param id the id of the menu to delete
+     * @param id the id of the menuDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/menus/{id}")
     public ResponseEntity<Void> deleteMenu(@PathVariable Long id) {
         log.debug("REST request to delete Menu : {}", id);
-        menuRepository.deleteById(id);
+        menuService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

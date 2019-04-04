@@ -4,6 +4,9 @@ import react.emenu.EmenuApp;
 
 import react.emenu.domain.Restaurant;
 import react.emenu.repository.RestaurantRepository;
+import react.emenu.service.RestaurantService;
+import react.emenu.service.dto.RestaurantDTO;
+import react.emenu.service.mapper.RestaurantMapper;
 import react.emenu.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -40,9 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = EmenuApp.class)
 public class RestaurantResourceIntTest {
 
-    private static final Integer DEFAULT_ID_RESTAURANT = 1;
-    private static final Integer UPDATED_ID_RESTAURANT = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -51,6 +51,12 @@ public class RestaurantResourceIntTest {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private RestaurantMapper restaurantMapper;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -74,7 +80,7 @@ public class RestaurantResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final RestaurantResource restaurantResource = new RestaurantResource(restaurantRepository);
+        final RestaurantResource restaurantResource = new RestaurantResource(restaurantService);
         this.restRestaurantMockMvc = MockMvcBuilders.standaloneSetup(restaurantResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -91,7 +97,6 @@ public class RestaurantResourceIntTest {
      */
     public static Restaurant createEntity(EntityManager em) {
         Restaurant restaurant = new Restaurant()
-            .idRestaurant(DEFAULT_ID_RESTAURANT)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION);
         return restaurant;
@@ -108,16 +113,16 @@ public class RestaurantResourceIntTest {
         int databaseSizeBeforeCreate = restaurantRepository.findAll().size();
 
         // Create the Restaurant
+        RestaurantDTO restaurantDTO = restaurantMapper.toDto(restaurant);
         restRestaurantMockMvc.perform(post("/api/restaurants")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(restaurant)))
+            .content(TestUtil.convertObjectToJsonBytes(restaurantDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Restaurant in the database
         List<Restaurant> restaurantList = restaurantRepository.findAll();
         assertThat(restaurantList).hasSize(databaseSizeBeforeCreate + 1);
         Restaurant testRestaurant = restaurantList.get(restaurantList.size() - 1);
-        assertThat(testRestaurant.getIdRestaurant()).isEqualTo(DEFAULT_ID_RESTAURANT);
         assertThat(testRestaurant.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testRestaurant.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
@@ -129,34 +134,17 @@ public class RestaurantResourceIntTest {
 
         // Create the Restaurant with an existing ID
         restaurant.setId(1L);
+        RestaurantDTO restaurantDTO = restaurantMapper.toDto(restaurant);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRestaurantMockMvc.perform(post("/api/restaurants")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(restaurant)))
+            .content(TestUtil.convertObjectToJsonBytes(restaurantDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Restaurant in the database
         List<Restaurant> restaurantList = restaurantRepository.findAll();
         assertThat(restaurantList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    public void checkIdRestaurantIsRequired() throws Exception {
-        int databaseSizeBeforeTest = restaurantRepository.findAll().size();
-        // set the field null
-        restaurant.setIdRestaurant(null);
-
-        // Create the Restaurant, which fails.
-
-        restRestaurantMockMvc.perform(post("/api/restaurants")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(restaurant)))
-            .andExpect(status().isBadRequest());
-
-        List<Restaurant> restaurantList = restaurantRepository.findAll();
-        assertThat(restaurantList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -167,10 +155,11 @@ public class RestaurantResourceIntTest {
         restaurant.setName(null);
 
         // Create the Restaurant, which fails.
+        RestaurantDTO restaurantDTO = restaurantMapper.toDto(restaurant);
 
         restRestaurantMockMvc.perform(post("/api/restaurants")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(restaurant)))
+            .content(TestUtil.convertObjectToJsonBytes(restaurantDTO)))
             .andExpect(status().isBadRequest());
 
         List<Restaurant> restaurantList = restaurantRepository.findAll();
@@ -188,7 +177,6 @@ public class RestaurantResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(restaurant.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idRestaurant").value(hasItem(DEFAULT_ID_RESTAURANT)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
@@ -204,7 +192,6 @@ public class RestaurantResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(restaurant.getId().intValue()))
-            .andExpect(jsonPath("$.idRestaurant").value(DEFAULT_ID_RESTAURANT))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
@@ -230,20 +217,19 @@ public class RestaurantResourceIntTest {
         // Disconnect from session so that the updates on updatedRestaurant are not directly saved in db
         em.detach(updatedRestaurant);
         updatedRestaurant
-            .idRestaurant(UPDATED_ID_RESTAURANT)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION);
+        RestaurantDTO restaurantDTO = restaurantMapper.toDto(updatedRestaurant);
 
         restRestaurantMockMvc.perform(put("/api/restaurants")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedRestaurant)))
+            .content(TestUtil.convertObjectToJsonBytes(restaurantDTO)))
             .andExpect(status().isOk());
 
         // Validate the Restaurant in the database
         List<Restaurant> restaurantList = restaurantRepository.findAll();
         assertThat(restaurantList).hasSize(databaseSizeBeforeUpdate);
         Restaurant testRestaurant = restaurantList.get(restaurantList.size() - 1);
-        assertThat(testRestaurant.getIdRestaurant()).isEqualTo(UPDATED_ID_RESTAURANT);
         assertThat(testRestaurant.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testRestaurant.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
@@ -254,11 +240,12 @@ public class RestaurantResourceIntTest {
         int databaseSizeBeforeUpdate = restaurantRepository.findAll().size();
 
         // Create the Restaurant
+        RestaurantDTO restaurantDTO = restaurantMapper.toDto(restaurant);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRestaurantMockMvc.perform(put("/api/restaurants")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(restaurant)))
+            .content(TestUtil.convertObjectToJsonBytes(restaurantDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Restaurant in the database
@@ -297,5 +284,28 @@ public class RestaurantResourceIntTest {
         assertThat(restaurant1).isNotEqualTo(restaurant2);
         restaurant1.setId(null);
         assertThat(restaurant1).isNotEqualTo(restaurant2);
+    }
+
+    @Test
+    @Transactional
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(RestaurantDTO.class);
+        RestaurantDTO restaurantDTO1 = new RestaurantDTO();
+        restaurantDTO1.setId(1L);
+        RestaurantDTO restaurantDTO2 = new RestaurantDTO();
+        assertThat(restaurantDTO1).isNotEqualTo(restaurantDTO2);
+        restaurantDTO2.setId(restaurantDTO1.getId());
+        assertThat(restaurantDTO1).isEqualTo(restaurantDTO2);
+        restaurantDTO2.setId(2L);
+        assertThat(restaurantDTO1).isNotEqualTo(restaurantDTO2);
+        restaurantDTO1.setId(null);
+        assertThat(restaurantDTO1).isNotEqualTo(restaurantDTO2);
+    }
+
+    @Test
+    @Transactional
+    public void testEntityFromId() {
+        assertThat(restaurantMapper.fromId(42L).getId()).isEqualTo(42);
+        assertThat(restaurantMapper.fromId(null)).isNull();
     }
 }

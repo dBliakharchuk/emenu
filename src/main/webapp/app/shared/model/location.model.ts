@@ -1,12 +1,11 @@
 export interface ILocation {
   id?: number;
-  idLocation?: number;
   addressGM?: string;
   country?: string;
   city?: string;
   street?: string;
   bilding?: string;
-  postcode?: string;
+  postcode?: number;
 }
 
 export const defaultValue: Readonly<ILocation> = {};

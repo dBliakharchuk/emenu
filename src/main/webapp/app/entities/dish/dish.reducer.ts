@@ -21,6 +21,7 @@ const initialState = {
   entities: [] as ReadonlyArray<IDish>,
   entity: defaultValue,
   updating: false,
+  totalItems: 0,
   updateSuccess: false
 };
 
@@ -63,6 +64,7 @@ export default (state: DishState = initialState, action): DishState => {
       return {
         ...state,
         loading: false,
+        totalItems: action.payload.headers['x-total-count'],
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_DISH):
@@ -99,10 +101,13 @@ const apiUrl = 'api/dishes';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IDish> = (page, size, sort) => ({
-  type: ACTION_TYPES.FETCH_DISH_LIST,
-  payload: axios.get<IDish>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
-});
+export const getEntities: ICrudGetAllAction<IDish> = (page, size, sort) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
+  return {
+    type: ACTION_TYPES.FETCH_DISH_LIST,
+    payload: axios.get<IDish>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
+  };
+};
 
 export const getEntity: ICrudGetAction<IDish> = id => {
   const requestUrl = `${apiUrl}/${id}`;

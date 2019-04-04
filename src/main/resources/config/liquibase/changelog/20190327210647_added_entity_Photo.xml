@@ -20,7 +20,7 @@
     <changeSet id="20190327210647-1" author="jhipster">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="jhi_photo"/>
+                <tableExists tableName="integer"/>
             </not>
         </preConditions>
         <createTable tableName="jhi_photo">
@@ -42,7 +42,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="height" type="integer">
+            <!--<column name="height" type="integer">
                 <constraints nullable="true" />
             </column>
 
@@ -56,20 +56,20 @@
 
             <column name="uploaded" type="datetime">
                 <constraints nullable="true" />
-            </column>
+            </column>-->
 
-            <column name="id_restaurant" type="bigint">
+            <column name="id_restaurant" type="integer">
                 <constraints nullable="true" />
             </column>
 
-            <column name="id_dish" type="bigint">
+            <column name="id_dish" type="integer">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="jho_photo" columnName="taken" columnDataType="datetime"/>
-        <dropDefaultValue tableName="jhi_photo" columnName="uploaded" columnDataType="datetime"/>
+        <!--<dropDefaultValue tableName="jhi_photo" columnName="taken" columnDataType="datetime"/>
+        <dropDefaultValue tableName="jhi_photo" columnName="uploaded" columnDataType="datetime"/>-->
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
