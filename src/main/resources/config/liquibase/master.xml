@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000000_initial_schema_mysql.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190404182958_added_entity_Restaurant.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190404182959_added_entity_Location.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190404183000_added_entity_Photo.xml" relativeToChangelogFile="false"/>

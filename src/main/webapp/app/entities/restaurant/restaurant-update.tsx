@@ -143,7 +143,7 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.idUser}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}

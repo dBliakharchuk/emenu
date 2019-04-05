@@ -22,7 +22,7 @@ export class Home extends React.Component<IHomeProp> {
       <Row>
         <Col md="9">
           <h2>
-            <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
+            <Translate contentKey="home.title">Welcome to EMenu</Translate>
           </h2>
           <p className="lead">
             <Translate contentKey="home.subtitle">This is your homepage</Translate>
@@ -37,7 +37,7 @@ export class Home extends React.Component<IHomeProp> {
             </div>
           ) : (
             <div>
-              <Alert color="warning">
+              {/*<Alert color="warning">
                 <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
                 <Link to="/login" className="alert-link">
                   <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
@@ -47,7 +47,7 @@ export class Home extends React.Component<IHomeProp> {
                   <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
                   <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
                 </Translate>
-              </Alert>
+              </Alert>*/}
 
               <Alert color="warning">
                 <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>
@@ -58,7 +58,7 @@ export class Home extends React.Component<IHomeProp> {
               </Alert>
             </div>
           )}
-          <p>
+          {/*<p>
             <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
           </p>
 
@@ -96,7 +96,7 @@ export class Home extends React.Component<IHomeProp> {
               Github
             </a>
             !
-          </p>
+          </p>*/}
         </Col>
         <Col md="3" className="pad">
           <span className="hipster rounded" />

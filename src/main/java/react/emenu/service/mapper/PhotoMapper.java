@@ -12,9 +12,9 @@ import org.mapstruct.*;
 public interface PhotoMapper extends EntityMapper<PhotoDTO, Photo> {
 
     @Mapping(source = "restaurant.id", target = "restaurantId")
-    @Mapping(source = "restaurant.idRestaurant", target = "restaurantIdRestaurant")
+    @Mapping(source = "restaurant.id", target = "restaurantIdRestaurant")
     @Mapping(source = "dish.id", target = "dishId")
-    @Mapping(source = "dish.idDish", target = "dishIdDish")
+    @Mapping(source = "dish.id", target = "dishIdDish")
     PhotoDTO toDto(Photo photo);
 
     @Mapping(source = "restaurantId", target = "restaurant")

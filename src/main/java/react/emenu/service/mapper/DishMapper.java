@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface DishMapper extends EntityMapper<DishDTO, Dish> {
 
     @Mapping(source = "category.id", target = "categoryId")
-    @Mapping(source = "category.idCategory", target = "categoryIdCategory")
+    @Mapping(source = "category.id", target = "categoryIdCategory")
     DishDTO toDto(Dish dish);
 
     @Mapping(source = "categoryId", target = "category")

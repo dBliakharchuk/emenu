@@ -13,7 +13,7 @@ public interface RestaurantMapper extends EntityMapper<RestaurantDTO, Restaurant
 
     @Mapping(source = "idLocation.id", target = "idLocationId")
     @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "user.idUser", target = "userIdUser")
+    @Mapping(source = "user.id", target = "userIdUser")
     RestaurantDTO toDto(Restaurant restaurant);
 
     @Mapping(source = "idLocationId", target = "idLocation")
