@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
+
 // tslint:disable-next-line:no-unused-variable
 import {
   openFile,
@@ -16,24 +17,48 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './photo.reducer';
+import { getEntities, reset } from './photo.reducer';
 import { IPhoto } from 'app/shared/model/photo.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import Gallery from 'react-photo-gallery';
+import Lightbox from 'react-images';
 
 export interface IPhotoProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IPhotoState = IPaginationBaseState;
+export interface IPhotoState extends IPaginationBaseState {
+  currentImage: number;
+  lightboxIsOpen: boolean;
+}
 
 export class Photo extends React.Component<IPhotoProps, IPhotoState> {
   state: IPhotoState = {
-    ...getSortState(this.props.location, ITEMS_PER_PAGE)
+    ...getSortState(this.props.location, ITEMS_PER_PAGE),
+    currentImage: 0,
+    lightboxIsOpen: false
   };
 
-  componentDidMount() {
-    this.getEntities();
+  constructor(props) {
+    super(props);
+    this.closeLightbox = this.closeLightbox.bind(this);
+    this.openLightbox = this.openLightbox.bind(this);
+    this.gotoNext = this.gotoNext.bind(this);
+    this.gotoPrevious = this.gotoPrevious.bind(this);
   }
+
+  componentDidMount() {
+    this.reset();
+  }
+
+  reset = () => {
+    this.props.reset();
+    this.setState({ activePage: 1 }, () => this.getEntities());
+  };
+
+  handleLoadMore = page => {
+    this.setState({ activePage: this.state.activePage + 1 }, () => this.getEntities());
+  };
 
   sort = prop => () => {
     this.setState(
@@ -41,33 +66,70 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
         order: this.state.order === 'asc' ? 'desc' : 'asc',
         sort: prop
       },
-      () => this.sortEntities()
+      () => this.reset()
     );
   };
-
-  sortEntities() {
-    this.getEntities();
-    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
-  }
-
-  handlePagination = activePage => this.setState({ activePage }, () => this.sortEntities());
 
   getEntities = () => {
     const { activePage, itemsPerPage, sort, order } = this.state;
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
+  openLightbox(event, obj) {
+    this.setState({
+      currentImage: obj.index,
+      lightboxIsOpen: true
+    });
+  }
+
+  closeLightbox() {
+    this.setState({
+      currentImage: 0,
+      lightboxIsOpen: false
+    });
+  }
+
+  gotoPrevious() {
+    this.setState({
+      currentImage: this.state.currentImage - 1
+    });
+  }
+
+  gotoNext() {
+    this.setState({
+      currentImage: this.state.currentImage + 1
+    });
+  }
   render() {
     const { photoList, match, totalItems } = this.props;
+    const photoSet = photoList.map(photo => ({
+      // Calculate shape of photo
+      // Create new entity with height and width
+      src: `data:${photo.imageContentType};base64,${photo.image}`,
+      width: 1,
+      height: 1
+    }));
     return (
       <div>
         <h2 id="photo-heading">
           <Translate contentKey="emenuApp.photo.home.title">Photos</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.photo.home.createLabel">Create new Photo</Translate>
           </Link>
         </h2>
+        <div>
+          <Gallery id="gallery-with-light-box" photos={photoSet} onClick={this.openLightbox} height={200} width={200} />
+          <Lightbox
+            images={photoSet}
+            onClose={this.closeLightbox}
+            onClickPrev={this.gotoPrevious}
+            onClickNext={this.gotoNext}
+            currentImage={this.state.currentImage}
+            isOpen={this.state.lightboxIsOpen}
+          />
+        </div>
         <div className="table-responsive">
           <Table responsive>
             <thead>
@@ -152,12 +214,12 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
           </Table>
         </div>
         <Row className="justify-content-center">
-          <JhiPagination
+          {/*<JhiPagination
             items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
             activePage={this.state.activePage}
             onSelect={this.handlePagination}
             maxButtons={5}
-          />
+          />*/}
         </Row>
       </div>
     );
@@ -170,7 +232,8 @@ const mapStateToProps = ({ photo }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities,
+  reset
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

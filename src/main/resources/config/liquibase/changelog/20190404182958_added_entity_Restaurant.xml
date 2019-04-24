@@ -29,6 +29,13 @@
             <column name="description" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+
+            <column name="image" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="image_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="id_location_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_restaurant_id_location_id" />
             </column>

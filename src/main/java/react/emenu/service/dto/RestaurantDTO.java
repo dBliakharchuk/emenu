@@ -2,6 +2,7 @@ package react.emenu.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Restaurant entity.
@@ -15,6 +16,10 @@ public class RestaurantDTO implements Serializable {
 
     private String description;
 
+    @Lob
+    private byte[] image;
+
+    private String imageContentType;
 
     private Long idLocationId;
 
@@ -44,6 +49,22 @@ public class RestaurantDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
     }
 
     public Long getIdLocationId() {
@@ -97,6 +118,7 @@ public class RestaurantDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", image='" + getImage() + "'" +
             ", idLocation=" + getIdLocationId() +
             ", user=" + getUserId() +
             ", user='" + getUserIdUser() + "'" +

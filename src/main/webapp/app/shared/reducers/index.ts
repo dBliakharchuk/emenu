@@ -36,6 +36,10 @@ import category, {
 import dish, {
   DishState
 } from 'app/entities/dish/dish.reducer';
+// prettier-ignore
+/*import restaurant, {
+  RestaurantState
+} from 'app/entities/restaurant/restaurant.reducer';*/
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

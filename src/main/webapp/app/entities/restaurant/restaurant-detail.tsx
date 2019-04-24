@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -40,6 +40,23 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
               </span>
             </dt>
             <dd>{restaurantEntity.description}</dd>
+            <dt>
+              <span id="image">
+                <Translate contentKey="emenuApp.restaurant.image">Image</Translate>
+              </span>
+            </dt>
+            <dd>
+              {restaurantEntity.image ? (
+                <div>
+                  <a onClick={openFile(restaurantEntity.imageContentType, restaurantEntity.image)}>
+                    <img src={`data:${restaurantEntity.imageContentType};base64,${restaurantEntity.image}`} style={{ maxHeight: '30px' }} />
+                  </a>
+                  <span>
+                    {restaurantEntity.imageContentType}, {byteSize(restaurantEntity.image)}
+                  </span>
+                </div>
+              ) : null}
+            </dd>
             <dt>
               <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate>
             </dt>

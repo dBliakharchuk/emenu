@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -12,7 +12,7 @@ import { ILocation } from 'app/shared/model/location.model';
 import { getEntities as getLocations } from 'app/entities/location/location.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './restaurant.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './restaurant.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -53,6 +53,14 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
     this.props.getUsers();
   }
 
+  onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  clearBlob = name => () => {
+    this.props.setBlob(name, undefined, undefined);
+  };
+
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const { restaurantEntity } = this.props;
@@ -76,6 +84,8 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
   render() {
     const { restaurantEntity, locations, users, loading, updating } = this.props;
     const { isNew } = this.state;
+
+    const { image, imageContentType } = restaurantEntity;
 
     return (
       <div>
@@ -118,6 +128,36 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                     <Translate contentKey="emenuApp.restaurant.description">Description</Translate>
                   </Label>
                   <AvField id="restaurant-description" type="text" name="description" />
+                </AvGroup>
+                <AvGroup>
+                  <AvGroup>
+                    <Label id="imageLabel" for="image">
+                      <Translate contentKey="emenuApp.restaurant.image">Image</Translate>
+                    </Label>
+                    <br />
+                    {image ? (
+                      <div>
+                        <a onClick={openFile(imageContentType, image)}>
+                          <img src={`data:${imageContentType};base64,${image}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {imageContentType}, {byteSize(image)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('image')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_image" type="file" onChange={this.onBlobChange(true, 'image')} accept="image/*" />
+                    <AvInput type="hidden" name="image" value={image} />
+                  </AvGroup>
                 </AvGroup>
                 <AvGroup>
                   <Label for="idLocation.id">
@@ -185,6 +225,7 @@ const mapDispatchToProps = {
   getUsers,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset
 };

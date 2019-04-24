@@ -12,6 +12,7 @@ export const ACTION_TYPES = {
   CREATE_RESTAURANT: 'restaurant/CREATE_RESTAURANT',
   UPDATE_RESTAURANT: 'restaurant/UPDATE_RESTAURANT',
   DELETE_RESTAURANT: 'restaurant/DELETE_RESTAURANT',
+  SET_BLOB: 'restaurant/SET_BLOB',
   RESET: 'restaurant/RESET'
 };
 
@@ -88,6 +89,16 @@ export default (state: RestaurantState = initialState, action): RestaurantState 
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.SET_BLOB:
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -144,6 +155,15 @@ export const deleteEntity: ICrudDeleteAction<IRestaurant> = id => async dispatch
   dispatch(getEntities());
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

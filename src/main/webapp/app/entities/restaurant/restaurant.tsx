@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
+import {
+  openFile,
+  byteSize,
+  Translate,
+  ICrudGetAllAction,
+  getSortState,
+  IPaginationBaseState,
+  getPaginationItemsNumber,
+  JhiPagination
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -73,6 +82,9 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                 <th className="hand" onClick={this.sort('description')}>
                   <Translate contentKey="emenuApp.restaurant.description">Description</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('image')}>
+                  <Translate contentKey="emenuApp.restaurant.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th>
                   <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -92,6 +104,19 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                   </td>
                   <td>{restaurant.name}</td>
                   <td>{restaurant.description}</td>
+                  <td>
+                    {restaurant.image ? (
+                      <div>
+                        <a onClick={openFile(restaurant.imageContentType, restaurant.image)}>
+                          <img src={`data:${restaurant.imageContentType};base64,${restaurant.image}`} style={{ maxHeight: '30px' }} />
+                          &nbsp;
+                        </a>
+                        <span>
+                          {restaurant.imageContentType}, {byteSize(restaurant.image)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td>
                     {restaurant.idLocationId ? <Link to={`location/${restaurant.idLocationId}`}>{restaurant.idLocationId}</Link> : ''}
                   </td>

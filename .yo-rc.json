@@ -34,7 +34,7 @@
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
-    "skipServer": false,
+    "skipServer": true,
     "skipClient": false
   }
 }

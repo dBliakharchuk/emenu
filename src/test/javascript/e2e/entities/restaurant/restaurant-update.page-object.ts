@@ -6,6 +6,7 @@ export default class RestaurantUpdatePage {
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   nameInput: ElementFinder = element(by.css('input#restaurant-name'));
   descriptionInput: ElementFinder = element(by.css('input#restaurant-description'));
+  imageInput: ElementFinder = element(by.css('input#file_image'));
   idLocationSelect: ElementFinder = element(by.css('select#restaurant-idLocation'));
   userSelect: ElementFinder = element(by.css('select#restaurant-user'));
 
@@ -27,6 +28,14 @@ export default class RestaurantUpdatePage {
 
   async getDescriptionInput() {
     return this.descriptionInput.getAttribute('value');
+  }
+
+  async setImageInput(image) {
+    await this.imageInput.sendKeys(image);
+  }
+
+  async getImageInput() {
+    return this.imageInput.getAttribute('value');
   }
 
   async idLocationSelectLastOption() {

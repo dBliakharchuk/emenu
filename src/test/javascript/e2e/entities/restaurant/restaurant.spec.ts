@@ -7,6 +7,7 @@ import RestaurantComponentsPage from './restaurant.page-object';
 import { RestaurantDeleteDialog } from './restaurant.page-object';
 import RestaurantUpdatePage from './restaurant-update.page-object';
 import { waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import path from 'path';
 
 const expect = chai.expect;
 
@@ -16,6 +17,8 @@ describe('Restaurant e2e test', () => {
   let restaurantUpdatePage: RestaurantUpdatePage;
   let restaurantComponentsPage: RestaurantComponentsPage;
   let restaurantDeleteDialog: RestaurantDeleteDialog;
+  const fileToUpload = '../../../../../main/webapp/static/images/logo-jhipster.png';
+  const absolutePath = path.resolve(__dirname, fileToUpload);
 
   before(async () => {
     await browser.get('/');
@@ -49,6 +52,7 @@ describe('Restaurant e2e test', () => {
     expect(await restaurantUpdatePage.getNameInput()).to.match(/name/);
     await restaurantUpdatePage.setDescriptionInput('description');
     expect(await restaurantUpdatePage.getDescriptionInput()).to.match(/description/);
+    await restaurantUpdatePage.setImageInput(absolutePath);
     await restaurantUpdatePage.idLocationSelectLastOption();
     await restaurantUpdatePage.userSelectLastOption();
     await waitUntilDisplayed(restaurantUpdatePage.getSaveButton());
