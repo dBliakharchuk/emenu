@@ -120,7 +120,7 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
           </Link>
         </h2>
         <div>
-          <Gallery id="gallery-with-light-box" photos={photoSet} onClick={this.openLightbox} height={200} width={200} />
+          <Gallery photos={photoSet} onClick={this.openLightbox} />
           <Lightbox
             images={photoSet}
             onClose={this.closeLightbox}

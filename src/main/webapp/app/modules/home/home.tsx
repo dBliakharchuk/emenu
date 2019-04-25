@@ -8,7 +8,7 @@ import { Row, Col, Alert } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import RestaurantsReact from './restaurants_list';
+import RestaurantsReact from './restaurants-list';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 

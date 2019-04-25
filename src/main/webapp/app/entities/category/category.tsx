@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState, getPa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './category.reducer';
+import { getCategoryEntities } from './category.reducer';
 import { ICategory } from 'app/shared/model/category.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -55,7 +55,8 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
         <h2 id="category-heading">
           <Translate contentKey="emenuApp.category.home.title">Categories</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.category.home.createLabel">Create new Category</Translate>
           </Link>
         </h2>
@@ -135,7 +136,7 @@ const mapStateToProps = ({ category }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities: getCategoryEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -101,7 +101,7 @@ const apiUrl = 'api/categories';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<ICategory> = (page, size, sort) => {
+export const getCategoryEntities: ICrudGetAllAction<ICategory> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_CATEGORY_LIST,
@@ -122,7 +122,7 @@ export const createEntity: ICrudPutAction<ICategory> = entity => async dispatch 
     type: ACTION_TYPES.CREATE_CATEGORY,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCategoryEntities());
   return result;
 };
 
@@ -131,7 +131,7 @@ export const updateEntity: ICrudPutAction<ICategory> = entity => async dispatch 
     type: ACTION_TYPES.UPDATE_CATEGORY,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCategoryEntities());
   return result;
 };
 
@@ -141,7 +141,7 @@ export const deleteEntity: ICrudDeleteAction<ICategory> = id => async dispatch =
     type: ACTION_TYPES.DELETE_CATEGORY,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getCategoryEntities());
   return result;
 };
 

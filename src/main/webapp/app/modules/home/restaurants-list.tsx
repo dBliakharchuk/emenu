@@ -27,7 +27,7 @@ class RestaurantsList extends React.Component<IRestaurantProps, IRestaurantState
       <RestaurantComponent key={restaurant.id} restaurantEnt={restaurant} />
     ));
 
-    return <div>{restaurantComponents}</div>;
+    return <div className="restaurants-container">{restaurantComponents}</div>;
   }
 }
 

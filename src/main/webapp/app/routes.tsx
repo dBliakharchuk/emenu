@@ -13,6 +13,7 @@ import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
+import ChosenRestaurant from 'app/modules/home/chosen-restaurant';
 
 // tslint:disable:space-in-parens
 const Account = Loadable({
@@ -31,6 +32,7 @@ const Routes = () => (
     <ErrorBoundaryRoute path="/login" component={Login} />
     <Switch>
       <ErrorBoundaryRoute path="/logout" component={Logout} />
+      <ErrorBoundaryRoute path="/chosenRestaurant/:id" component={ChosenRestaurant} />
       <ErrorBoundaryRoute path="/register" component={Register} />
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
       <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />

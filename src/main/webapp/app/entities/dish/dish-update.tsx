@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { getEntities as getCategories } from 'app/entities/category/category.reducer';
+import { getCategoryEntities as getCategories } from 'app/entities/category/category.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './dish.reducer';
 import { IDish } from 'app/shared/model/dish.model';
 // tslint:disable-next-line:no-unused-variable

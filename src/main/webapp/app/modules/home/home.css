@@ -8,3 +8,7 @@ Main page styles
   background: url('../../../static/images/chef_PNG140.png') no-repeat center top;
   background-size: contain;
 }
+
+.restaurants-container > .nav-link {
+  padding: 0;
+}
