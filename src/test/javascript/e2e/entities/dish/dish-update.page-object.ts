@@ -7,6 +7,7 @@ export default class DishUpdatePage {
   nameInput: ElementFinder = element(by.css('input#dish-name'));
   descriptionInput: ElementFinder = element(by.css('input#dish-description'));
   priceInput: ElementFinder = element(by.css('input#dish-price'));
+  imageInput: ElementFinder = element(by.css('input#file_image'));
   categorySelect: ElementFinder = element(by.css('select#dish-category'));
 
   getPageTitle() {
@@ -35,6 +36,14 @@ export default class DishUpdatePage {
 
   async getPriceInput() {
     return this.priceInput.getAttribute('value');
+  }
+
+  async setImageInput(image) {
+    await this.imageInput.sendKeys(image);
+  }
+
+  async getImageInput() {
+    return this.imageInput.getAttribute('value');
   }
 
   async categorySelectLastOption() {

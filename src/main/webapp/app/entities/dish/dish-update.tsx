@@ -4,13 +4,13 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { ICategory } from 'app/shared/model/category.model';
 import { getCategoryEntities as getCategories } from 'app/entities/category/category.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './dish.reducer';
+import { getEntity, updateEntity, createEntity, setBlob, reset } from './dish.reducer';
 import { IDish } from 'app/shared/model/dish.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -48,6 +48,14 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
     this.props.getCategories();
   }
 
+  onBlobChange = (isAnImage, name) => event => {
+    setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
+  };
+
+  clearBlob = name => () => {
+    this.props.setBlob(name, undefined, undefined);
+  };
+
   saveEntity = (event, errors, values) => {
     if (errors.length === 0) {
       const { dishEntity } = this.props;
@@ -71,6 +79,8 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
   render() {
     const { dishEntity, categories, loading, updating } = this.props;
     const { isNew } = this.state;
+
+    const { image, imageContentType } = dishEntity;
 
     return (
       <div>
@@ -130,6 +140,36 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                   />
                 </AvGroup>
                 <AvGroup>
+                  <AvGroup>
+                    <Label id="imageLabel" for="image">
+                      <Translate contentKey="emenuApp.dish.image">Image</Translate>
+                    </Label>
+                    <br />
+                    {image ? (
+                      <div>
+                        <a onClick={openFile(imageContentType, image)}>
+                          <img src={`data:${imageContentType};base64,${image}`} style={{ maxHeight: '100px' }} />
+                        </a>
+                        <br />
+                        <Row>
+                          <Col md="11">
+                            <span>
+                              {imageContentType}, {byteSize(image)}
+                            </span>
+                          </Col>
+                          <Col md="1">
+                            <Button color="danger" onClick={this.clearBlob('image')}>
+                              <FontAwesomeIcon icon="times-circle" />
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    ) : null}
+                    <input id="file_image" type="file" onChange={this.onBlobChange(true, 'image')} accept="image/*" />
+                    <AvInput type="hidden" name="image" value={image} />
+                  </AvGroup>
+                </AvGroup>
+                <AvGroup>
                   <Label for="category.idCategory">
                     <Translate contentKey="emenuApp.dish.category">Category</Translate>
                   </Label>
@@ -138,7 +178,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                     {categories
                       ? categories.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.idCategory}
                           </option>
                         ))
                       : null}
@@ -178,6 +218,7 @@ const mapDispatchToProps = {
   getCategories,
   getEntity,
   updateEntity,
+  setBlob,
   createEntity,
   reset
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction } from 'react-jhipster';
+import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -47,6 +47,23 @@ export class DishDetail extends React.Component<IDishDetailProps> {
             </dt>
             <dd>{dishEntity.price}</dd>
             <dt>
+              <span id="image">
+                <Translate contentKey="emenuApp.dish.image">Image</Translate>
+              </span>
+            </dt>
+            <dd>
+              {dishEntity.image ? (
+                <div>
+                  <a onClick={openFile(dishEntity.imageContentType, dishEntity.image)}>
+                    <img src={`data:${dishEntity.imageContentType};base64,${dishEntity.image}`} style={{ maxHeight: '30px' }} />
+                  </a>
+                  <span>
+                    {dishEntity.imageContentType}, {byteSize(dishEntity.image)}
+                  </span>
+                </div>
+              ) : null}
+            </dd>
+            <dt>
               <Translate contentKey="emenuApp.dish.category">Category</Translate>
             </dt>
             <dd>{dishEntity.categoryIdCategory ? dishEntity.categoryIdCategory : ''}</dd>
@@ -56,7 +73,8 @@ export class DishDetail extends React.Component<IDishDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/dish/${dishEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

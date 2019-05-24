@@ -12,3 +12,19 @@ Main page styles
 .restaurants-container > .nav-link {
   padding: 0;
 }
+/* ========================== Dish css ==============*/
+
+.root {
+  display: flex;
+  flexwrap: wrap;
+  justifycontent: space-around;
+  overflow: hidden;
+  backgroundcolor: blue;
+}
+.gridList {
+  width: 500px;
+  /*height: 450px;*/
+}
+.icon {
+  color: rgba(255, 255, 255, 0.54);
+}

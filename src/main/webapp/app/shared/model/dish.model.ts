@@ -3,6 +3,8 @@ export interface IDish {
   name?: string;
   description?: string;
   price?: number;
+  imageContentType?: string;
+  image?: any;
   categoryIdCategory?: string;
   categoryId?: number;
 }

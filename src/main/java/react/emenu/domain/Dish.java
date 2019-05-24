@@ -36,6 +36,13 @@ public class Dish implements Serializable {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @ManyToOne
     @JsonIgnoreProperties("dishes")
     private Category category;
@@ -88,6 +95,32 @@ public class Dish implements Serializable {
         this.price = price;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public Dish image(byte[] image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public Dish imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -129,6 +162,8 @@ public class Dish implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price=" + getPrice() +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             "}";
     }
 }

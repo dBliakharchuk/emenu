@@ -2,6 +2,7 @@ package react.emenu.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Dish entity.
@@ -18,6 +19,10 @@ public class DishDTO implements Serializable {
     @NotNull
     private Float price;
 
+    @Lob
+    private byte[] image;
+
+    private String imageContentType;
 
     private Long categoryId;
 
@@ -53,6 +58,22 @@ public class DishDTO implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
     }
 
     public Long getCategoryId() {
@@ -99,6 +120,7 @@ public class DishDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price=" + getPrice() +
+            ", image='" + getImage() + "'" +
             ", category=" + getCategoryId() +
             ", category='" + getCategoryIdCategory() + "'" +
             "}";

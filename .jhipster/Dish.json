@@ -18,6 +18,12 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": []
         }
     ],
     "relationships": [

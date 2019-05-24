@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -51,6 +52,11 @@ public class DishResourceIntTest {
 
     private static final Float DEFAULT_PRICE = 1F;
     private static final Float UPDATED_PRICE = 2F;
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     @Autowired
     private DishRepository dishRepository;
@@ -102,7 +108,9 @@ public class DishResourceIntTest {
         Dish dish = new Dish()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .price(DEFAULT_PRICE);
+            .price(DEFAULT_PRICE)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return dish;
     }
 
@@ -130,6 +138,8 @@ public class DishResourceIntTest {
         assertThat(testDish.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDish.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testDish.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testDish.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testDish.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -203,7 +213,9 @@ public class DishResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(dish.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
     
     @Test
@@ -219,7 +231,9 @@ public class DishResourceIntTest {
             .andExpect(jsonPath("$.id").value(dish.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
+            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -245,7 +259,9 @@ public class DishResourceIntTest {
         updatedDish
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .price(UPDATED_PRICE);
+            .price(UPDATED_PRICE)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         DishDTO dishDTO = dishMapper.toDto(updatedDish);
 
         restDishMockMvc.perform(put("/api/dishes")
@@ -260,6 +276,8 @@ public class DishResourceIntTest {
         assertThat(testDish.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDish.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testDish.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testDish.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testDish.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test

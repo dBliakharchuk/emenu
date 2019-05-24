@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction, getSortState, IPaginationBaseState, getPaginationItemsNumber, JhiPagination } from 'react-jhipster';
+import {
+  openFile,
+  byteSize,
+  Translate,
+  ICrudGetAllAction,
+  getSortState,
+  IPaginationBaseState,
+  getPaginationItemsNumber,
+  JhiPagination
+} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -55,7 +64,8 @@ export class Dish extends React.Component<IDishProps, IDishState> {
         <h2 id="dish-heading">
           <Translate contentKey="emenuApp.dish.home.title">Dishes</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.dish.home.createLabel">Create new Dish</Translate>
           </Link>
         </h2>
@@ -75,6 +85,9 @@ export class Dish extends React.Component<IDishProps, IDishState> {
                 <th className="hand" onClick={this.sort('price')}>
                   <Translate contentKey="emenuApp.dish.price">Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('image')}>
+                  <Translate contentKey="emenuApp.dish.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th>
                   <Translate contentKey="emenuApp.dish.category">Category</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -92,6 +105,19 @@ export class Dish extends React.Component<IDishProps, IDishState> {
                   <td>{dish.name}</td>
                   <td>{dish.description}</td>
                   <td>{dish.price}</td>
+                  <td>
+                    {dish.image ? (
+                      <div>
+                        <a onClick={openFile(dish.imageContentType, dish.image)}>
+                          <img src={`data:${dish.imageContentType};base64,${dish.image}`} style={{ maxHeight: '30px' }} />
+                          &nbsp;
+                        </a>
+                        <span>
+                          {dish.imageContentType}, {byteSize(dish.image)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td>{dish.categoryIdCategory ? <Link to={`category/${dish.categoryId}`}>{dish.categoryIdCategory}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

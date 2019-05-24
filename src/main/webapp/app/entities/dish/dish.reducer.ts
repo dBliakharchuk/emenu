@@ -12,6 +12,7 @@ export const ACTION_TYPES = {
   CREATE_DISH: 'dish/CREATE_DISH',
   UPDATE_DISH: 'dish/UPDATE_DISH',
   DELETE_DISH: 'dish/DELETE_DISH',
+  SET_BLOB: 'dish/SET_BLOB',
   RESET: 'dish/RESET'
 };
 
@@ -88,6 +89,16 @@ export default (state: DishState = initialState, action): DishState => {
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.SET_BLOB:
+      const { name, data, contentType } = action.payload;
+      return {
+        ...state,
+        entity: {
+          ...state.entity,
+          [name]: data,
+          [name + 'ContentType']: contentType
+        }
+      };
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -144,6 +155,15 @@ export const deleteEntity: ICrudDeleteAction<IDish> = id => async dispatch => {
   dispatch(getEntities());
   return result;
 };
+
+export const setBlob = (name, data, contentType?) => ({
+  type: ACTION_TYPES.SET_BLOB,
+  payload: {
+    name,
+    data,
+    contentType
+  }
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

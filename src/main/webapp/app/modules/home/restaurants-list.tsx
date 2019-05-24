@@ -10,7 +10,7 @@ export interface IRestaurantProps extends StateProps, DispatchProps, RouteCompon
 
 export type IRestaurantState = IPaginationBaseState;
 
-class RestaurantsList extends React.Component<IRestaurantProps, IRestaurantState> {
+export class RestaurantsList extends React.Component<IRestaurantProps, IRestaurantState> {
   constructor(props) {
     super(props);
   }

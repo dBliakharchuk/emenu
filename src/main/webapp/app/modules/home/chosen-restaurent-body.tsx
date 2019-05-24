@@ -16,6 +16,7 @@ import { number } from 'prop-types';
 import { TreeNode } from 'react-simple-tree-menu/dist/TreeMenu/walk';
 import { Simulate } from 'react-dom/test-utils';
 import category from 'app/entities/category/category';
+import DishList from 'app/modules/home/dish-list';
 /*import { getCategoryEntities } from 'app/entities/category/category.reducer';*/
 
 export interface IMenuProps extends React.Component, StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -36,7 +37,7 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
   getAllCategoriesByMenuID(menuID) {
     return this.props.categoryList.length === 0
       ? []
-      : this.props.categoryList.filter(category => menuID == category.menuId).map(selectedCategory => {
+      : this.props.categoryList.filter(category => menuID === category.menuId).map(selectedCategory => {
           return {
             key: selectedCategory.name,
             label: selectedCategory.name,
@@ -62,16 +63,19 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
   render() {
     let restaurantID = this.props.restaurantID;
     const { menuList, categoryList } = this.props;
-    console.log('*********************');
-    console.log(categoryList);
+    // console.log('*********************');
+    // console.log(categoryList);
     const menusFromRestaurant = this.getAllMenusByRestaurantID(restaurantID);
-    console.log('MENUS FROM Restaurant:');
-    console.log(menusFromRestaurant);
+    // console.log('MENUS FROM Restaurant:');
+    // console.log(menusFromRestaurant);
 
     return (
       <Row>
         <div className="restaurant-body">
-          <TreeMenu data={menusFromRestaurant} />
+          <TreeMenu key={restaurantID} data={menusFromRestaurant} />
+        </div>
+        <div className="restaurant-dishes">
+          <DishList />
         </div>
       </Row>
     );

@@ -7,6 +7,7 @@ import DishComponentsPage from './dish.page-object';
 import { DishDeleteDialog } from './dish.page-object';
 import DishUpdatePage from './dish-update.page-object';
 import { waitUntilDisplayed, waitUntilHidden } from '../../util/utils';
+import path from 'path';
 
 const expect = chai.expect;
 
@@ -16,6 +17,8 @@ describe('Dish e2e test', () => {
   let dishUpdatePage: DishUpdatePage;
   let dishComponentsPage: DishComponentsPage;
   let dishDeleteDialog: DishDeleteDialog;
+  const fileToUpload = '../../../../../main/webapp/static/images/logo-jhipster.png';
+  const absolutePath = path.resolve(__dirname, fileToUpload);
 
   before(async () => {
     await browser.get('/');
@@ -51,6 +54,7 @@ describe('Dish e2e test', () => {
     expect(await dishUpdatePage.getDescriptionInput()).to.match(/description/);
     await dishUpdatePage.setPriceInput('5');
     expect(await dishUpdatePage.getPriceInput()).to.eq('5');
+    await dishUpdatePage.setImageInput(absolutePath);
     await dishUpdatePage.categorySelectLastOption();
     await waitUntilDisplayed(dishUpdatePage.getSaveButton());
     await dishUpdatePage.save();
