@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Translate } from 'react-jhipster';
 
-class RestaurantHeader extends Component<{ restaurantEnt: IRestaurant }, {}> {
+export default class RestaurantHeaderUnlogged extends Component<{ restaurantEnt: IRestaurant }, {}> {
   constructor(props) {
     super(props);
   }
@@ -24,24 +24,8 @@ class RestaurantHeader extends Component<{ restaurantEnt: IRestaurant }, {}> {
           <img src={url} alt="Loading..." />
           <h2>{name}</h2>
           <h4>{description}</h4>
-          <div className="chosen-restaurant-buttons">
-            <Button tag={Link} to={`/entity/restaurant/${id}/edit`} color="primary" size="sm">
-              <FontAwesomeIcon icon="pencil-alt" />{' '}
-              <span className="d-none d-md-inline">
-                <Translate contentKey="entity.action.edit">Edit</Translate>
-              </span>
-            </Button>
-            <Button tag={Link} to={`/entity/restaurant/${id}/delete`} color="danger" size="sm">
-              <FontAwesomeIcon icon="trash" />{' '}
-              <span className="d-none d-md-inline">
-                <Translate contentKey="entity.action.delete">Delete</Translate>
-              </span>
-            </Button>
-          </div>
         </div>
       </Row>
     );
   }
 }
-
-export default RestaurantHeader;

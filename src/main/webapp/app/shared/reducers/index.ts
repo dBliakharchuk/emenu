@@ -36,6 +36,8 @@ import category, {
 import dish, {
   DishState
 } from 'app/entities/dish/dish.reducer';
+
+import newReducer, { NewState } from 'app/modules/home/new.reducer';
 // prettier-ignore
 /*import restaurant, {
   RestaurantState
@@ -59,6 +61,7 @@ export interface IRootState {
   readonly menu: MenuState;
   readonly category: CategoryState;
   readonly dish: DishState;
+  newReducer: NewState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -80,6 +83,7 @@ const rootReducer = combineReducers<IRootState>({
   menu,
   category,
   dish,
+  newReducer,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

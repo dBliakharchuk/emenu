@@ -46,7 +46,7 @@ export type IDishState = IPaginationBaseState;
     }),
 );*/
 
-class DishList extends React.Component<IDishProps, IDishState> {
+class DishListUnlogged extends React.Component<IDishProps, IDishState> {
   constructor(props) {
     super(props);
   }
@@ -59,7 +59,7 @@ class DishList extends React.Component<IDishProps, IDishState> {
   render() {
     const { dishList, categoryList } = this.props;
 
-    /* console.log("DishList************");
+    /* console.log("DishListUnlogged************");
         console.log({dishList});
         const url = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
         const dishComponents = dishList.map((dish, i) => (
@@ -70,35 +70,10 @@ class DishList extends React.Component<IDishProps, IDishState> {
     let curMenuId = this.props.menuPointerPosition;
     let curCategoryId = this.props.categoryPointerPosition;
     let curLabel = this.props.categoryLabel;
-    console.log(curLabel);
+    console.log(curMenuId);
     console.log(curCategoryId);
     return (
       <div>
-        <div className="body-edit-buttons">
-          {/*<Button tag={Link} to={`/entity/menu/${curMenuId}/edit`} color="primary" size="sm">*/}
-          <Button tag={Link} to={`/entity/menu`} color="primary" size="sm">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              Menus
-              {/*<Translate contentKey="entity.action.edit">Menu</Translate>*/}
-            </span>
-          </Button>
-          {/*<Button tag={Link} to={`/entity/category/${curCategoryId}/edit`} color="primary" size="sm">*/}
-          <Button tag={Link} to={`/entity/category`} color="primary" size="sm">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              Categories
-              {/*<Translate contentKey="entity.action.edit">Category</Translate>*/}
-            </span>
-          </Button>
-          <Button tag={Link} to={`/entity/dish`} color="primary" size="sm">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              Dishes
-              {/*<Translate contentKey="entity.action.edit">Category</Translate>*/}
-            </span>
-          </Button>
-        </div>
         <div className="root">
           <GridList cellHeight={180} className="gridList">
             <GridListTile key="Subheader" cols={2} style={{ height: '50px' }}>
@@ -128,7 +103,7 @@ class DishList extends React.Component<IDishProps, IDishState> {
                     />
                   </GridListTile>
                 ) : (
-                  console.log('Unrecognized error')
+                  console.log('boooomm')
                 )
             )}
           </GridList>
@@ -155,4 +130,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DishList);
+)(DishListUnlogged);

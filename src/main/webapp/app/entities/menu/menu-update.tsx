@@ -169,7 +169,7 @@ export class MenuUpdate extends React.Component<IMenuUpdateProps, IMenuUpdateSta
                     {restaurants
                       ? restaurants.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
@@ -187,6 +187,12 @@ export class MenuUpdate extends React.Component<IMenuUpdateProps, IMenuUpdateSta
                   <FontAwesomeIcon icon="save" />
                   &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
+                </Button>
+                <Button tag={Link} to={`/entity/menu/${menuEntity.id}/delete`} color="danger" size="sm">
+                  <FontAwesomeIcon icon="trash" />{' '}
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="entity.action.delete">Delete</Translate>
+                  </span>
                 </Button>
               </AvForm>
             )}

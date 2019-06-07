@@ -14,6 +14,7 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
 import ChosenRestaurant from 'app/modules/home/chosen-restaurant';
+import ChosenRestaurantUnlogged from 'app/modules/home/chosen-restaurant-unlogged';
 
 // tslint:disable:space-in-parens
 const Account = Loadable({
@@ -31,7 +32,7 @@ const Routes = () => (
   <div className="view-routes">
     <ErrorBoundaryRoute path="/login" component={Login} />
     <Switch>
-      <ErrorBoundaryRoute path="/logout" component={Logout} />
+      {/*<ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/chosenRestaurant/:id" component={ChosenRestaurant} />
       <ErrorBoundaryRoute path="/register" component={Register} />
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
@@ -40,6 +41,17 @@ const Routes = () => (
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <ErrorBoundaryRoute path="/" component={Home} />*/}
+      <ErrorBoundaryRoute path="/logout" component={Logout} />
+      <ErrorBoundaryRoute path="/chosenRestaurant/:id" component={ChosenRestaurant} />
+      <ErrorBoundaryRoute path="/chosenRestaurantUnlogged/:id" component={ChosenRestaurantUnlogged} />
+      <ErrorBoundaryRoute path="/register" component={Register} />
+      <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
+      <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
+      <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
+      <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
+      <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
+      <PrivateRoute path="/entity" component={Entities} />
       <ErrorBoundaryRoute path="/" component={Home} />
     </Switch>
   </div>

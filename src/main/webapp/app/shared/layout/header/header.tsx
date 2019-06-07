@@ -56,7 +56,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
 
     return (
       <div id="app-header">
-        {this.renderDevRibbon()}
+        {/*{this.renderDevRibbon()}*/}
         <LoadingBar className="loading-bar" />
         <Navbar dark expand="sm" fixed="top" className="jh-navbar">
           <NavbarToggler aria-label="Menu" onClick={this.toggleMenu} />
@@ -64,7 +64,8 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
           <Collapse isOpen={this.state.menuOpen} navbar>
             <Nav id="header-tabs" className="ml-auto" navbar>
               <Home />
-              {isAuthenticated && <EntitiesMenu />}
+              {isAuthenticated && isAdmin && <EntitiesMenu />}
+              {isAuthenticated}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
               <AccountMenu isAuthenticated={isAuthenticated} />

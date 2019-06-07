@@ -23,7 +23,9 @@ const initialState = {
   entity: defaultValue,
   updating: false,
   totalItems: 0,
-  updateSuccess: false
+  updateSuccess: false,
+  curPositionOfMenu: 0,
+  curPositionOfCategory: 0
 };
 
 export type MenuState = Readonly<typeof initialState>;

@@ -22,9 +22,43 @@ Main page styles
   backgroundcolor: blue;
 }
 .gridList {
-  width: 500px;
+  width: 800px;
+
   /*height: 450px;*/
 }
 .icon {
   color: rgba(255, 255, 255, 0.54);
+}
+
+.body-edit-buttons {
+  position: relative;
+  left: 80%;
+}
+
+.list-restaurants-title {
+  background: url(http://apod.nasa.gov/apod/image/0603/coma_misti.jpg) -80px -80px;
+  color: red;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: arial, helvetica;
+  margin: 20px auto;
+  text-align: center;
+}
+
+li > .MuiGridListTile-root > {
+  width: 30%;
+  height: auto;
+  padding: 2px;
+}
+
+.chosen-restaurant-buttons {
+  position: relative;
+  left: 60.5%;
+  top: 40%;
+}
+
+.view-routes {
+  margin-bottom: 30px;
 }

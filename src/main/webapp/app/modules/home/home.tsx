@@ -9,6 +9,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import RestaurantsReact from './restaurants-list';
+import RestaurantsListUnlogged from './restaurants-list-unlogged';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -32,9 +33,12 @@ export class Home extends React.Component<IHomeProp> {
             <div>
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                  You are logged in as user {account.login}.
+                  You are logged in as user {account.id}.
                 </Translate>
               </Alert>
+              <div className="list-restaurants-title">
+                <h1>List of restaurants in Wroclaw</h1>
+              </div>
               <RestaurantsReact />
             </div>
           ) : (
@@ -58,6 +62,10 @@ export class Home extends React.Component<IHomeProp> {
                   <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
                 </Link>
               </Alert>
+              <div className="list-restaurants-title">
+                <h1>List of restaurants in Wroclaw</h1>
+              </div>
+              <RestaurantsListUnlogged />
             </div>
           )}
           {/*<p>

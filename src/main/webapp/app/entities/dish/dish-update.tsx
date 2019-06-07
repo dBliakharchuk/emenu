@@ -178,7 +178,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                     {categories
                       ? categories.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.idCategory}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}

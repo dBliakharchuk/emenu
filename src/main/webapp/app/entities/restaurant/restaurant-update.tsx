@@ -183,13 +183,14 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.email}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/restaurant" replace color="info">
+                {/* <Button tag={Link} id="cancel-save" to="/entity/restaurant" replace color="info">*/}
+                <Button tag={Link} id="cancel-save" to="/" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">
