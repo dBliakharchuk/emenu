@@ -20,3 +20,9 @@ Yarn is also used to manage CSS and JavaScript dependencies used in this applica
 Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
 
 The `yarn run` command will list all of the scripts available to run for this project.
+
+##Sign in
+You can try the default accounts:
+
+1. Admin: login: admin, password: admin
+2. User: user, password: user

@@ -37,6 +37,17 @@ class RestaurantHeader extends Component<{ restaurantEnt: IRestaurant }, {}> {
                 <Translate contentKey="entity.action.delete">Delete</Translate>
               </span>
             </Button>
+            <a
+              style={{ display: 'table-cell' }}
+              href="https://www.google.com/maps/d/u/0/viewer?hl=en&ie=UTF8&view=map&ctz=420&msa=0&ll=36.22584900000001%2C-119.32679100000001&spn=0.006439%2C0.007145&z=17&iwloc=0004a397dd9dfef804e64&mid=1GoRZ4B9Q4e1dsxz6cPzc1HemgQI"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                GoogleMaps
+              </span>
+            </a>
           </div>
         </div>
       </Row>

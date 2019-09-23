@@ -15,12 +15,14 @@ class DishComponent extends Component<{ dishEnt: IDish }, {}> {
     const { id, name, description, price, categoryIdCategory, categoryId } = this.props.dishEnt;
 
     return (
-      <div>
-        <h1>{id}</h1>
-        <h1>{name}</h1>
-        <h1>{description}</h1>
-        <h1>{price}</h1>
-      </div>
+      <NavItem tag={Link} to={`/chosenDish/${id}`}>
+        <div>
+          <h1>{id}</h1>
+          <h1>{name}</h1>
+          <h1>{description}</h1>
+          <h1>{price}</h1>
+        </div>
+      </NavItem>
     );
   }
 }

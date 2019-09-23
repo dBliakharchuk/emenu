@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
+import ImageGallery from 'react-image-gallery';
 
 // tslint:disable-next-line:no-unused-variable
 import {
@@ -12,7 +13,8 @@ import {
   getSortState,
   IPaginationBaseState,
   getPaginationItemsNumber,
-  JhiPagination
+  JhiPagination,
+  log
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -106,9 +108,10 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
       // Calculate shape of photo
       // Create new entity with height and width
       src: `data:${photo.imageContentType};base64,${photo.image}`,
-      width: 1,
-      height: 1
+      width: 3,
+      height: 4
     }));
+
     return (
       <div>
         <h2 id="photo-heading">

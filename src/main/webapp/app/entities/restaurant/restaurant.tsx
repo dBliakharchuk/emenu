@@ -120,7 +120,7 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                   <td>
                     {restaurant.idLocationId ? <Link to={`location/${restaurant.idLocationId}`}>{restaurant.idLocationId}</Link> : ''}
                   </td>
-                  <td>{restaurant.userIdUser ? restaurant.userIdUser : ''}</td>
+                  <td>{restaurant.userId ? restaurant.userId : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${restaurant.id}`} color="info" size="sm">

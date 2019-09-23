@@ -14,6 +14,7 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
 import ChosenRestaurant from 'app/modules/home/chosen-restaurant';
+import ChosenDish from 'app/modules/home/chosen-dish';
 import ChosenRestaurantUnlogged from 'app/modules/home/chosen-restaurant-unlogged';
 
 // tslint:disable:space-in-parens
@@ -44,6 +45,7 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/" component={Home} />*/}
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <ErrorBoundaryRoute path="/chosenRestaurant/:id" component={ChosenRestaurant} />
+      <ErrorBoundaryRoute path="/chosenDish/:id" component={ChosenDish} />
       <ErrorBoundaryRoute path="/chosenRestaurantUnlogged/:id" component={ChosenRestaurantUnlogged} />
       <ErrorBoundaryRoute path="/register" component={Register} />
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />

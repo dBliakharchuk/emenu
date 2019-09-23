@@ -18,33 +18,15 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import tileData from './tileData';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Col, Alert, Button } from 'reactstrap';
 import { IBaseProps } from 'app/modules/home/new.IState';
+import { NavLink as Link } from 'react-router-dom';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, NavItem, NavLink, NavbarBrand } from 'reactstrap';
 
 export interface IDishProps extends StateProps, IBaseProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export type IDishState = IPaginationBaseState;
-
-/*const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
-            overflow: 'hidden',
-            backgroundColor: theme.palette.background.paper,
-        },
-        gridList: {
-            width: 500,
-            height: 450,
-        },
-        icon: {
-            color: 'rgba(255, 255, 255, 0.54)',
-        },
-    }),
-);*/
 
 class DishList extends React.Component<IDishProps, IDishState> {
   constructor(props) {
@@ -121,9 +103,11 @@ class DishList extends React.Component<IDishProps, IDishState> {
                         </span>
                       }
                       actionIcon={
-                        <IconButton className="icon">
-                          <InfoIcon />
-                        </IconButton>
+                        <NavItem tag={Link} to={`/chosenDish/${dish.id}`}>
+                          <IconButton className="icon">
+                            <InfoIcon />
+                          </IconButton>
+                        </NavItem>
                       }
                     />
                   </GridListTile>
