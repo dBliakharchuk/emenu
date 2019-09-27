@@ -1,5 +1,5 @@
-import './home.css';
-import './restaurantstyle.css';
+import 'app/modules/home/css/home.css';
+import 'app/modules/home/css/restaurantstyle.css';
 import React, { Component } from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
@@ -11,14 +11,14 @@ import { getEntities } from 'app/entities/menu/menu.reducer';
 import { getCategoryEntities } from 'app/entities/category/category.reducer';
 import { RouteComponentProps } from 'react-router';
 import { IPaginationBaseState } from 'react-jhipster';
-import { IBaseState, IBaseProps } from 'app/modules/home/new.IState';
+import { IBaseState, IBaseProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
 import menu, { Menu } from 'app/entities/menu/menu';
 import pop from 'atomic-layout/lib/types/utils/functions/pop';
 import { number } from 'prop-types';
 import { TreeNode } from 'react-simple-tree-menu/dist/TreeMenu/walk';
 import { Simulate } from 'react-dom/test-utils';
 import category from 'app/entities/category/category';
-import DishList from 'app/modules/home/dish-list';
+import DishListUnlogged from 'app/modules/home/choosen-restaurant-page/body/dish-list-unlogged';
 import { POSITION_MENU, POSITION_CATEGORY } from './new.actions';
 import { Input } from '@material-ui/core';
 import myApp from './new.reducer';
@@ -26,6 +26,7 @@ import stringify = Mocha.utils.stringify;
 import { Json } from 'enzyme-to-json';
 import { logging } from 'selenium-webdriver';
 import getLevel = logging.getLevel;
+import DishList from 'app/modules/home/choosen-restaurant-page/body/chosen-restaurent-body';
 /*import { getCategoryEntities } from 'app/entities/category/category.reducer';*/
 
 export interface IMenuProps extends React.Component, StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -33,8 +34,8 @@ export interface IMenuProps extends React.Component, StateProps, DispatchProps, 
 export type IMenuState = IBaseState;
 
 let store = createStore(myApp);
-
-export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
+/*export class RestaurantBody extends Component<{ restaurantEnt: IRestaurant }, {}> {*/
+export class RestaurantBodyUnlogged extends React.Component<IMenuProps, IMenuState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -103,9 +104,14 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
   };
 
   render() {
+    // @ts-ignore
     let restaurantID = this.props.restaurantID;
     const { menuPointerPosition, categoryPointerPosition } = this.state;
+    // console.log('*********************');
+    // console.log(categoryList);
     const menusFromRestaurant = this.getAllMenusByRestaurantID(restaurantID);
+    // console.log('MENUS FROM Restaurant:');
+    // console.log(menusFromRestaurant);
 
     return (
       <Row>
@@ -115,13 +121,14 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
             data={menusFromRestaurant}
             activeCat={this.state}
             onClickItem={({ key, level, label, ...props }) => {
+              // alert("Booom" + "Key:" + {key} + " Label: " + {label} + " ...props " + {...props});
               this.updateStatePositions({ ...props }, { label }, { level });
             }}
             debounceTime={125}
           />
         </div>
         <div className="restaurant-dishes">
-          <DishList
+          <DishListUnlogged
             menuPointerPosition={this.state.menuPointerPosition}
             categoryPointerPosition={this.state.categoryPointerPosition}
             categoryLabel={this.state.categoryLabel}
@@ -150,4 +157,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantBody);
+)(RestaurantBodyUnlogged);

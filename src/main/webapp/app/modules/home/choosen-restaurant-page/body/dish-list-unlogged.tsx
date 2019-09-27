@@ -1,15 +1,16 @@
-import './home.css';
+import 'app/modules/home/css/dish-style.css';
+import 'app/modules/home/css/home.css';
 
 import React, { Component } from 'react';
-import { IDishProps, IDishState } from 'app/entities/dish/dish';
 import { getEntities } from 'app/entities/dish/dish.reducer';
 import { getCategoryEntities } from 'app/entities/category/category.reducer';
+import { getPhotoEntities, reset } from 'app/entities/photo/photo.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { connect, DispatchProp } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { IPaginationBaseState, Translate } from 'react-jhipster';
-import RestaurantComponent from 'app/modules/home/restaurants-list';
-import DishComponent from 'app/modules/home/DishComponent';
+import RestaurantComponent from 'app/modules/home/restaurants-main-page/restaurants-list';
+import DishComponent from 'app/modules/home/choosen-restaurant-page/body/DishComponent';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -17,11 +18,14 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import tileData from './tileData';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Row, Col, Alert, Button } from 'reactstrap';
-import { IBaseProps } from 'app/modules/home/new.IState';
+import { IBaseProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
+import { NavLink as Link } from 'react-router-dom';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, NavItem, NavLink, NavbarBrand } from 'reactstrap';
+import Popup from 'reactjs-popup';
+import Gallery from 'react-photo-gallery';
+import Lightbox from 'react-images';
 
 export interface IDishProps extends StateProps, IBaseProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -54,6 +58,7 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
   componentDidMount() {
     this.props.getCategoryEntities();
     this.props.getEntities();
+    this.props.getPhotoEntities();
   }
 
   render() {
@@ -113,15 +118,17 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
   }
 }
 
-const mapStateToProps = ({ dish, category }: IRootState) => ({
+const mapStateToProps = ({ dish, category, photo }: IRootState) => ({
   dishList: dish.entities,
   totalItems: dish.totalItems,
-  categoryList: category.entities
+  categoryList: category.entities,
+  photoList: photo.entities
 });
 
 const mapDispatchToProps = {
   getCategoryEntities,
-  getEntities
+  getEntities,
+  getPhotoEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

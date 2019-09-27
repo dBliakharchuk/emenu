@@ -112,7 +112,7 @@ const apiUrl = 'api/photos';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IPhoto> = (page, size, sort) => {
+export const getPhotoEntities: ICrudGetAllAction<IPhoto> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_PHOTO_LIST,
@@ -133,7 +133,7 @@ export const createEntity: ICrudPutAction<IPhoto> = entity => async dispatch => 
     type: ACTION_TYPES.CREATE_PHOTO,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getPhotoEntities());
   return result;
 };
 
@@ -142,7 +142,7 @@ export const updateEntity: ICrudPutAction<IPhoto> = entity => async dispatch => 
     type: ACTION_TYPES.UPDATE_PHOTO,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getPhotoEntities());
   return result;
 };
 
@@ -152,7 +152,7 @@ export const deleteEntity: ICrudDeleteAction<IPhoto> = id => async dispatch => {
     type: ACTION_TYPES.DELETE_PHOTO,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getPhotoEntities());
   return result;
 };
 

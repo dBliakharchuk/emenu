@@ -37,7 +37,7 @@ import dish, {
   DishState
 } from 'app/entities/dish/dish.reducer';
 
-import newReducer, { NewState } from 'app/modules/home/new.reducer';
+import newReducer, { NewState } from 'app/modules/home/choosen-restaurant-page/body/new.reducer';
 // prettier-ignore
 /*import restaurant, {
   RestaurantState

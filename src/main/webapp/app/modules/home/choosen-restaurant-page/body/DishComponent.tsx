@@ -1,5 +1,5 @@
-import './home.css';
-import './restaurantstyle.css';
+import 'app/modules/home/css/home.css';
+import 'app/modules/home/css/restaurantstyle.css';
 import React, { Component } from 'react';
 import { IDish } from 'app/shared/model/dish.model';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, NavItem, NavLink, NavbarBrand } from 'reactstrap';

@@ -8,14 +8,14 @@ import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
-import Home from 'app/modules/home/home';
+import Home from 'app/modules/home/restaurants-main-page/home';
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
-import ChosenRestaurant from 'app/modules/home/chosen-restaurant';
-import ChosenDish from 'app/modules/home/chosen-dish';
-import ChosenRestaurantUnlogged from 'app/modules/home/chosen-restaurant-unlogged';
+import ChosenRestaurant from 'app/modules/home/choosen-restaurant-page/chosen-restaurant';
+import ChosenDish from 'app/modules/home/choosen-restaurant-page/body/chosen-dish';
+import ChosenRestaurantUnlogged from 'app/modules/home/choosen-restaurant-page/chosen-restaurant-unlogged';
 
 // tslint:disable:space-in-parens
 const Account = Loadable({

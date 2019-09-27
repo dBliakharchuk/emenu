@@ -7,8 +7,7 @@ import { getEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { connect } from 'react-redux';
 
 import { getUsers, updateUser } from 'app/modules/administration/user-management/user-management.reducer';
-import { login } from 'app/shared/reducers/authentication';
-import { getSession } from 'app/shared/reducers/authentication';
+import { getSession, login } from 'app/shared/reducers/authentication';
 import { AUTHORITIES } from 'app/config/constants';
 
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -25,7 +24,7 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
     this.props.getUsers();
     this.props.getSession();
   }
-  //get session who is logged in
+  // get session who is logged in
   render() {
     const url = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
     const { restaurantList, account } = this.props;
@@ -57,8 +56,9 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
         console.log('Something went wrong, check if user or admin was registered!');
       }
     } else {
-      console.log('ACCOUNT!!!!!' + account);
-      console.log('Account session is null!!!');
+      /* console.log('ACCOUNT!!!!!' + account);
+         console.log('Account session is null!!!');
+      */
     }
     return <div className="restaurants-container">{restaurantComponents}</div>;
   }
@@ -67,8 +67,8 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
 const mapStateToProps = ({ restaurant, authentication }: IRootState) => ({
   restaurantList: restaurant.entities,
   totalItems: restaurant.totalItems,
-  //users: storeState.userManagement.users,
-  //account: storeState.authentication.account,
+  // users: storeState.userManagement.users,
+  // account: storeState.authentication.account,
   account: authentication.account,
   isAuthenticated: authentication.isAuthenticated
 });

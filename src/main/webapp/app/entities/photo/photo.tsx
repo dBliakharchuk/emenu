@@ -1,4 +1,5 @@
 import React from 'react';
+import 'app/modules/home/css/home.css';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
@@ -19,7 +20,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities, reset } from './photo.reducer';
+import { getPhotoEntities, reset } from './photo.reducer';
 import { IPhoto } from 'app/shared/model/photo.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -104,13 +105,24 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
   }
   render() {
     const { photoList, match, totalItems } = this.props;
-    const photoSet = photoList.map(photo => ({
+    const photoSet = photoList.map((photo, index) => {
       // Calculate shape of photo
       // Create new entity with height and width
-      src: `data:${photo.imageContentType};base64,${photo.image}`,
-      width: 3,
-      height: 4
-    }));
+      console.log('Index: ' + index);
+      if (index === 0) {
+        return {
+          src: `data:${photo.imageContentType};base64,${photo.image}`,
+          width: 3,
+          height: 3.5
+        };
+      } else {
+        return {
+          src: `data:${photo.imageContentType};base64,${photo.image}`,
+          width: 1,
+          height: 1
+        };
+      }
+    });
 
     return (
       <div>
@@ -122,7 +134,7 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
             <Translate contentKey="emenuApp.photo.home.createLabel">Create new Photo</Translate>
           </Link>
         </h2>
-        <div>
+        <div className="gallery-main-container">
           <Gallery photos={photoSet} onClick={this.openLightbox} />
           <Lightbox
             images={photoSet}
@@ -235,7 +247,7 @@ const mapStateToProps = ({ photo }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities,
+  getEntities: getPhotoEntities,
   reset
 };
 
