@@ -1,0 +1,22 @@
+{
+  "emenuApp": {
+    "ingredient": {
+      "home": {
+        "title": "Ingredients",
+        "createLabel": "Ingredient erstellen",
+        "createOrEditLabel": "Ingredient erstellen oder bearbeiten"
+      },
+      "created": "Ingredient erstellt mit ID {{ param }}",
+      "updated": "Ingredient aktualisiert mit ID {{ param }}",
+      "deleted": "Ingredient gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Ingredient {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Ingredient"
+      },
+      "name": "Name",
+      "isAllergic": "Is Allergic"
+    }
+  }
+}

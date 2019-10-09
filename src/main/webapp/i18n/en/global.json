@@ -13,6 +13,8 @@
         "menu": "Menu",
         "category": "Category",
         "dish": "Dish",
+        "ingredientToDish": "Ingredient To Dish",
+        "ingredient": "Ingredient",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -4,8 +4,10 @@ export interface IRestaurant {
   description?: string;
   imageContentType?: string;
   image?: any;
+  googleMapsLink?: string;
+  tripAdvisorLink?: string;
+  webPageLink?: string;
   idLocationId?: number;
-  userIdUser?: string;
   userId?: number;
 }
 

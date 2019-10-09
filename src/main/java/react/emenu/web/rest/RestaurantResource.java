@@ -21,6 +21,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller for managing Restaurant.
+ */
 @RestController
 @RequestMapping("/api")
 public class RestaurantResource {
@@ -35,6 +38,13 @@ public class RestaurantResource {
         this.restaurantService = restaurantService;
     }
 
+    /**
+     * POST  /restaurants : Create a new restaurant.
+     *
+     * @param restaurantDTO the restaurantDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new restaurantDTO, or with status 400 (Bad Request) if the restaurant has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
     @PostMapping("/restaurants")
     public ResponseEntity<RestaurantDTO> createRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO) throws URISyntaxException {
         log.debug("REST request to save Restaurant : {}", restaurantDTO);
@@ -47,7 +57,15 @@ public class RestaurantResource {
             .body(result);
     }
 
-
+    /**
+     * PUT  /restaurants : Updates an existing restaurant.
+     *
+     * @param restaurantDTO the restaurantDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated restaurantDTO,
+     * or with status 400 (Bad Request) if the restaurantDTO is not valid,
+     * or with status 500 (Internal Server Error) if the restaurantDTO couldn't be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
     @PutMapping("/restaurants")
     public ResponseEntity<RestaurantDTO> updateRestaurant(@Valid @RequestBody RestaurantDTO restaurantDTO) throws URISyntaxException {
         log.debug("REST request to update Restaurant : {}", restaurantDTO);
@@ -60,6 +78,12 @@ public class RestaurantResource {
             .body(result);
     }
 
+    /**
+     * GET  /restaurants : get all the restaurants.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
     @GetMapping("/restaurants")
     public ResponseEntity<List<RestaurantDTO>> getAllRestaurants(Pageable pageable) {
         log.debug("REST request to get a page of Restaurants");
@@ -68,6 +92,12 @@ public class RestaurantResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /**
+     * GET  /restaurants/:id : get the "id" restaurant.
+     *
+     * @param id the id of the restaurantDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the restaurantDTO, or with status 404 (Not Found)
+     */
     @GetMapping("/restaurants/{id}")
     public ResponseEntity<RestaurantDTO> getRestaurant(@PathVariable Long id) {
         log.debug("REST request to get Restaurant : {}", id);

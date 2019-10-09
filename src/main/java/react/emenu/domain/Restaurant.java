@@ -39,6 +39,15 @@ public class Restaurant implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
+    @Column(name = "google_maps_link")
+    private String googleMapsLink;
+
+    @Column(name = "trip_advisor_link")
+    private String tripAdvisorLink;
+
+    @Column(name = "web_page_link")
+    private String webPageLink;
+
     @OneToOne
     @JoinColumn(unique = true)
     private Location idLocation;
@@ -108,6 +117,45 @@ public class Restaurant implements Serializable {
         this.imageContentType = imageContentType;
     }
 
+    public String getGoogleMapsLink() {
+        return googleMapsLink;
+    }
+
+    public Restaurant googleMapsLink(String googleMapsLink) {
+        this.googleMapsLink = googleMapsLink;
+        return this;
+    }
+
+    public void setGoogleMapsLink(String googleMapsLink) {
+        this.googleMapsLink = googleMapsLink;
+    }
+
+    public String getTripAdvisorLink() {
+        return tripAdvisorLink;
+    }
+
+    public Restaurant tripAdvisorLink(String tripAdvisorLink) {
+        this.tripAdvisorLink = tripAdvisorLink;
+        return this;
+    }
+
+    public void setTripAdvisorLink(String tripAdvisorLink) {
+        this.tripAdvisorLink = tripAdvisorLink;
+    }
+
+    public String getWebPageLink() {
+        return webPageLink;
+    }
+
+    public Restaurant webPageLink(String webPageLink) {
+        this.webPageLink = webPageLink;
+        return this;
+    }
+
+    public void setWebPageLink(String webPageLink) {
+        this.webPageLink = webPageLink;
+    }
+
     public Location getIdLocation() {
         return idLocation;
     }
@@ -163,6 +211,9 @@ public class Restaurant implements Serializable {
             ", description='" + getDescription() + "'" +
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
+            ", googleMapsLink='" + getGoogleMapsLink() + "'" +
+            ", tripAdvisorLink='" + getTripAdvisorLink() + "'" +
+            ", webPageLink='" + getWebPageLink() + "'" +
             "}";
     }
 }

@@ -20,7 +20,7 @@ import java.util.Objects;
 public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -133,6 +133,7 @@ public class Dish implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

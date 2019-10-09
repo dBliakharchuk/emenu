@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { getCategoryEntities as getCategories } from 'app/entities/category/category.reducer';
+import { getCategoryEntities } from 'app/entities/category/category.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './dish.reducer';
 import { IDish } from 'app/shared/model/dish.model';
 // tslint:disable-next-line:no-unused-variable
@@ -21,6 +21,7 @@ export interface IDishUpdateProps extends StateProps, DispatchProps, RouteCompon
 export interface IDishUpdateState {
   isNew: boolean;
   categoryId: string;
+  ingeredientToDishId: string;
 }
 
 export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateState> {
@@ -28,6 +29,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
     super(props);
     this.state = {
       categoryId: '0',
+      ingeredientToDishId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -45,7 +47,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
       this.props.getEntity(this.props.match.params.id);
     }
 
-    this.props.getCategories();
+    this.props.getCategoryEntities();
   }
 
   onBlobChange = (isAnImage, name) => event => {
@@ -178,7 +180,7 @@ export class DishUpdate extends React.Component<IDishUpdateProps, IDishUpdateSta
                     {categories
                       ? categories.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -215,7 +217,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getCategories,
+  getCategoryEntities,
   getEntity,
   updateEntity,
   setBlob,

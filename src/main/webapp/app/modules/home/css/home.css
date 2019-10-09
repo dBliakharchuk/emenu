@@ -144,13 +144,16 @@ li > .MuiGridListTile-root > {
 .restaurant-body {
   width: 25%;
   height: auto;
-  margin: 20px;
+  margin: 0 20px 20px 20px;
   line-height: 1;
   border-top: 1px solid rgb(204, 204, 204);
   border-left: 1px solid rgb(204, 204, 204);
   border-right: 1px solid rgb(204, 204, 204);
 }
 
+.restaurant-body > input[type='search'] {
+  display: none;
+}
 .restaurant-body > dl,
 ol,
 ul {

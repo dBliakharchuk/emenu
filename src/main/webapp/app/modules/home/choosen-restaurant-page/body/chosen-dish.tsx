@@ -2,7 +2,7 @@ import 'app/modules/home/css/dish-style.css';
 
 import React, { Component } from 'react';
 import { Row, Col, Alert } from 'reactstrap';
-import { getEntities, getEntity } from 'app/entities/dish/dish.reducer';
+import { getDishEntities, getEntity } from 'app/entities/dish/dish.reducer';
 import { RouteComponentProps } from 'react-router';
 import { IBaseProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
 import { connect } from 'react-redux';
@@ -82,7 +82,7 @@ const mapStateToProps = ({ dish }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities,
+  getEntities: getDishEntities,
   getEntity
 };
 

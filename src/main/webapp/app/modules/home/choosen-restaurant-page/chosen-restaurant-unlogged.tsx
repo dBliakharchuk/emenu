@@ -9,7 +9,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { Home } from 'app/modules/home/restaurants-main-page/home';
-import { getEntity } from 'app/entities/restaurant/restaurant.reducer';
+import { getRestaurantEntity } from 'app/entities/restaurant/restaurant.reducer';
 import RestaurantHeaderUnlogged from './header/chosen-restaurant-header-unlogged';
 import RestaurantBodyUnlogged from './body/chosen-restaurent-body-unlogged';
 
@@ -41,7 +41,7 @@ const mapStateToProps = ({ restaurant }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntity
+  getEntity: getRestaurantEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

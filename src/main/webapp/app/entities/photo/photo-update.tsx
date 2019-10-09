@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { IRestaurant } from 'app/shared/model/restaurant.model';
-import { getEntities as getRestaurants } from 'app/entities/restaurant/restaurant.reducer';
+import { getRestaurantEntities as getRestaurants } from 'app/entities/restaurant/restaurant.reducer';
 import { IDish } from 'app/shared/model/dish.model';
-import { getEntities as getDishes } from 'app/entities/dish/dish.reducer';
+import { getDishEntities as getDishes } from 'app/entities/dish/dish.reducer';
 import { getEntity, updateEntity, createEntity, setBlob, reset } from './photo.reducer';
 import { IPhoto } from 'app/shared/model/photo.model';
 // tslint:disable-next-line:no-unused-variable

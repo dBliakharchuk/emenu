@@ -1,5 +1,16 @@
 {
-    "name": "Dish",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "category",
+            "otherEntityRelationshipName": "dish",
+            "relationshipName": "category",
+            "otherEntityField": "idCategory",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
@@ -26,22 +37,12 @@
             "fieldValidateRules": []
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "category",
-            "otherEntityRelationshipName": "dish",
-            "relationshipName": "category",
-            "otherEntityField": "idCategory"
-        }
-    ],
     "changelogDate": "20190404183003",
-    "entityTableName": "dish",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "searchEngine": false,
     "service": "serviceImpl",
+    "entityTableName": "dish",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "pagination"
 }

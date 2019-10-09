@@ -56,6 +56,7 @@ describe('Dish e2e test', () => {
     expect(await dishUpdatePage.getPriceInput()).to.eq('5');
     await dishUpdatePage.setImageInput(absolutePath);
     await dishUpdatePage.categorySelectLastOption();
+    await dishUpdatePage.ingeredientToDishSelectLastOption();
     await waitUntilDisplayed(dishUpdatePage.getSaveButton());
     await dishUpdatePage.save();
     await waitUntilHidden(dishUpdatePage.getSaveButton());

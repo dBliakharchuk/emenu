@@ -9,6 +9,7 @@ export default class DishUpdatePage {
   priceInput: ElementFinder = element(by.css('input#dish-price'));
   imageInput: ElementFinder = element(by.css('input#file_image'));
   categorySelect: ElementFinder = element(by.css('select#dish-category'));
+  ingeredientToDishSelect: ElementFinder = element(by.css('select#dish-ingeredientToDish'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -63,6 +64,25 @@ export default class DishUpdatePage {
 
   async getCategorySelectedOption() {
     return this.categorySelect.element(by.css('option:checked')).getText();
+  }
+
+  async ingeredientToDishSelectLastOption() {
+    await this.ingeredientToDishSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async ingeredientToDishSelectOption(option) {
+    await this.ingeredientToDishSelect.sendKeys(option);
+  }
+
+  getIngeredientToDishSelect() {
+    return this.ingeredientToDishSelect;
+  }
+
+  async getIngeredientToDishSelectedOption() {
+    return this.ingeredientToDishSelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

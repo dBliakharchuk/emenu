@@ -112,7 +112,7 @@ const apiUrl = 'api/restaurants';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IRestaurant> = (page, size, sort) => {
+export const getRestaurantEntities: ICrudGetAllAction<IRestaurant> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_RESTAURANT_LIST,
@@ -120,7 +120,7 @@ export const getEntities: ICrudGetAllAction<IRestaurant> = (page, size, sort) =>
   };
 };
 
-export const getEntity: ICrudGetAction<IRestaurant> = id => {
+export const getRestaurantEntity: ICrudGetAction<IRestaurant> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_RESTAURANT,
@@ -133,7 +133,7 @@ export const createEntity: ICrudPutAction<IRestaurant> = entity => async dispatc
     type: ACTION_TYPES.CREATE_RESTAURANT,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getRestaurantEntities());
   return result;
 };
 
@@ -142,7 +142,7 @@ export const updateEntity: ICrudPutAction<IRestaurant> = entity => async dispatc
     type: ACTION_TYPES.UPDATE_RESTAURANT,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getRestaurantEntities());
   return result;
 };
 
@@ -152,7 +152,7 @@ export const deleteEntity: ICrudDeleteAction<IRestaurant> = id => async dispatch
     type: ACTION_TYPES.DELETE_RESTAURANT,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getRestaurantEntities());
   return result;
 };
 

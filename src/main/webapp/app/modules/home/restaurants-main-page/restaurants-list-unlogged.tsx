@@ -3,7 +3,7 @@ import RestaurantComponentUnlogged from './RestaurantComponentUnlogged';
 import { RouteComponentProps } from 'react-router';
 import { IPaginationBaseState, Translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from 'app/entities/restaurant/restaurant.reducer';
+import { getRestaurantEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { connect } from 'react-redux';
 
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -37,7 +37,7 @@ const mapStateToProps = ({ restaurant }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities: getRestaurantEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

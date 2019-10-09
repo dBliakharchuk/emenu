@@ -67,6 +67,9 @@ export class DishDetail extends React.Component<IDishDetailProps> {
               <Translate contentKey="emenuApp.dish.category">Category</Translate>
             </dt>
             <dd>{dishEntity.categoryIdCategory ? dishEntity.categoryIdCategory : ''}</dd>
+            <dt>
+              <Translate contentKey="emenuApp.dish.ingeredientToDish">Ingeredient To Dish</Translate>
+            </dt>
           </dl>
           <Button tag={Link} to="/entity/dish" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

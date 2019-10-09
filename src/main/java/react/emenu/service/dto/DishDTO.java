@@ -28,6 +28,8 @@ public class DishDTO implements Serializable {
 
     private String categoryIdCategory;
 
+    private Long ingeredientToDishId;
+
     public Long getId() {
         return id;
     }
@@ -92,6 +94,14 @@ public class DishDTO implements Serializable {
         this.categoryIdCategory = categoryIdCategory;
     }
 
+    public Long getIngeredientToDishId() {
+        return ingeredientToDishId;
+    }
+
+    public void setIngeredientToDishId(Long ingeredientToDishId) {
+        this.ingeredientToDishId = ingeredientToDishId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -123,6 +133,7 @@ public class DishDTO implements Serializable {
             ", image='" + getImage() + "'" +
             ", category=" + getCategoryId() +
             ", category='" + getCategoryIdCategory() + "'" +
+            ", ingeredientToDish=" + getIngeredientToDishId() +
             "}";
     }
 }

@@ -106,9 +106,11 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
   render() {
     // @ts-ignore
     let restaurantID = this.props.restaurantID;
-    const { menuPointerPosition, categoryPointerPosition } = this.state;
+    const { menuPointerPosition, categoryPointerPosition, categoryLabel } = this.state;
     const menusFromRestaurant = this.getAllMenusByRestaurantID(restaurantID);
 
+    // @ts-ignore
+    // @ts-ignore
     return (
       <Row>
         <div className="restaurant-body">
@@ -124,9 +126,9 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
         </div>
         <div className="restaurant-dishes">
           <DishList
-            menuPointerPosition={this.state.menuPointerPosition}
-            categoryPointerPosition={this.state.categoryPointerPosition}
-            categoryLabel={this.state.categoryLabel}
+            menuPointerPosition={menuPointerPosition}
+            categoryPointerPosition={categoryPointerPosition}
+            categoryLabel={categoryLabel}
           />
         </div>
       </Row>

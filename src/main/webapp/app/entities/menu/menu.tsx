@@ -17,6 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './menu.reducer';
+import { getSession } from 'app/shared/reducers/authentication';
+import { getRestaurantEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { IMenu } from 'app/shared/model/menu.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -64,7 +66,8 @@ export class Menu extends React.Component<IMenuProps, IMenuState> {
         <h2 id="menu-heading">
           <Translate contentKey="emenuApp.menu.home.title">Menus</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
             <Translate contentKey="emenuApp.menu.home.createLabel">Create new Menu</Translate>
           </Link>
         </h2>

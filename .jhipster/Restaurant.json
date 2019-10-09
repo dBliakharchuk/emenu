@@ -37,6 +37,18 @@
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "googleMapsLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tripAdvisorLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "webPageLink",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190404182958",

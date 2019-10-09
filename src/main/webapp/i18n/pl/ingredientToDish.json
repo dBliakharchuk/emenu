@@ -1,0 +1,26 @@
+{
+  "emenuApp": {
+    "ingredientToDish": {
+      "home": {
+        "title": "Ingredient To Dish",
+        "createLabel": "Dodaj Ingredient To Dish",
+        "createOrEditLabel": "Dodaj lub edytuj: Ingredient To Dish"
+      },
+      "created": "Utworzono nowy obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Ingredient To Dish {{ id }}?"
+      },
+      "detail": {
+        "title": "Ingredient To Dish"
+      },
+      "unit": "Unit",
+      "weight": "Weight",
+      "isMain": "Is Main",
+      "isHidden": "Is Hidden",
+      "toIngredient": "To Ingredient",
+      "toDish": "To Dish"
+    }
+  }
+}

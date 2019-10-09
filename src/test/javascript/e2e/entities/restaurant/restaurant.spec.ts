@@ -53,6 +53,12 @@ describe('Restaurant e2e test', () => {
     await restaurantUpdatePage.setDescriptionInput('description');
     expect(await restaurantUpdatePage.getDescriptionInput()).to.match(/description/);
     await restaurantUpdatePage.setImageInput(absolutePath);
+    await restaurantUpdatePage.setGoogleMapsLinkInput('googleMapsLink');
+    expect(await restaurantUpdatePage.getGoogleMapsLinkInput()).to.match(/googleMapsLink/);
+    await restaurantUpdatePage.setTripAdvisorLinkInput('tripAdvisorLink');
+    expect(await restaurantUpdatePage.getTripAdvisorLinkInput()).to.match(/tripAdvisorLink/);
+    await restaurantUpdatePage.setWebPageLinkInput('webPageLink');
+    expect(await restaurantUpdatePage.getWebPageLinkInput()).to.match(/webPageLink/);
     await restaurantUpdatePage.idLocationSelectLastOption();
     await restaurantUpdatePage.userSelectLastOption();
     await waitUntilDisplayed(restaurantUpdatePage.getSaveButton());

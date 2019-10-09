@@ -112,7 +112,7 @@ const apiUrl = 'api/dishes';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IDish> = (page, size, sort) => {
+export const getDishEntities: ICrudGetAllAction<IDish> = (page, size, sort) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}` : ''}`;
   return {
     type: ACTION_TYPES.FETCH_DISH_LIST,
@@ -133,7 +133,7 @@ export const createEntity: ICrudPutAction<IDish> = entity => async dispatch => {
     type: ACTION_TYPES.CREATE_DISH,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getDishEntities());
   return result;
 };
 
@@ -142,7 +142,7 @@ export const updateEntity: ICrudPutAction<IDish> = entity => async dispatch => {
     type: ACTION_TYPES.UPDATE_DISH,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getDishEntities());
   return result;
 };
 
@@ -152,7 +152,7 @@ export const deleteEntity: ICrudDeleteAction<IDish> = id => async dispatch => {
     type: ACTION_TYPES.DELETE_DISH,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getDishEntities());
   return result;
 };
 

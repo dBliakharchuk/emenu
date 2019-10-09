@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './restaurant.reducer';
+import { getRestaurantEntity, deleteEntity } from './restaurant.reducer';
 
 export interface IRestaurantDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -59,7 +59,7 @@ const mapStateToProps = ({ restaurant }: IRootState) => ({
   restaurantEntity: restaurant.entity
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = { getEntity: getRestaurantEntity, deleteEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

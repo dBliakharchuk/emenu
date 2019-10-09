@@ -55,6 +55,15 @@ public class RestaurantResourceIntTest {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_GOOGLE_MAPS_LINK = "AAAAAAAAAA";
+    private static final String UPDATED_GOOGLE_MAPS_LINK = "BBBBBBBBBB";
+
+    private static final String DEFAULT_TRIP_ADVISOR_LINK = "AAAAAAAAAA";
+    private static final String UPDATED_TRIP_ADVISOR_LINK = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WEB_PAGE_LINK = "AAAAAAAAAA";
+    private static final String UPDATED_WEB_PAGE_LINK = "BBBBBBBBBB";
+
     @Autowired
     private RestaurantRepository restaurantRepository;
 
@@ -106,7 +115,10 @@ public class RestaurantResourceIntTest {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+            .googleMapsLink(DEFAULT_GOOGLE_MAPS_LINK)
+            .tripAdvisorLink(DEFAULT_TRIP_ADVISOR_LINK)
+            .webPageLink(DEFAULT_WEB_PAGE_LINK);
         return restaurant;
     }
 
@@ -135,6 +147,9 @@ public class RestaurantResourceIntTest {
         assertThat(testRestaurant.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testRestaurant.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testRestaurant.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testRestaurant.getGoogleMapsLink()).isEqualTo(DEFAULT_GOOGLE_MAPS_LINK);
+        assertThat(testRestaurant.getTripAdvisorLink()).isEqualTo(DEFAULT_TRIP_ADVISOR_LINK);
+        assertThat(testRestaurant.getWebPageLink()).isEqualTo(DEFAULT_WEB_PAGE_LINK);
     }
 
     @Test
@@ -190,7 +205,10 @@ public class RestaurantResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
+            .andExpect(jsonPath("$.[*].googleMapsLink").value(hasItem(DEFAULT_GOOGLE_MAPS_LINK.toString())))
+            .andExpect(jsonPath("$.[*].tripAdvisorLink").value(hasItem(DEFAULT_TRIP_ADVISOR_LINK.toString())))
+            .andExpect(jsonPath("$.[*].webPageLink").value(hasItem(DEFAULT_WEB_PAGE_LINK.toString())));
     }
     
     @Test
@@ -207,7 +225,10 @@ public class RestaurantResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
+            .andExpect(jsonPath("$.googleMapsLink").value(DEFAULT_GOOGLE_MAPS_LINK.toString()))
+            .andExpect(jsonPath("$.tripAdvisorLink").value(DEFAULT_TRIP_ADVISOR_LINK.toString()))
+            .andExpect(jsonPath("$.webPageLink").value(DEFAULT_WEB_PAGE_LINK.toString()));
     }
 
     @Test
@@ -234,7 +255,10 @@ public class RestaurantResourceIntTest {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .googleMapsLink(UPDATED_GOOGLE_MAPS_LINK)
+            .tripAdvisorLink(UPDATED_TRIP_ADVISOR_LINK)
+            .webPageLink(UPDATED_WEB_PAGE_LINK);
         RestaurantDTO restaurantDTO = restaurantMapper.toDto(updatedRestaurant);
 
         restRestaurantMockMvc.perform(put("/api/restaurants")
@@ -250,6 +274,9 @@ public class RestaurantResourceIntTest {
         assertThat(testRestaurant.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testRestaurant.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testRestaurant.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
+        assertThat(testRestaurant.getGoogleMapsLink()).isEqualTo(UPDATED_GOOGLE_MAPS_LINK);
+        assertThat(testRestaurant.getTripAdvisorLink()).isEqualTo(UPDATED_TRIP_ADVISOR_LINK);
+        assertThat(testRestaurant.getWebPageLink()).isEqualTo(UPDATED_WEB_PAGE_LINK);
     }
 
     @Test

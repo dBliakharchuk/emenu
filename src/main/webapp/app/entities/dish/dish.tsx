@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './dish.reducer';
+import { getDishEntities } from './dish.reducer';
 import { IDish } from 'app/shared/model/dish.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -90,6 +90,9 @@ export class Dish extends React.Component<IDishProps, IDishState> {
                 </th>
                 <th>
                   <Translate contentKey="emenuApp.dish.category">Category</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="emenuApp.dish.ingeredientToDish">Ingeredient To Dish</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -165,7 +168,7 @@ const mapStateToProps = ({ dish }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities: getDishEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

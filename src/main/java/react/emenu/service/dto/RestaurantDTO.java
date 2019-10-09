@@ -20,12 +20,16 @@ public class RestaurantDTO implements Serializable {
     private byte[] image;
 
     private String imageContentType;
+    private String googleMapsLink;
+
+    private String tripAdvisorLink;
+
+    private String webPageLink;
+
 
     private Long idLocationId;
 
     private Long userId;
-
-    private String userIdUser;
 
     public Long getId() {
         return id;
@@ -67,6 +71,30 @@ public class RestaurantDTO implements Serializable {
         this.imageContentType = imageContentType;
     }
 
+    public String getGoogleMapsLink() {
+        return googleMapsLink;
+    }
+
+    public void setGoogleMapsLink(String googleMapsLink) {
+        this.googleMapsLink = googleMapsLink;
+    }
+
+    public String getTripAdvisorLink() {
+        return tripAdvisorLink;
+    }
+
+    public void setTripAdvisorLink(String tripAdvisorLink) {
+        this.tripAdvisorLink = tripAdvisorLink;
+    }
+
+    public String getWebPageLink() {
+        return webPageLink;
+    }
+
+    public void setWebPageLink(String webPageLink) {
+        this.webPageLink = webPageLink;
+    }
+
     public Long getIdLocationId() {
         return idLocationId;
     }
@@ -81,14 +109,6 @@ public class RestaurantDTO implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUserIdUser() {
-        return userIdUser;
-    }
-
-    public void setUserIdUser(String userIdUser) {
-        this.userIdUser = userIdUser;
     }
 
     @Override
@@ -119,9 +139,11 @@ public class RestaurantDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", image='" + getImage() + "'" +
+            ", googleMapsLink='" + getGoogleMapsLink() + "'" +
+            ", tripAdvisorLink='" + getTripAdvisorLink() + "'" +
+            ", webPageLink='" + getWebPageLink() + "'" +
             ", idLocation=" + getIdLocationId() +
             ", user=" + getUserId() +
-            ", user='" + getUserIdUser() + "'" +
             "}";
     }
 }

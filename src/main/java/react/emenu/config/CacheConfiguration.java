@@ -44,6 +44,8 @@ public class CacheConfiguration {
             cm.createCache(react.emenu.domain.Menu.class.getName(), jcacheConfiguration);
             cm.createCache(react.emenu.domain.Category.class.getName(), jcacheConfiguration);
             cm.createCache(react.emenu.domain.Dish.class.getName(), jcacheConfiguration);
+            cm.createCache(react.emenu.domain.Ingredient.class.getName(), jcacheConfiguration);
+            cm.createCache(react.emenu.domain.IngredientToDish.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

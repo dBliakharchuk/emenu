@@ -18,6 +18,9 @@
       "name": "Name",
       "description": "Description",
       "image": "Image",
+      "googleMapsLink": "Google Maps Link",
+      "tripAdvisorLink": "Trip Advisor Link",
+      "webPageLink": "Web Page Link",
       "idLocation": "Id Location",
       "user": "User"
     }

@@ -12,7 +12,7 @@ import { ILocation } from 'app/shared/model/location.model';
 import { getEntities as getLocations } from 'app/entities/location/location.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './restaurant.reducer';
+import { getRestaurantEntity, updateEntity, createEntity, setBlob, reset } from './restaurant.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -160,6 +160,24 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                   </AvGroup>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="googleMapsLinkLabel" for="googleMapsLink">
+                    <Translate contentKey="emenuApp.restaurant.googleMapsLink">Google Maps Link</Translate>
+                  </Label>
+                  <AvField id="restaurant-googleMapsLink" type="text" name="googleMapsLink" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="tripAdvisorLinkLabel" for="tripAdvisorLink">
+                    <Translate contentKey="emenuApp.restaurant.tripAdvisorLink">Trip Advisor Link</Translate>
+                  </Label>
+                  <AvField id="restaurant-tripAdvisorLink" type="text" name="tripAdvisorLink" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="webPageLinkLabel" for="webPageLink">
+                    <Translate contentKey="emenuApp.restaurant.webPageLink">Web Page Link</Translate>
+                  </Label>
+                  <AvField id="restaurant-webPageLink" type="text" name="webPageLink" />
+                </AvGroup>
+                <AvGroup>
                   <Label for="idLocation.id">
                     <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate>
                   </Label>
@@ -175,7 +193,7 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="user.idUser">
+                  <Label for="user.id">
                     <Translate contentKey="emenuApp.restaurant.user">User</Translate>
                   </Label>
                   <AvInput id="restaurant-user" type="select" className="form-control" name="userId">
@@ -183,14 +201,13 @@ export class RestaurantUpdate extends React.Component<IRestaurantUpdateProps, IR
                     {users
                       ? users.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.email}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
-                {/* <Button tag={Link} id="cancel-save" to="/entity/restaurant" replace color="info">*/}
-                <Button tag={Link} id="cancel-save" to="/" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/entity/restaurant" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">
@@ -224,7 +241,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getLocations,
   getUsers,
-  getEntity,
+  getEntity: getRestaurantEntity,
   updateEntity,
   setBlob,
   createEntity,

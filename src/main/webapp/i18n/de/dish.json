@@ -19,7 +19,8 @@
       "description": "Description",
       "price": "Price",
       "image": "Image",
-      "category": "Category"
+      "category": "Category",
+      "ingeredientToDish": "Ingeredient To Dish"
     }
   }
 }

@@ -100,14 +100,15 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
       return {
         src: `data:${photo.imageContentType};base64,${photo.image}`,
         width: 1,
-        height: 1
+        height: 1,
+        key: `${photo.id}`
       };
     });
-    photoSet.push({
+    /*photoSet.push({
       src: `data:${imageContentType};base64,${image}`,
       width: 3,
-      height: 3.5
-    });
+      height: 3.5,
+    });*/
 
     return (
       <Row className="main-header-container">

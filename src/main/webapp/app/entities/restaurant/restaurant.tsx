@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './restaurant.reducer';
+import { getRestaurantEntities } from './restaurant.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -85,6 +85,15 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                 <th className="hand" onClick={this.sort('image')}>
                   <Translate contentKey="emenuApp.restaurant.image">Image</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={this.sort('googleMapsLink')}>
+                  <Translate contentKey="emenuApp.restaurant.googleMapsLink">Google Maps Link</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('tripAdvisorLink')}>
+                  <Translate contentKey="emenuApp.restaurant.tripAdvisorLink">Trip Advisor Link</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={this.sort('webPageLink')}>
+                  <Translate contentKey="emenuApp.restaurant.webPageLink">Web Page Link</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th>
                   <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
@@ -117,6 +126,9 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                       </div>
                     ) : null}
                   </td>
+                  <td>{restaurant.googleMapsLink}</td>
+                  <td>{restaurant.tripAdvisorLink}</td>
+                  <td>{restaurant.webPageLink}</td>
                   <td>
                     {restaurant.idLocationId ? <Link to={`location/${restaurant.idLocationId}`}>{restaurant.idLocationId}</Link> : ''}
                   </td>
@@ -167,7 +179,7 @@ const mapStateToProps = ({ restaurant }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities: getRestaurantEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

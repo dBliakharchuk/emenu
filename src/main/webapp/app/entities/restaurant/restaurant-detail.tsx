@@ -7,7 +7,7 @@ import { Translate, ICrudGetAction, openFile, byteSize } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntity } from './restaurant.reducer';
+import { getRestaurantEntity } from './restaurant.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -58,13 +58,31 @@ export class RestaurantDetail extends React.Component<IRestaurantDetailProps> {
               ) : null}
             </dd>
             <dt>
+              <span id="googleMapsLink">
+                <Translate contentKey="emenuApp.restaurant.googleMapsLink">Google Maps Link</Translate>
+              </span>
+            </dt>
+            <dd>{restaurantEntity.googleMapsLink}</dd>
+            <dt>
+              <span id="tripAdvisorLink">
+                <Translate contentKey="emenuApp.restaurant.tripAdvisorLink">Trip Advisor Link</Translate>
+              </span>
+            </dt>
+            <dd>{restaurantEntity.tripAdvisorLink}</dd>
+            <dt>
+              <span id="webPageLink">
+                <Translate contentKey="emenuApp.restaurant.webPageLink">Web Page Link</Translate>
+              </span>
+            </dt>
+            <dd>{restaurantEntity.webPageLink}</dd>
+            <dt>
               <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate>
             </dt>
             <dd>{restaurantEntity.idLocationId ? restaurantEntity.idLocationId : ''}</dd>
             <dt>
               <Translate contentKey="emenuApp.restaurant.user">User</Translate>
             </dt>
-            <dd>{restaurantEntity.userIdUser ? restaurantEntity.userIdUser : ''}</dd>
+            <dd>{restaurantEntity.userId ? restaurantEntity.userId : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/restaurant" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -89,7 +107,7 @@ const mapStateToProps = ({ restaurant }: IRootState) => ({
   restaurantEntity: restaurant.entity
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity: getRestaurantEntity };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

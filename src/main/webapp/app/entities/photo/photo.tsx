@@ -21,6 +21,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getPhotoEntities, reset } from './photo.reducer';
+import { getRestaurantEntities, getRestaurantEntity } from '../restaurant/restaurant.reducer';
+import { getDishEntities } from 'app/entities/dish/dish.reducer';
 import { IPhoto } from 'app/shared/model/photo.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -195,7 +197,13 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
                   </td>
                   <td>
                     {photo.restaurantIdRestaurant ? (
-                      <Link to={`restaurant/${photo.restaurantId}`}>{photo.restaurantIdRestaurant}</Link>
+                      <Link to={`restaurant/${photo.restaurantId}`}>
+                        {
+                          /*(this.props.getRestaurantEntity(photo.restaurantIdRestaurant) != null) &&
+                          this.props.restaurantEntity.id*/
+                          photo.restaurantIdRestaurant
+                        }
+                      </Link>
                     ) : (
                       ''
                     )}
@@ -241,13 +249,19 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
   }
 }
 
-const mapStateToProps = ({ photo }: IRootState) => ({
+const mapStateToProps = ({ photo, restaurant, dish }: IRootState) => ({
   photoList: photo.entities,
+  restaurantList: restaurant.entities,
+  dish: dish.entities,
+  restaurantEntity: restaurant.entity,
   totalItems: photo.totalItems
 });
 
 const mapDispatchToProps = {
   getEntities: getPhotoEntities,
+  getDishEntities: getDishEntities,
+  getRestaurantEntities: getRestaurantEntities,
+  getRestaurantEntity: getRestaurantEntity,
   reset
 };
 

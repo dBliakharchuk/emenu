@@ -7,6 +7,9 @@ export default class RestaurantUpdatePage {
   nameInput: ElementFinder = element(by.css('input#restaurant-name'));
   descriptionInput: ElementFinder = element(by.css('input#restaurant-description'));
   imageInput: ElementFinder = element(by.css('input#file_image'));
+  googleMapsLinkInput: ElementFinder = element(by.css('input#restaurant-googleMapsLink'));
+  tripAdvisorLinkInput: ElementFinder = element(by.css('input#restaurant-tripAdvisorLink'));
+  webPageLinkInput: ElementFinder = element(by.css('input#restaurant-webPageLink'));
   idLocationSelect: ElementFinder = element(by.css('select#restaurant-idLocation'));
   userSelect: ElementFinder = element(by.css('select#restaurant-user'));
 
@@ -36,6 +39,30 @@ export default class RestaurantUpdatePage {
 
   async getImageInput() {
     return this.imageInput.getAttribute('value');
+  }
+
+  async setGoogleMapsLinkInput(googleMapsLink) {
+    await this.googleMapsLinkInput.sendKeys(googleMapsLink);
+  }
+
+  async getGoogleMapsLinkInput() {
+    return this.googleMapsLinkInput.getAttribute('value');
+  }
+
+  async setTripAdvisorLinkInput(tripAdvisorLink) {
+    await this.tripAdvisorLinkInput.sendKeys(tripAdvisorLink);
+  }
+
+  async getTripAdvisorLinkInput() {
+    return this.tripAdvisorLinkInput.getAttribute('value');
+  }
+
+  async setWebPageLinkInput(webPageLink) {
+    await this.webPageLinkInput.sendKeys(webPageLink);
+  }
+
+  async getWebPageLinkInput() {
+    return this.webPageLinkInput.getAttribute('value');
   }
 
   async idLocationSelectLastOption() {

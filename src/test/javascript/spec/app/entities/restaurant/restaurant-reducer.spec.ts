@@ -9,8 +9,8 @@ import reducer, {
   ACTION_TYPES,
   createEntity,
   deleteEntity,
-  getEntities,
-  getEntity,
+  getRestaurantEntities,
+  getRestaurantEntity,
   updateEntity,
   reset
 } from 'app/entities/restaurant/restaurant.reducer';
@@ -202,7 +202,7 @@ describe('Entities reducer tests', () => {
           payload: resolvedObject
         }
       ];
-      await store.dispatch(getEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
+      await store.dispatch(getRestaurantEntities()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
     it('dispatches ACTION_TYPES.FETCH_RESTAURANT actions', async () => {
@@ -215,7 +215,7 @@ describe('Entities reducer tests', () => {
           payload: resolvedObject
         }
       ];
-      await store.dispatch(getEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
+      await store.dispatch(getRestaurantEntity(42666)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
 
     it('dispatches ACTION_TYPES.CREATE_RESTAURANT actions', async () => {

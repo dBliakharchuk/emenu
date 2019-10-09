@@ -2,7 +2,7 @@ import 'app/modules/home/css/dish-style.css';
 import 'app/modules/home/css/home.css';
 
 import React, { Component } from 'react';
-import { getEntities } from 'app/entities/dish/dish.reducer';
+import { getDishEntities } from 'app/entities/dish/dish.reducer';
 import { getCategoryEntities } from 'app/entities/category/category.reducer';
 import { getPhotoEntities, reset } from 'app/entities/photo/photo.reducer';
 import { IRootState } from 'app/shared/reducers';
@@ -127,7 +127,7 @@ const mapStateToProps = ({ dish, category, photo }: IRootState) => ({
 
 const mapDispatchToProps = {
   getCategoryEntities,
-  getEntities,
+  getEntities: getDishEntities,
   getPhotoEntities
 };
 
