@@ -1,0 +1,23 @@
+{
+  "emenuApp": {
+    "category": {
+      "home": {
+        "title": "Category",
+        "createLabel": "Dodaj Category",
+        "createOrEditLabel": "Dodaj lub edytuj: Category"
+      },
+      "created": "Utworzono nowy obiekt typu Category z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Category z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Category z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Category"
+      },
+      "name": "Name",
+      "description": "Description",
+      "menu": "Menu"
+    }
+  }
+}

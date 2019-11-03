@@ -1,0 +1,26 @@
+{
+  "emenuApp": {
+    "location": {
+      "home": {
+        "title": "Location",
+        "createLabel": "Dodaj Location",
+        "createOrEditLabel": "Dodaj lub edytuj: Location"
+      },
+      "created": "Utworzono nowy obiekt typu Location z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Location z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Location z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Location {{ id }}?"
+      },
+      "detail": {
+        "title": "Location"
+      },
+      "addressGM": "Address GM",
+      "country": "Country",
+      "city": "City",
+      "street": "Street",
+      "bilding": "Bilding",
+      "postcode": "Postcode"
+    }
+  }
+}

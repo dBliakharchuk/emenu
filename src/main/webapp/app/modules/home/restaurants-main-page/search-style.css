@@ -1,0 +1,89 @@
+.restaurants-container {
+  margin-left: 15%;
+}
+
+.search-heading {
+  font-size: 30px;
+  padding: 16px 0;
+  color: #444;
+  text-align: center;
+}
+
+/*Container*/
+.search-container-dishes {
+  width: 100%;
+  align-content: center;
+}
+
+.search-container-dishes input {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-style: italic;
+  color: #444;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.search-container {
+  margin: 36px auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-label {
+  position: relative;
+  width: 50%;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 16px;
+  font-size: 15px;
+  font-style: italic;
+  color: #444;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: +30%;
+  font-size: 26px;
+  color: #555;
+  right: 18px;
+}
+
+/* Results */
+.results-container {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.result-items {
+  position: relative;
+  padding: 16px;
+  border: 1px solid #898989;
+  margin: 16px;
+  text-align: center;
+  min-width: 200px;
+  text-decoration: none;
+  box-shadow: 2px 2px 2px #898989;
+}
+
+/*Loader*/
+.search-loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/*Show and hide*/
+.show {
+  display: inline-block;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,49 @@
+{
+    "name": "Photo",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "photo",
+            "relationshipName": "restaurant",
+            "otherEntityField": "idRestaurant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "dish",
+            "otherEntityRelationshipName": "photo",
+            "relationshipName": "dish",
+            "otherEntityField": "idDish"
+        }
+    ],
+    "changelogDate": "20190404183000",
+    "entityTableName": "photo",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

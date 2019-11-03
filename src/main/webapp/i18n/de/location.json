@@ -1,0 +1,26 @@
+{
+  "emenuApp": {
+    "location": {
+      "home": {
+        "title": "Locations",
+        "createLabel": "Location erstellen",
+        "createOrEditLabel": "Location erstellen oder bearbeiten"
+      },
+      "created": "Location erstellt mit ID {{ param }}",
+      "updated": "Location aktualisiert mit ID {{ param }}",
+      "deleted": "Location gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Location {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Location"
+      },
+      "addressGM": "Address GM",
+      "country": "Country",
+      "city": "City",
+      "street": "Street",
+      "bilding": "Bilding",
+      "postcode": "Postcode"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+.popup-content > .modal {
+  font-size: 12px;
+  position: relative;
+  display: block;
+  width: auto;
+  height: 80%;
+}
+
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+  margin: 2%;
+}
+
+.modal > .content > .dish-popup-gallery > img {
+  width: 100%;
+  height: 300px;
+  float: left;
+  position: relative;
+  margin: 1%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/*Gallery dish photos*/
+
+.header-gallery-main-container > img {
+  width: 100%;
+  height: 300px;
+  object-position: center;
+  object-fit: contain;
+}
+
+.dish-popup-gallery > .react-photo-gallery--gallery img {
+    width: 50px;
+    height: 50px;
+}
+
+.dish-popup-description {
+  position: relative;
+  float: left;
+  width: 60%;
+  padding: 5px;
+}
+
+.dish-popup-gallery {
+  position: relative;
+  float: left;
+  width: 40%;
+  padding-right: 10px;
+}
+
+.dish-popup-gallery > .react-photo-gallery--gallery {
+  position: relative;
+  float: left;
+}
+
+/*CSS for main title in dish list*/
+.body-edit-buttons {
+  position: relative;
+  float: right;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-edit-buttons > a {
+  margin: 1px;
+}
+
+.grid-list-title {
+  height: 100px;
+  width: 100%;
+}
+
+.grid-list-title-label {
+  width: 70%;
+  position: relative;
+  float: left;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+}

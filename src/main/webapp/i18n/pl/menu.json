@@ -1,0 +1,25 @@
+{
+  "emenuApp": {
+    "menu": {
+      "home": {
+        "title": "Menu",
+        "createLabel": "Dodaj Menu",
+        "createOrEditLabel": "Dodaj lub edytuj: Menu"
+      },
+      "created": "Utworzono nowy obiekt typu Menu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Menu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Menu z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Menu {{ id }}?"
+      },
+      "detail": {
+        "title": "Menu"
+      },
+      "name": "Name",
+      "description": "Description",
+      "image": "Image",
+      "imageContent": "Image Content",
+      "restaurant": "Restaurant"
+    }
+  }
+}

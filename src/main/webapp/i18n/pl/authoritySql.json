@@ -1,0 +1,22 @@
+{
+  "emenuApp": {
+    "authoritySql": {
+      "home": {
+        "title": "Authority Sql",
+        "createLabel": "Dodaj Authority Sql",
+        "createOrEditLabel": "Dodaj lub edytuj: Authority Sql"
+      },
+      "created": "Utworzono nowy obiekt typu Authority Sql z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Authority Sql z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Authority Sql z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Authority Sql {{ id }}?"
+      },
+      "detail": {
+        "title": "Authority Sql"
+      },
+      "name": "Name",
+      "user": "User"
+    }
+  }
+}

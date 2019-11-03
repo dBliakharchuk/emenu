@@ -1,0 +1,26 @@
+{
+  "emenuApp": {
+    "dish": {
+      "home": {
+        "title": "Dishes",
+        "createLabel": "Create a new Dish",
+        "createOrEditLabel": "Create or edit a Dish"
+      },
+      "created": "A new Dish is created with identifier {{ param }}",
+      "updated": "A Dish is updated with identifier {{ param }}",
+      "deleted": "A Dish is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Dish {{ id }}?"
+      },
+      "detail": {
+        "title": "Dish"
+      },
+      "name": "Name",
+      "description": "Description",
+      "price": "Price",
+      "image": "Image",
+      "category": "Category",
+      "ingeredientToDish": "Ingeredient To Dish"
+    }
+  }
+}

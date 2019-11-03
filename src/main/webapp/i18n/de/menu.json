@@ -1,0 +1,25 @@
+{
+  "emenuApp": {
+    "menu": {
+      "home": {
+        "title": "Menus",
+        "createLabel": "Menu erstellen",
+        "createOrEditLabel": "Menu erstellen oder bearbeiten"
+      },
+      "created": "Menu erstellt mit ID {{ param }}",
+      "updated": "Menu aktualisiert mit ID {{ param }}",
+      "deleted": "Menu gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Menu {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Menu"
+      },
+      "name": "Name",
+      "description": "Description",
+      "image": "Image",
+      "imageContent": "Image Content",
+      "restaurant": "Restaurant"
+    }
+  }
+}

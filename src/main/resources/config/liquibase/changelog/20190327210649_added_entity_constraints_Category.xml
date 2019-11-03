@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Category.
+    -->
+    <changeSet id="20190327210649-2" author="jhipster">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_category_menu_id"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="id_menu"
+                                 baseTableName="jhi_category"
+                                 constraintName="fk_category_menu_id"
+                                 referencedColumnNames="id_menu"
+                                 referencedTableName="jhi_menu"/>
+
+    </changeSet>
+</databaseChangeLog>

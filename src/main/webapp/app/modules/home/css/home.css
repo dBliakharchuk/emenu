@@ -1,0 +1,201 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+.hipster {
+  display: inline-block;
+  width: 100%;
+  height: 497px;
+  background: url('../../../../static/images/chef_PNG140.png') no-repeat center top;
+  background-size: contain;
+}
+
+.restaurants-container > .nav-link {
+  padding: 0;
+}
+/* ========================== Dish css ==============*/
+
+.root {
+  display: flex;
+  flexwrap: wrap;
+  justifycontent: space-around;
+  overflow: hidden;
+  backgroundcolor: blue;
+}
+.gridList {
+  width: 800px;
+
+  /*height: 450px;*/
+}
+.icon {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.list-restaurants-title {
+  color: black;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: arial, helvetica;
+  margin: 20px auto;
+  text-align: center;
+}
+
+li > .MuiGridListTile-root > {
+  width: 30%;
+  height: auto;
+  padding: 2px;
+}
+
+.restaurant-body > ul > li > div {
+  margin-left: 1%;
+}
+
+.main-header-container {
+  width: 100%;
+  height: auto;
+  margin: 10px;
+}
+
+/*css for gallery in entity/photo*/
+
+.header-gallery-main-container {
+  width: 20%;
+  height: 100%;
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  background: whitesmoke;
+}
+
+.react-photo-gallery--gallery img {
+   width: 32%;
+   height: 70px;
+   object-fit: fill;
+   object-position: center;
+}
+
+.header-main-content {
+  width: 55%;
+  position: relative;
+  float: left;
+  padding: 10px;
+}
+
+.header-main-content > h1 {
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.header-main-content > h2 {
+  vertical-align: middle;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.header-main-buttons {
+  position: relative;
+  float: right;
+  width: 10%;
+}
+
+.header-main-buttons > a {
+  width: 100%;
+}
+
+.header-main-buttons > button {
+  width: 100%;
+}
+
+.view-routes {
+  margin-bottom: 30px;
+}
+
+.restaurant-header {
+  width: 100%;
+  height: 100%;
+  margin: 20px;
+}
+.restaurant-header > img {
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  width: 200px;
+  height: 200px;
+}
+
+.gallery-main-container {
+  width: 20%;
+  position: relative;
+  float: left;
+  margin-right: 20px;
+}
+
+.restaurant-body {
+  width: 25%;
+  height: auto;
+  margin: 0 20px 20px 20px;
+  line-height: 1;
+  border-top: 1px solid rgb(204, 204, 204);
+  border-left: 1px solid rgb(204, 204, 204);
+  border-right: 1px solid rgb(204, 204, 204);
+}
+
+.restaurant-body > input[type='search'] {
+  display: none;
+}
+.restaurant-body > dl,
+ol,
+ul {
+  margin-bottom: 0;
+}
+
+/* Dish list style*/
+
+.main-body-dish-list-img {
+  width: 25%;
+  height: 200px;
+}
+
+.main-body-dish-list-img > img {
+}
+
+.gridList {
+  width: 100%;
+}
+.restaurant-dishes {
+  position: relative;
+  float: left;
+  width: 70%;
+}
+
+/*header buttons css*/
+
+.header-link-button {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  padding: 0.25rem 0.5rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.header-link-button:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  text-decoration: none;
+}
+
+.header-main-buttons > a {
+  margin: 1px;
+}

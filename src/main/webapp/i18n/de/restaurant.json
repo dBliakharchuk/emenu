@@ -1,0 +1,28 @@
+{
+  "emenuApp": {
+    "restaurant": {
+      "home": {
+        "title": "Restaurants",
+        "createLabel": "Restaurant erstellen",
+        "createOrEditLabel": "Restaurant erstellen oder bearbeiten"
+      },
+      "created": "Restaurant erstellt mit ID {{ param }}",
+      "updated": "Restaurant aktualisiert mit ID {{ param }}",
+      "deleted": "Restaurant gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Restaurant {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Restaurant"
+      },
+      "name": "Name",
+      "description": "Description",
+      "image": "Image",
+      "googleMapsLink": "Google Maps Link",
+      "tripAdvisorLink": "Trip Advisor Link",
+      "webPageLink": "Web Page Link",
+      "idLocation": "Id Location",
+      "user": "User"
+    }
+  }
+}

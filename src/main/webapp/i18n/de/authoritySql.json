@@ -1,0 +1,22 @@
+{
+  "emenuApp": {
+    "authoritySql": {
+      "home": {
+        "title": "Authority Sqls",
+        "createLabel": "Authority Sql erstellen",
+        "createOrEditLabel": "Authority Sql erstellen oder bearbeiten"
+      },
+      "created": "Authority Sql erstellt mit ID {{ param }}",
+      "updated": "Authority Sql aktualisiert mit ID {{ param }}",
+      "deleted": "Authority Sql gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Authority Sql {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Authority Sql"
+      },
+      "name": "Name",
+      "user": "User"
+    }
+  }
+}

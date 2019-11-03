@@ -1,0 +1,26 @@
+{
+  "emenuApp": {
+    "ingredientToDish": {
+      "home": {
+        "title": "Ingredient To Dishes",
+        "createLabel": "Create a new Ingredient To Dish",
+        "createOrEditLabel": "Create or edit a Ingredient To Dish"
+      },
+      "created": "A new Ingredient To Dish is created with identifier {{ param }}",
+      "updated": "A Ingredient To Dish is updated with identifier {{ param }}",
+      "deleted": "A Ingredient To Dish is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Ingredient To Dish {{ id }}?"
+      },
+      "detail": {
+        "title": "Ingredient To Dish"
+      },
+      "unit": "Unit",
+      "weight": "Weight",
+      "isMain": "Is Main",
+      "isHidden": "Is Hidden",
+      "toIngredient": "To Ingredient",
+      "toDish": "To Dish"
+    }
+  }
+}
