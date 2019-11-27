@@ -1,5 +1,5 @@
 .restaurants-container {
-  margin-left: 15%;
+  margin: 5%;
 }
 
 .search-heading {
@@ -13,27 +13,47 @@
 .search-container-dishes {
   width: 100%;
   align-content: center;
+  padding: 0;
 }
 
 .search-container-dishes input {
   width: 100%;
   padding: 10px;
-  font-size: 12px;
+  font-size: 13px;
   font-style: italic;
   color: #444;
   box-sizing: border-box;
   outline: none;
+  border: 0.3px solid;
 }
 
 .search-container {
   margin: 36px auto;
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 .search-label {
   position: relative;
-  width: 50%;
+  padding: 0 4px 4px 0;
+}
+
+.search-label-dishes {
+    position: relative;
+    padding: 0 4px 4px 0;
+}
+
+.search-label-dishes > #search-input {
+    height: 50px;
+}
+
+.restaurant-body > label {
+    font-size: 25px;
+    color: black;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0 10px 0;
 }
 
 .search-container input {
@@ -51,8 +71,15 @@
   top: +30%;
   font-size: 26px;
   color: #555;
-  right: 18px;
+  right: 26px;
+  opacity: 0.2;
 }
+
+.search-label-dishes > .search-icon {
+    top: +20%;
+}
+
+
 
 /* Results */
 .results-container {
@@ -86,4 +113,23 @@
 
 .hide {
   display: none;
+}
+
+@media (max-width: 576px) {
+    .restaurants-container > .nav-item {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .restaurant-body {
+        padding: 0;
+    }
+    .search-container-dishes {
+        padding: 0;
+    }
+    .restaurant-dishes {
+        padding: 0 0 0 15px;
+    }
 }

@@ -11,9 +11,9 @@ body {
 
 .container-card-restaurant {
   position: relative;
-  width: 30%;
-  height: 280px;
-  margin: 20px 8px 45px 8px;
+  /*width: 30%;
+  height: 280px;*/
+  margin: 15px 8px 15px 8px;
   float: left;
 }
 

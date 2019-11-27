@@ -1,15 +1,26 @@
+.restaurant-body{
+    margin: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
 .popup-content > .modal {
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
   display: block;
-  width: auto;
-  height: 80%;
+  width: 100%;
+  height: auto;
+  margin: 0;
 }
+
+
 
 .modal > .header {
   width: 100%;
   border-bottom: 1px solid gray;
-  font-size: 18px;
   text-align: center;
   padding: 5px;
 }
@@ -22,6 +33,7 @@
   padding: 15px;
   margin: auto;
   text-align: center;
+
 }
 .modal > .close {
   cursor: pointer;
@@ -35,7 +47,7 @@
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
-  margin: 2%;
+  margin: 10px;
 }
 
 .modal > .content > .dish-popup-gallery > img {
@@ -43,10 +55,41 @@
   height: 300px;
   float: left;
   position: relative;
-  margin: 1%;
   object-fit: contain;
   object-position: center;
+  padding: 3px 3px 0 3px;
 }
+
+.actions > .popup-button {
+    font-family: Roboto,Arial,sans-serif;
+    color: #000;
+    cursor: pointer;
+    padding: 0 30px;
+    display: inline-block;
+    margin: 10px 15px;
+    text-transform: uppercase;
+    line-height: 2em;
+    letter-spacing: 1.5px;
+    outline: none;
+    position: relative;
+    font-size: 14px;
+    border: 3px solid #cfcece;
+    background-color: #fff;
+    border-radius: 15px 15px 15px 15px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.restaurant-dishes > .row > .root {
+    margin: 0 6px 0 -1px;
+    padding-right: 0;
+}
+
+.restaurant-dishes > .row {
+    margin: 0;
+    padding-right: 0;
+}
+
 
 /*Gallery dish photos*/
 
@@ -55,25 +98,24 @@
   height: 300px;
   object-position: center;
   object-fit: contain;
+  padding: 0px;
 }
 
 .dish-popup-gallery > .react-photo-gallery--gallery img {
-    width: 50px;
-    height: 50px;
+    width: 25%;
+    height: 70px;
 }
 
 .dish-popup-description {
   position: relative;
   float: left;
-  width: 60%;
   padding: 5px;
 }
 
 .dish-popup-gallery {
   position: relative;
   float: left;
-  width: 40%;
-  padding-right: 10px;
+  padding: 0;
 }
 
 .dish-popup-gallery > .react-photo-gallery--gallery {
@@ -89,6 +131,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 0 10px 0;
 }
 
 .body-edit-buttons > a {
@@ -109,4 +152,274 @@
   text-align: left;
   white-space: nowrap;
   vertical-align: middle;
+  padding: 0;
+}
+
+.grid-list-title-label > div {
+    padding: 0;
+}
+
+/*More info about dish */
+
+
+@media (max-width: 576px) {
+    .main-header-container {
+        margin: 0;
+    }
+    .header-gallery-main-container {
+        padding: 0;
+    }
+    .header-gallery-main-container > img {
+        height: auto;
+        width: 50%;
+    }
+    .react-photo-gallery--gallery {
+        position: relative;
+        float: left;
+        width: 50%;
+    }
+    .react-photo-gallery--gallery img {
+        width: 50%;
+        height: 81px;
+    }
+    .header-main-content {
+        padding: 0;
+        margin: 20px 0 20px 0;
+    }
+    .header-main-content > h1 {
+        font-size: 24px;
+    }
+
+    .header-main-content > h2 {
+        font-size: 14px;
+    }
+
+    .header-main-buttons > a {
+        margin: 0;
+        width: 33%;
+        padding: 10px;
+        border: 1px solid;
+        display: inline-block;
+    }
+
+    .header-main-buttons {
+        margin-top: 15px;
+        padding-left: 10px;
+    }
+
+    /*Dish*/
+    .view-routes > .row {
+        padding: 0;
+    }
+    .restaurant-body {
+        padding: 0;
+        margin: 0 17px 20px 17px;
+    }
+    .restaurant-dishes {
+        padding: 0;
+    }
+    .restaurant-dishes > .row {
+        margin: 0;
+        padding: 0;
+    }
+    .restaurant-dishes > .row > .root {
+        padding-right: 0;
+        margin: 0 6px 0 -1px;
+        padding-right: 0;
+    }
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 0;
+    }
+    .search-container-dishes {
+        margin: 10px 17px 0 17px;
+    }
+
+    /*More Info dish*/
+    .actions > .popup-button {
+        width: 90%;
+        padding: 0;
+        margin: 5px 0 10px 0;
+    }
+
+    .modal > .actions {
+        padding: 0;
+    }
+
+    .modal > .content {
+        font-size: 12px;
+    }
+
+    .modal > .header {
+        font-size: 15px;
+    }
+
+    /*Dish gallery*/
+    .dish-popup-gallery > .react-photo-gallery--gallery {
+        width: 100%;
+    }
+    .dish-popup-gallery > .react-photo-gallery--gallery img {
+        height: 80px;
+    }
+    /*?????*/
+     .row > .content > .col {
+        position: unset;
+    }
+
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+    .main-header-container {
+        margin: 0;
+    }
+    .header-gallery-main-container {
+        padding: 0;
+    }
+    .header-gallery-main-container > img {
+        width: 50%;
+        height: auto;
+    }
+    .react-photo-gallery--gallery {
+        position: relative;
+        float: left;
+        width: 50%;
+    }
+    .react-photo-gallery--gallery img {
+        width: 50%;
+        height: 110px;
+    }
+    .header-main-content {
+        padding: 0;
+        margin: 20px 0px 20px 0px ;
+    }
+    .header-main-content > h1 {
+        font-size: 24px;
+    }
+
+    .header-main-content > h2 {
+        font-size: 14px;
+    }
+
+    .header-main-buttons {
+        margin-top: 15px;
+        padding-right: 20px;
+    }
+
+    .header-main-buttons > a {
+        margin: 0;
+        width: 32%;
+        padding: 8px;
+        border: 1px solid;
+        display: inline-block;
+    }
+
+    /* Popup Dish*/
+    .view-routes > .row {
+        padding: 0;
+    }
+    .restaurant-body {
+        padding: 0;
+        margin: 0 17px 20px 17px;
+    }
+    .restaurant-dishes {
+        padding: 0;
+    }
+    .restaurant-dishes > .row {
+        margin: 0;
+        padding: 0;
+    }
+    .restaurant-dishes > .row > .root {
+        padding-right: 0;
+        margin: 0 6px 0 -1px;
+    }
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 0;
+    }
+    .search-container-dishes {
+        margin: 10px 17px 0 17px;
+    }
+    .body-edit-buttons {
+        margin-right: 55px;
+    }
+
+    /*More Info dish*/
+    .actions > .popup-button {
+        width: 90%;
+        padding: 0;
+        margin: 5px 0 10px 0;
+    }
+
+    .modal > .actions {
+        padding: 0;
+    }
+
+    /*Dish gallery*/
+    .dish-popup-gallery > .react-photo-gallery--gallery {
+        width: 100%;
+    }
+    .dish-popup-gallery > .react-photo-gallery--gallery img {
+        height: 90px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .main-header-container {
+        margin: 0;
+    }
+    .header-gallery-main-container {
+        padding: 0;
+    }
+    .header-gallery-main-container > img {
+        height: auto;
+    }
+    .react-photo-gallery--gallery img {
+        height: 60px;
+    }
+
+    .header-main-content > h1 {
+        font-size: 24px;
+    }
+
+    .header-main-content > h2 {
+        font-size: 14px;
+    }
+
+    .header-main-buttons > a {
+        margin: 0;
+        width: 32%;
+        padding: 8px;
+        border: 1px solid;
+        display: inline-block;
+    }
+    .dish-popup-gallery > .react-photo-gallery--gallery {
+        width: 100%;
+    }
+    .dish-popup-gallery > .react-photo-gallery--gallery {
+
+    }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    .header-gallery-main-container {
+        padding: 0;
+    }
+    .modal > .header {
+        font-size: 30px;
+    }
+    .modal > .content {
+        font-size: 22px;
+    }
+
+}
+@media (min-width: 1201px) {
+    .header-gallery-main-container {
+        padding: 0;
+    }
+    .modal > .header {
+        font-size: 30px;
+    }
+    .modal > .content {
+        font-size: 22px;
+    }
+
 }

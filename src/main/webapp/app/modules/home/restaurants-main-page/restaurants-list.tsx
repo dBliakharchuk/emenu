@@ -71,7 +71,6 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
   componentDidMount() {
     this.props.getLocationEntities();
     this.props.getEntities();
-    this.props.getUsers();
     this.props.getSession();
   }
 
@@ -116,15 +115,15 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
       const { locationsRes, queryLocationOfRes } = this.state;
       let finalRestaurantList = restaurantComponents;
 
-      if (queryLocationOfRes !== ''){
+      if (queryLocationOfRes !== '' && restaurantComponents !== null){
           finalRestaurantList = restaurantComponents.filter(restaurant => {
               return (locationsRes.find(location => location.id === restaurant.idLocationId));
           });
       }
 
-    if (Object.keys(finalRestaurantList).length) {
+    if (restaurantComponents && Object.keys(finalRestaurantList).length) {
       return (
-        <div className="restaurants-container">
+        <div className="restaurants-container row col-xs-12 col-sm-12 col-md-12 col-lg-12">
           {finalRestaurantList.filter(searchingFor(this.state.queryNameOfRes)).map(result => {
             return <RestaurantComponent key={result.id} restaurantEnt={result} />;
           })}
@@ -139,40 +138,39 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
     const { restaurantList, account } = this.props;
     let { queryNameOfRes, queryLocationOfRes, message, loading, results } = this.state;
     let restaurantComponents = null;
+    let isUnlogged = true;
     let isAdmin = false;
     let isUser = false;
-    if (account != null) {
+    if (account !== null && account !== undefined && account.authorities !== undefined ) {
       account.authorities.map((authority, i) => {
-        if (authority === AUTHORITIES.ADMIN) {
+        if (authority === AUTHORITIES.ADMIN){
           isAdmin = true;
+          isUnlogged = false;
         } else if (authority === AUTHORITIES.USER) {
           isUser = true;
+          isUnlogged = false;
         }
       });
-      if (isAdmin) {
-        restaurantComponents = restaurantList;
-      } else if (isUser) {
-        restaurantComponents = restaurantList.map((restaurant, i) => {
-          if (restaurant.userId === account.id) {
-            return restaurant;
-          } else {
-            console.warn("This restaurant isn't owned by this user!!!");
-          }
-        });
+
+      console.log("isAdmin: " + isAdmin +  " isUser: " + isUser);
+      if ((isAdmin || isUnlogged) && account !== null && restaurantList) {
+          restaurantComponents = restaurantList.map((restaurant)=> restaurant);
+      } else if (isUser && restaurantList) {
+          restaurantComponents = restaurantList.filter((restaurant) => (restaurant.userId === account.id));
       } else {
         console.warn('Something went wrong, check if user or admin was registered!');
       }
     } else {
-         console.warn('Account session is null!!!');
+        console.warn('Account session is null!!!');
     }
 
     return (
-        <div>
-            <div className="search-container">
+        <div className="row">
+            <div className="search-container col-xs-12 col-sm-12 col-md-12 ">
                 {/*Head*/}
                 {/*<h2 className="search-heading">Search Engine: React</h2>*/}
                 {/* Location searching */}
-                <label className="search-label" htmlFor="search-input">
+                <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
                     <input
                         type="text"
                         name="query"
@@ -184,7 +182,7 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
                     <i className="fa fa-search search-icon" aria-hidden="true" />
                 </label>
                 {/* Restaurant name searching */}
-                <label className="search-label" htmlFor="search-input">
+                <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
                     <input
                         type="text"
                         name="query"
@@ -196,12 +194,12 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
                     <i className="fa fa-search search-icon" aria-hidden="true" />
                 </label>
 
-                <h1 className="list-restaurants-title">List of restaurants in <u>{ queryLocationOfRes !== '' ? queryLocationOfRes : 'the application'} </u></h1>
+                <h1 className="list-restaurants-title col-xs-12 col-sm-12 col-md-12">List of restaurants in <u>{ queryLocationOfRes !== '' ? queryLocationOfRes : 'the application'} </u></h1>
                 {/*Error Message*/}
-                {message && <p className="message">{message}</p>}
+                {message && <p className="message col-xs-12 col-sm-12 col-md-12">{message}</p>}
 
                 {/*Loader*/}
-                <img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'}`} alt="loader" />
+                <img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />
 
                 {this.renderSearchResults(restaurantComponents)}
             </div>
@@ -221,8 +219,6 @@ const mapStateToProps = ({ restaurant, authentication, location }: IRootState) =
 
 const mapDispatchToProps = {
   getEntities: getRestaurantEntities,
-  getUsers,
-  updateUser,
   getSession,
   getLocationEntities
 };

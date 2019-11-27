@@ -30,7 +30,6 @@ export class ChosenRestaurantUnlogged extends React.Component<IChosenRestaurantP
         <RestaurantHeaderUnlogged restaurantEnt={restaurantEntity} />
         <hr />
         <RestaurantBodyUnlogged restaurantID={restaurantEntity.id} />
-        <div />
       </div>
     );
   }

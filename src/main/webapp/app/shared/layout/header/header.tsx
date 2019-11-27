@@ -58,7 +58,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
       <div id="app-header">
         {/*{this.renderDevRibbon()}*/}
         <LoadingBar className="loading-bar" />
-        <Navbar dark expand="sm" fixed="top" className="jh-navbar">
+        <Navbar dark expand="md" fixed="top" className="jh-navbar">
           <NavbarToggler aria-label="menu" onClick={this.toggleMenu} />
           <Brand />
           <Collapse isOpen={this.state.menuOpen} navbar>

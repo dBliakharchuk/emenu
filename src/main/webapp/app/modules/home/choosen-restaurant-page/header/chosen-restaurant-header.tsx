@@ -18,13 +18,14 @@ import {
   log
 } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { faGlobeAmericas, faComments, faHome} from '@fortawesome/free-solid-svg-icons'
+import { getSession } from 'app/shared/reducers/authentication';
 import { IRootState } from 'app/shared/reducers';
 import { getPhotoEntities, reset } from 'app/entities/photo/photo.reducer';
 import { IPhoto } from 'app/shared/model/photo.model';
 import { IPhotoGallery } from 'app/shared/model/photo.gallery.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
@@ -86,88 +87,124 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
   }
 
   render() {
-    const { photoList, match, totalItems } = this.props;
-    const { id, image, description, imageContentType, name } = this.props.restaurantEnt;
+    const { photoList, match, totalItems, account } = this.props;
+    const { id, image, description, imageContentType, name, googleMapsLink, tripAdvisorLink, webPageLink } = this.props.restaurantEnt;
     const url = image
       ? `data:${imageContentType};base64,${image}`
       : 'https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjg0oXSyenhAhVNL1AKHV0XBcUQjRx6BAgBEAU&url=https%3A%2F%2Fwww.publicdomainpictures.net%2Fen%2Fview-image.php%3Fimage%3D34596%26picture%3Dquestion-mark&psig=AOvVaw0xg9g0Nu5CD1GypEHO8J-U&ust=1556224350196034';
 
+    let isAdmin = false;
+    let isUser = false;
+    let isUnlogged = true;
 
     let photoSet = photoList.filter((photo) => id === photo.restaurantId).map( photo => (
             {
                 src: `data:${photo.imageContentType};base64,${photo.image}`,
                 width: 1,
                 height: 1,
-                key: `${photo.id}`
+                key: `${photo.id}`,
+                className: "col-lg-3 col-md-3 col-sm-6 col-xs-6"
             }
          ));
 
+
+      if (account !== null && account !== undefined && account.authorities !== undefined ) {
+          account.authorities.map((authority, i) => {
+              if (authority === AUTHORITIES.ADMIN) {
+                  isAdmin = true;
+                  isUnlogged = false;
+              } else if (authority === AUTHORITIES.USER) {
+                  isUser = true;
+                  isUnlogged = false;
+              }
+          });
+      }
+      let hideButton = {
+          display: 'none'
+      };
+      let showButton = {
+          display: 'inline-block'
+      };
+
     return (
       <Row className="main-header-container">
-        <div className="restaurant-header">
-          <div className="header-gallery-main-container">
-            <img src={url} alt="Loading..." />
-            <Gallery photos={photoSet} onClick={this.openLightbox} />
-            <Lightbox
-              images={ photoSet }
-              onClose={this.closeLightbox}
-              onClickPrev={this.gotoPrevious}
-              onClickNext={this.gotoNext}
-              currentImage={this.state.currentImage}
-              isOpen={this.state.lightboxIsOpen}
-            />
+        <div className="restaurant-header row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div className="header-gallery-main-container row col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <img src={url} className="col-lg-12 col-md-12 col-sm-6 col-xs-6" alt="Loading..." />
+              { photoSet.length > 0 && (
+                  <Gallery margin={0} photos={photoSet ? photoSet : []} onClick={this.openLightbox} />
+              )}
+              { photoSet.length > 0 && (
+                  <Lightbox
+                      images={ photoSet }
+                      onClose={this.closeLightbox}
+                      onClickPrev={this.gotoPrevious}
+                      onClickNext={this.gotoNext}
+                      currentImage={this.state.currentImage}
+                      isOpen={this.state.lightboxIsOpen}
+                  />
+              )}
           </div>
-          <div className="header-main-content">
+          <div className="header-main-content col-lg-7 col-md-8 col-sm-12 col-xs-12">
             <h1>{name}</h1>
             <h2>{description}</h2>
           </div>
-
-          <div className="header-main-buttons">
-            <Button tag={Link} to={`/entity/restaurant/${id}/edit`} color="primary" size="sm">
-              <FontAwesomeIcon icon="pencil-alt" />{' '}
-              <span className="d-none d-md-inline">
-                <Translate contentKey="entity.action.edit">Edit</Translate>
-              </span>
-            </Button>
-            <a
-              className="header-link-button"
-              href="https://www.google.com/maps/d/u/0/viewer?hl=en&ie=UTF8&view=map&ctz=420&msa=0&ll=36.22584900000001%2C-119.32679100000001&spn=0.006439%2C0.007145&z=17&iwloc=0004a397dd9dfef804e64&mid=1GoRZ4B9Q4e1dsxz6cPzc1HemgQI"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon="pencil-alt" />
-              <span className="d-none d-md-inline">
-                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
-                GMaps
-              </span>
-            </a>
-            <a
-              className="header-link-button"
-              href="https://www.google.com/maps/d/u/0/viewer?hl=en&ie=UTF8&view=map&ctz=420&msa=0&ll=36.22584900000001%2C-119.32679100000001&spn=0.006439%2C0.007145&z=17&iwloc=0004a397dd9dfef804e64&mid=1GoRZ4B9Q4e1dsxz6cPzc1HemgQI"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon="pencil-alt" />
-              <span className="d-none d-md-inline">
-                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
-                TripAdv
-              </span>
-            </a>
-            <a
-              className="header-link-button"
-              href="https://www.google.com/maps/d/u/0/viewer?hl=en&ie=UTF8&view=map&ctz=420&msa=0&ll=36.22584900000001%2C-119.32679100000001&spn=0.006439%2C0.007145&z=17&iwloc=0004a397dd9dfef804e64&mid=1GoRZ4B9Q4e1dsxz6cPzc1HemgQI"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon="pencil-alt" />
-              <span className="d-none d-md-inline">
-                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
-                WebPage
-              </span>
-            </a>
-            <Button tag={Link} to={`/entity/restaurant/${id}/delete`} color="danger" size="sm">
-              <FontAwesomeIcon icon="trash" />{' '}
-              <span className="d-none d-md-inline">
-                <Translate contentKey="entity.action.delete">Delete</Translate>
-              </span>
-            </Button>
+          <div className="header-main-buttons col-lg-1 col-md-12 col-sm-12 col-xs-12">
+              <a
+                  className="header-link-button"
+                  // href="https://www.google.com/maps/place/Monster+Cook/@51.096124,17.0656949,13z/data=!4m8!1m2!2m1!1sRestaurants!3m4!1s0x470fc2a770038665:0xe88ca9353e0123fa!8m2!3d51.1040181!4d17.0873052"
+                  href={ googleMapsLink }
+                  style={ googleMapsLink ? showButton : hideButton}
+                  target="_blank"
+              >
+                  <FontAwesomeIcon icon={faGlobeAmericas} />{' '}
+                  <span className="d-xs-none d-md-inline">
+                                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      GMaps
+                            </span>
+              </a>
+              <a
+                  className="header-link-button"
+                  href={ tripAdvisorLink }
+                  style={ tripAdvisorLink ? showButton : hideButton }
+                  target="_blank"
+              >
+                  <FontAwesomeIcon icon={faComments} />{' '}
+                  <span className="d-xs-none d-md-inline d-lg-inline">
+                                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      TripAdv
+                            </span>
+              </a>
+              <a
+                  className="header-link-button"
+                  href={webPageLink}
+                  style={webPageLink ? showButton : hideButton}
+                  target="_blank"
+              >
+                  <FontAwesomeIcon icon={faHome} />{' '}
+                  <span className="d-md-inline">
+                                 {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      WebPage
+                            </span>
+              </a>
+            {
+                (isAdmin || isUser) &&
+                (<Button tag={Link} to={`/entity/restaurant/${id}/edit`} color="primary">
+                    <FontAwesomeIcon icon="pencil-alt" />{' '}
+                    <span className="d-xs-none d-sm-inline">
+                        <Translate contentKey="entity.action.edit">Edit</Translate>
+                    </span>
+                </Button>)
+            }
+            {
+                (isAdmin || isUser) &&
+                (<Button tag={Link} to={`/entity/restaurant/${id}/delete`} color="danger" >
+                    <FontAwesomeIcon icon="trash" />{' '}
+                    <span className="d-xs-none d-sm-inline">
+                        <Translate contentKey="entity.action.delete">Delete</Translate>
+                    </span>
+                </Button>)
+            }
           </div>
         </div>
       </Row>
@@ -175,9 +212,10 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
   }
 }
 
-const mapStateToProps = ({ photo }: IRootState) => ({
+const mapStateToProps = ({ photo, authentication }: IRootState) => ({
   photoList: photo.entities,
-  totalItems: photo.totalItems
+  totalItems: photo.totalItems,
+  account: authentication.account
 });
 
 const mapDispatchToProps = {

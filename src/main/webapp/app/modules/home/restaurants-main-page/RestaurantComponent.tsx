@@ -42,7 +42,7 @@ class RestaurantComponent extends React.Component<IRestaurantComponentProps, IRe
 
     const addressOfRestaurant = (this.getLocationById() !== undefined) ? this.getLocationById().city : 'undefined';
     return (
-      <NavItem tag={Link} to={`/chosenRestaurant/${id}`}>
+      <NavItem className="row col-xs-12 col-sm-6 col-md-4 col-lg-3" tag={Link} to={`/chosenRestaurant/${id}`}>
           <Card className="container-card-restaurant">
               <CardActionArea>
                   <CardMedia

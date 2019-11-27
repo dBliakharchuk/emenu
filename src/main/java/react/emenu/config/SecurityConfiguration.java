@@ -102,16 +102,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/categories/**").permitAll()
-            .antMatchers("/api/dishes/**").permitAll()
-            .antMatchers("/api/menus/**").permitAll()
-            .antMatchers("/api/restaurants/**").permitAll()
-            .antMatchers("/api/users/**").permitAll()
-            .antMatchers("/api/photos/**").permitAll()
-            .antMatchers("/api/**").authenticated()
+            .antMatchers("/api/authenticate").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/categories/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/dishes/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/menus/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/restaurants/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/users/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/photos/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/locations/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/ingredients/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/api/ingredient-to-dishes/**").permitAll()
+            .antMatchers("/api/**").hasAuthority(AuthoritiesConstants.USER)
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -119,6 +122,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .apply(securityConfigurerAdapter());
 
     }
+
+                /*.antMatchers("/api/**").authenticated()*/
 
     private JWTConfigurer securityConfigurerAdapter() {
         return new JWTConfigurer(tokenProvider);

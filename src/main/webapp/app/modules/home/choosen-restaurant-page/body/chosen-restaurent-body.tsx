@@ -31,7 +31,12 @@ import getLevel = logging.getLevel;
 
 export interface IMenuProps extends React.Component, StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export type IMenuState = IBaseState;
+export interface IMenuState {
+    menuPointerPosition: number,
+    categoryPointerPosition: number,
+    categoryLabel: string,
+    chosenRestaurantId: number
+}
 
 let store = createStore(myApp);
 
@@ -112,8 +117,9 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
     // @ts-ignore
     return (
       <Row>
-        <div className="restaurant-body">
-          <TreeMenu
+        <div className="restaurant-body col-lg-4 col-md-4 col-sm-11 col-xs-11">
+            <label>Menu</label>
+            <TreeMenu
             key={restaurantID}
             data={menusFromRestaurant}
             activeCat={this.state}
@@ -123,7 +129,7 @@ export class RestaurantBody extends React.Component<IMenuProps, IMenuState> {
             debounceTime={125}
           />
         </div>
-        <div className="restaurant-dishes">
+        <div className="restaurant-dishes col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <DishList
             menuPointerPosition = { menuPointerPosition }
             categoryPointerPosition = { categoryPointerPosition }

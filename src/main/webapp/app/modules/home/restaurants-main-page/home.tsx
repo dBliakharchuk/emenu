@@ -22,7 +22,7 @@ export class Home extends React.Component<IHomeProp> {
     const { account } = this.props;
     return (
       <Row>
-        <Col md="9">
+        <Col md="12" className="col-lg-12">
           <h2>
             <Translate contentKey="home.title">Welcome to EMenu</Translate>
           </h2>
@@ -46,21 +46,22 @@ export class Home extends React.Component<IHomeProp> {
                   <Link to="/login" className="alert-link">
                     <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
                   </Link>
-                  <Translate contentKey="global.messages.info.authenticated.suffix">
+                    {/*<Translate contentKey="global.messages.info.authenticated.suffix">
                     , you can try the default accounts:
                     <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
                     <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-                  </Translate>
+                  </Translate>*/}
                 </Alert>
               }
-
-              <Alert color="warning">
+                <br/>
+                <Alert color="warning">
                 <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>
                 &nbsp;
                 <Link to="/register" className="alert-link">
                   <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
                 </Link>
               </Alert>
+                {/*<RestaurantsReact/>*/}
               <RestaurantsListUnlogged />
             </div>
           )}
@@ -104,9 +105,9 @@ export class Home extends React.Component<IHomeProp> {
             !
           </p>*/}
         </Col>
-        <Col md="3" className="pad">
+        {/*<Col md="3" className="pad">
           <span className="hipster rounded" />
-        </Col>
+        </Col>*/}
       </Row>
     );
   }
