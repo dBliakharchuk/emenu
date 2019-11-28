@@ -1,18 +1,15 @@
 import 'app/modules/home/css/dish-style.css';
 
-import React, { Component } from 'react';
-import { Row, Col, Alert } from 'reactstrap';
+import React from 'react';
 import { getDishEntities, getEntity } from 'app/entities/dish/dish.reducer';
 import { RouteComponentProps } from 'react-router';
-import { IBaseProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
+import { IBaseMenuProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
 import { connect } from 'react-redux';
-import { IDishState } from 'app/entities/dish/dish';
 import { IPaginationBaseState } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
-import GridListTile from '@material-ui/core/GridListTile';
 import Popup from 'reactjs-popup';
 
-export interface IChosenDishProps extends StateProps, IBaseProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IChosenDishProps extends StateProps, IBaseMenuProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 export type IChosenDishState = IPaginationBaseState;
 
 export class ChosenDish extends React.Component<IChosenDishProps, IChosenDishState> {
@@ -27,7 +24,7 @@ export class ChosenDish extends React.Component<IChosenDishProps, IChosenDishSta
   }
 
   render() {
-    const { id, name, description, image, price, imageContentType, categoryIdCategory, categoryId } = this.props.dishEntity;
+    const { name, image, imageContentType } = this.props.dishEntity;
     let url = null;
     {
       url = image ? `data:${imageContentType};base64,${image}` : url;
@@ -60,8 +57,7 @@ export class ChosenDish extends React.Component<IChosenDishProps, IChosenDishSta
                 </Popup>
                 <button
                   className="button"
-                  onClick={function() {
-                    console.log('modal closed ');
+                  onClick={ () => {
                     close();
                   }}
                 >

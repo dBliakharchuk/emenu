@@ -5,32 +5,21 @@ import React from 'react';
 import {getDishEntities} from 'app/entities/dish/dish.reducer';
 import {getCategoryEntities} from 'app/entities/category/category.reducer';
 import {getMenuEntities} from 'app/entities/menu/menu.reducer';
-import {getPhotoEntities} from 'app/entities/photo/photo.reducer';
 import {getIngredientById, getIngredientsEntities} from 'app/entities/ingredient/ingredient.reducer';
 import {getIngredientsToDishEntities} from 'app/entities/ingredient-to-dish/ingredient-to-dish.reducer';
 import {IRootState} from 'app/shared/reducers';
 import {RouteComponentProps} from 'react-router';
-import {IPaginationBaseState} from 'react-jhipster';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Button} from 'reactstrap';
-import {IBaseProps} from 'app/modules/home/choosen-restaurant-page/body/new.IState';
-import {NavLink as Link} from 'react-router-dom';
-import Popup from 'reactjs-popup';
-import Gallery from 'react-photo-gallery';
-import Lightbox from 'react-images';
+import {IBaseMenuProps} from 'app/modules/home/choosen-restaurant-page/body/new.IState';
 import {connect} from "react-redux";
 import {IDish} from "app/shared/model/dish.model";
-import {AUTHORITIES} from "app/config/constants";
+import DishComponent from "app/modules/home/choosen-restaurant-page/body/DishComponent";
 
-export interface IDishProps extends StateProps, IBaseProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface IDishProps extends StateProps, IBaseMenuProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export interface IDishState extends IPaginationBaseState {
+export interface IDishState {
     currentImage: number;
     lightboxIsOpen: boolean;
     querySearch: string;
@@ -42,15 +31,15 @@ export interface IDishState extends IPaginationBaseState {
 
 /* Filter function for searching Dish name and ingredients */
 function searchingForDishesByIng(ingredientsList, iTdList) {
-    return function (x) {
-        return iTdList.filter(iTdElement => x.id == iTdElement.toDishId).filter(function (iTdElement) {
-            return ingredientsList.filter(ingredient => (ingredient.id == iTdElement.toIngredientId)).length > 0
+    return x => {
+        return iTdList.filter(iTdElement => x.id === iTdElement.toDishId).filter(iTdElement => {
+            return ingredientsList.filter(ingredient => (ingredient.id === iTdElement.toIngredientId)).length > 0
         }).length > 0;
     };
 }
 
 function searchingFor(querySearch) {
-    return function(x) {
+    return x => {
         if (x != null) {
             return (
                 x.name.toLowerCase().includes(querySearch.toLowerCase()) ||
@@ -60,16 +49,6 @@ function searchingFor(querySearch) {
             return false;
         }
     };
-}
-
-function searchingForIngredientsITD(dishId) {
-    return function (ingredientToDish) {
-        if (dishId !== null ) {
-            return ingredientToDish.toDishId === dishId
-        } else {
-            return false;
-        }
-    }
 }
 
 class DishListUnlogged extends React.Component<IDishProps, IDishState> {
@@ -98,7 +77,6 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
     componentDidMount() {
         this.props.getCategoryEntities();
         this.props.getEntities();
-        this.props.getPhotoEntities();
         this.props.getIngredientsToDishEntities();
         this.props.getIngredientsEntities();
         this.props.getMenuEntities();
@@ -145,21 +123,9 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
         });
     }
 
-    getPhotosByDishID(dishId) {
-        return this.props.photoList.filter(photo => photo.dishId === dishId).map(photo => {
-            return {
-                src: `data:${photo.imageContentType};base64,${photo.image}`,
-                width: 1,
-                height: 1,
-                key: `${photo.id}`,
-                margin: 0
-            };
-        });
-    }
-
     findDishesByChosenRestaurant() {
         const {dishList, categoryList, menuList, chosenRestaurantId} = this.props;
-        let dishesByRestaurant: Array<IDish> = [];
+        let dishesByRestaurant: IDish[] = [];
         menuList.filter(menu => menu.restaurantId === chosenRestaurantId).map(menu => {
             categoryList.filter(category => category.menuId === menu.id).map(category => {
                 dishesByRestaurant = dishesByRestaurant.concat(dishList.filter(dish => category.id === dish.categoryId));
@@ -172,9 +138,8 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
     }
 
     renderDishListByPointerPosition() {
-        const {menuPointerPosition, categoryPointerPosition, dishList, categoryList, menuList, chosenRestaurantId} = this.props;
+        const { menuPointerPosition, categoryPointerPosition, dishList, categoryList } = this.props;
         let chosenDishesByPointer = [];
-        console.log("menuPos: " + menuPointerPosition, " categoryPos: " + categoryList)
         if (categoryPointerPosition === 0 && menuPointerPosition === 0) {
             chosenDishesByPointer = this.findDishesByChosenRestaurant();
         } else if (categoryPointerPosition === 0 && menuPointerPosition !== 0) {
@@ -186,6 +151,7 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
                 return (categoryPointerPosition === dish.categoryId)
             })
         } else {
+            console.warn("Menu is Empty!!!")
         }
 
         this.setState({
@@ -223,14 +189,10 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
         }
     };
 
-
     render() {
         const { categoryLabel } = this.props;
         const {querySearch, results} = this.state;
-        let url = null;
-        let urlReplacementImg = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
         let curLabel = this.props.categoryLabel;
-
 
             return (
                 <div className="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -260,107 +222,7 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
                                 </div>
                             </GridListTile>
                             {results.map(dish => {
-                                const dishGallery = this.getPhotosByDishID(dish.id);
-                                return (
-                                    <GridListTile key={dish.id}
-                                                  className="main-body-dish-list-img col-lg-3 col-md-4 col-sm-4 col-xs-6">
-                                        {(url = dish.image !== null ? `data:${dish.imageContentType};base64,${dish.image}` : urlReplacementImg)}
-                                        <img src={url} alt={dish.name}/>
-                                        <GridListTileBar
-                                            title={dish.name}
-                                            subtitle={
-                                                <span>
-                                                    price: {dish.price}
-                                                    zł
-                                                </span>
-                                            }
-                                            actionIcon={
-                                                <div className="popup-main-container" style={{ width:"100%" }}>
-                                                    <Popup
-                                                        trigger={
-                                                            <IconButton className="icon">
-                                                                <InfoIcon/>
-                                                            </IconButton>
-                                                        }
-                                                        contentStyle={{width: "100%", margin: "15% 20px auto 20px"}}
-                                                        position={"center center"}
-                                                        modal
-                                                    >
-                                                        {close => (
-                                                            <div className="modal row">
-                                                                {/*<a className="close" onClick={() => {
-                                                                    close();
-                                                                }}
-                                                                >
-                                                                    &times;
-                                                                </a>*/}
-                                                                <div className="header col-lg-12 col-md-12 col-sm-12"> {dish.name} </div>
-                                                                <div className="content col-lg-12 col-md-12 col-sm-12">
-                                                                    {' '}
-                                                                    <div className="dish-popup-gallery col-lg-4 col-md-4 col-sm-12">
-                                                                        <img
-                                                                            className="col-lg-12 col-md-12 col-sm-12"
-                                                                            src={`data:${dish.imageContentType};base64,${dish.image}`}
-                                                                            alt={dish.name}/>
-                                                                        {dishGallery.length > 0 && (
-                                                                            <Gallery
-                                                                                     margin={0}
-                                                                                     photos={dishGallery ? dishGallery : []}
-                                                                                     onClick={this.openLightbox}
-                                                                            />
-                                                                        )}
-                                                                        {dishGallery.length > 0 && (
-                                                                            <Lightbox
-                                                                                images={dishGallery}
-                                                                                onClose={this.closeLightbox}
-                                                                                onClickPrev={this.gotoPrevious}
-                                                                                onClickNext={this.gotoNext}
-                                                                                currentImage={this.state.currentImage}
-                                                                                isOpen={this.state.lightboxIsOpen}
-                                                                            />
-                                                                        )}
-                                                                    </div>
-                                                                    <div className="dish-popup-description col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                                        Lorem ipsum dolor sit amet consectetur
-                                                                        adipisicing elit. Atque, a nostrum. Dolorem,
-                                                                        repellat quidem
-                                                                        ut, minima sint vel eveniet quibusdam voluptates
-                                                                        delectus doloremque, explicabo tempore dicta
-                                                                        adipisci
-                                                                        fugit amet dignissimos?
-                                                                    </div>
-                                                                </div>
-                                                                <div className="actions col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                    <Popup
-                                                                        trigger=
-                                                                            {<button className="popup-button"> Ingredients </button>}
-                                                                        closeOnDocumentClick
-                                                                        position={"top center"}
-                                                                        contentStyle={{width: "50%"}}
-                                                                    >
-                                                                        <ul>
-                                                                            <li>Ingredient1</li>
-                                                                            <li>Ingredient2</li>
-                                                                        </ul>
-                                                                    </Popup>
-                                                                    <button
-                                                                        className="popup-button"
-                                                                        onClick={() => {
-                                                                            console.log('modal closed ');
-                                                                            close();
-                                                                        }}
-                                                                    >
-                                                                        close
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </Popup>
-                                                </div>
-                                            }
-                                        />
-                                    </GridListTile>
-                                );
+                                return <DishComponent key={dish.id} dishEnt={dish} />
                             })}
                         </GridList>
                     </div>
@@ -369,12 +231,10 @@ class DishListUnlogged extends React.Component<IDishProps, IDishState> {
         }
     }
 
-
-const mapStateToProps = ({ dish, category, photo, ingredient, menu, ingredientToDish, authentication }: IRootState) => ({
+const mapStateToProps = ({ dish, category, ingredient, menu, ingredientToDish }: IRootState) => ({
     dishList: dish.entities,
     totalItems: dish.totalItems,
     categoryList: category.entities,
-    photoList: photo.entities,
     ingredientList: ingredient.entities,
     ingredientToDishList: ingredientToDish.entities,
     chosenIngredient: ingredient.entity,
@@ -384,7 +244,6 @@ const mapStateToProps = ({ dish, category, photo, ingredient, menu, ingredientTo
 const mapDispatchToProps = {
     getCategoryEntities,
     getEntities: getDishEntities,
-    getPhotoEntities,
     getIngredientsEntities,
     getIngredientsToDishEntities,
     getIngredientById,

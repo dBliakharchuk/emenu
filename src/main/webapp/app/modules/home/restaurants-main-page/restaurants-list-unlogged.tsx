@@ -1,21 +1,16 @@
 import './search-style.css';
 
-import React, { Component } from 'react';
-import RestaurantComponent from './RestaurantComponent';
+import React from 'react';
 import RestaurantComponentUnlogged from './RestaurantComponentUnlogged';
 import { RouteComponentProps } from 'react-router';
-import { IPaginationBaseState, Translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { getRestaurantEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { getLocationEntities } from 'app/entities/location/location.reducer';
 import { connect } from 'react-redux';
 
-import Loader from 'app/modules/home/restaurants-main-page/loader.gif';
-import {ChosenRestaurantUnlogged} from "app/modules/home/choosen-restaurant-page/chosen-restaurant-unlogged";
-
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export interface IRestaurantState extends IPaginationBaseState {
+export interface IRestaurantState {
     queryNameOfRes: string;
     queryLocationOfRes: string;
     results: any;
@@ -74,7 +69,7 @@ export class RestaurantsListUnlogged extends React.Component<IRestaurantProps, I
 
     /* Searching functions */
     fetchSearchResults = (updatedPageNo = 0, query) => {
-        const { results, locationsRes} = this.state;
+        const { results } = this.state;
         const resultNotFoundMsg = results.length ? 'There are no more search results. Please try a new search.' : '';
 
         this.setState({
@@ -131,9 +126,8 @@ export class RestaurantsListUnlogged extends React.Component<IRestaurantProps, I
     };
 
     render() {
-        const url = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
         const { restaurantList } = this.props;
-        let { queryNameOfRes, queryLocationOfRes, message, loading } = this.state;
+        let { queryNameOfRes, queryLocationOfRes, message } = this.state;
         let restaurantComponents = null;
         if (restaurantList) {
             restaurantComponents = restaurantList.map((restaurant)=> restaurant);
@@ -144,9 +138,6 @@ export class RestaurantsListUnlogged extends React.Component<IRestaurantProps, I
         return (
             <div className="row">
                 <div className="search-container col-xs-12 col-sm-12 col-md-12 ">
-                    {/*Head*/}
-                    {/*<h2 className="search-heading">Search Engine: React</h2>*/}
-                    {/* Location searching */}
                     <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
                         <input
                             type="text"
@@ -176,7 +167,7 @@ export class RestaurantsListUnlogged extends React.Component<IRestaurantProps, I
                     {message && <p className="message col-xs-12 col-sm-12 col-md-12">{message}</p>}
 
                     {/*Loader*/}
-                    <img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />
+                    {/*<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />*/}
 
                     {this.renderSearchResults(restaurantComponents)}
                 </div>
@@ -186,7 +177,7 @@ export class RestaurantsListUnlogged extends React.Component<IRestaurantProps, I
     }
 }
 
-const mapStateToProps = ({ restaurant, authentication, location }: IRootState) => ({
+const mapStateToProps = ({ restaurant, location }: IRootState) => ({
     restaurantList: restaurant.entities,
     totalItems: restaurant.totalItems,
     locationList: location.entities

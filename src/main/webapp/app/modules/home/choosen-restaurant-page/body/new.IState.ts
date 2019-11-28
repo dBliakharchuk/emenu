@@ -1,13 +1,6 @@
 import { IRestaurant } from 'app/shared/model/restaurant.model';
 
-export interface IBaseState {
-  menuPointerPosition: number;
-  categoryPointerPosition: number;
-  categoryLabel: string;
-  chosenRestaurantId: number;
-}
-
-export interface IBaseProps {
+export interface IBaseMenuProps {
   menuPointerPosition: number;
   categoryPointerPosition: number;
   categoryLabel: string;

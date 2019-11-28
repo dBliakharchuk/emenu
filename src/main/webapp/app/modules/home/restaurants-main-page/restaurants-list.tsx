@@ -1,18 +1,15 @@
 import './search-style.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 import RestaurantComponent from './RestaurantComponent';
 import { RouteComponentProps } from 'react-router';
-import { IPaginationBaseState, Translate } from 'react-jhipster';
+import { IPaginationBaseState } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { getRestaurantEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { getLocationEntities } from 'app/entities/location/location.reducer';
 import { connect } from 'react-redux';
-
-import { getUsers, updateUser } from 'app/modules/administration/user-management/user-management.reducer';
-import { getSession, login } from 'app/shared/reducers/authentication';
+import { getSession } from 'app/shared/reducers/authentication';
 import { AUTHORITIES } from 'app/config/constants';
-import Loader from 'app/modules/home/restaurants-main-page/loader.gif';
 
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -27,7 +24,7 @@ export interface IRestaurantState extends IPaginationBaseState {
 
 /* Filter function for searching Restaurant name */
 function searchingFor(queryNameOfRes) {
-  return function(x) {
+  return x => {
     if (x != null) {
       return (
         (x.name.toLowerCase().includes(queryNameOfRes.toLowerCase()) || !queryNameOfRes)
@@ -39,7 +36,7 @@ function searchingFor(queryNameOfRes) {
 }
 
 function searchingForLocation(queryLocation) {
-    return function(x) {
+    return x => {
         if (x != null) {
             return (
                 (x.city.toLowerCase().includes(queryLocation.toLowerCase()) || !queryLocation)
@@ -76,11 +73,11 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
 
   /* Searching functions */
   fetchSearchResults = (updatedPageNo = 0, query) => {
-    const { results, locationsRes} = this.state;
+    const { results } = this.state;
     const resultNotFoundMsg = results.length ? 'There are no more search results. Please try a new search.' : '';
 
     this.setState({
-      results: results,
+      results: { results },
       message: resultNotFoundMsg,
       loading: false
     });
@@ -134,15 +131,14 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
 
   // get session who is logged in
   render() {
-    const url = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
     const { restaurantList, account } = this.props;
-    let { queryNameOfRes, queryLocationOfRes, message, loading, results } = this.state;
+    let { queryNameOfRes, queryLocationOfRes, message } = this.state;
     let restaurantComponents = null;
     let isUnlogged = true;
     let isAdmin = false;
     let isUser = false;
-    if (account !== null && account !== undefined && account.authorities !== undefined ) {
-      account.authorities.map((authority, i) => {
+    if (account !== null && account !== undefined && account.authorities !== undefined) {
+      account.authorities.map(authority => {
         if (authority === AUTHORITIES.ADMIN){
           isAdmin = true;
           isUnlogged = false;
@@ -152,11 +148,10 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
         }
       });
 
-      console.log("isAdmin: " + isAdmin +  " isUser: " + isUser);
-      if ((isAdmin || isUnlogged) && account !== null && restaurantList) {
-          restaurantComponents = restaurantList.map((restaurant)=> restaurant);
+      if ((isAdmin || isUnlogged) && restaurantList) {
+          restaurantComponents = restaurantList.map(restaurant=> restaurant);
       } else if (isUser && restaurantList) {
-          restaurantComponents = restaurantList.filter((restaurant) => (restaurant.userId === account.id));
+          restaurantComponents = restaurantList.filter(restaurant => restaurant.userId === account.id);
       } else {
         console.warn('Something went wrong, check if user or admin was registered!');
       }
@@ -199,7 +194,7 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
                 {message && <p className="message col-xs-12 col-sm-12 col-md-12">{message}</p>}
 
                 {/*Loader*/}
-                <img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />
+                {/*<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />*/}
 
                 {this.renderSearchResults(restaurantComponents)}
             </div>

@@ -1,33 +1,14 @@
-import 'app/modules/home/css/home.css';
 import 'app/modules/home/css/restaurantstyle.css';
 
-import React, { Component } from 'react';
-import { Row, Col, Alert } from 'reactstrap';
-import { IRestaurant } from 'app/shared/model/restaurant.model';
+import React from 'react';
+import { Row } from 'reactstrap';
 import TreeMenu from 'react-simple-tree-menu';
 import { connect } from 'react-redux';
-import { createStore } from 'redux';
 import { IRootState } from 'app/shared/reducers';
 import { getMenuEntities } from 'app/entities/menu/menu.reducer';
 import { getCategoryEntities } from 'app/entities/category/category.reducer';
 import { RouteComponentProps } from 'react-router';
-import { IPaginationBaseState } from 'react-jhipster';
-import { IBaseState, IBaseProps } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
-import menu, { Menu } from 'app/entities/menu/menu';
-import pop from 'atomic-layout/lib/types/utils/functions/pop';
-import { number } from 'prop-types';
-import { TreeNode } from 'react-simple-tree-menu/dist/TreeMenu/walk';
-import { Simulate } from 'react-dom/test-utils';
-import category from 'app/entities/category/category';
 import DishListUnlogged from 'app/modules/home/choosen-restaurant-page/body/dish-list-unlogged';
-import { POSITION_MENU, POSITION_CATEGORY } from './new.actions';
-import { Input } from '@material-ui/core';
-import myApp from './new.reducer';
-import stringify = Mocha.utils.stringify;
-import { Json } from 'enzyme-to-json';
-import { logging } from 'selenium-webdriver';
-import getLevel = logging.getLevel;
-/*import { getCategoryEntities } from 'app/entities/category/category.reducer';*/
 
 export interface IMenuProps extends React.Component, StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -112,8 +93,6 @@ export class RestaurantBodyUnlogged extends React.Component<IMenuProps, IMenuSta
         const { menuPointerPosition, categoryPointerPosition, categoryLabel } = this.state;
         const menusFromRestaurant = this.getAllMenusByRestaurantID(restaurantID);
 
-        // @ts-ignore
-        // @ts-ignore
         return (
             <Row>
                 <div className="restaurant-body col-lg-4 col-md-4 col-sm-11 col-xs-11">
