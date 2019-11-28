@@ -1,17 +1,10 @@
-import 'app/modules/home/css/home.css';
-
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-
 import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
-import { Home } from 'app/modules/home/restaurants-main-page/home';
 import { getRestaurantEntity } from 'app/entities/restaurant/restaurant.reducer';
 import RestaurantHeader from './header/chosen-restaurant-header';
-import RestaurantBody from './body/chosen-restaurent-body';
+import RestaurantBody from './body/chosen-restaurant-body';
 
 export interface IChosenRestaurantProp extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 

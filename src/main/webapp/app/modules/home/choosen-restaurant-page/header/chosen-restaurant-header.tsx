@@ -2,48 +2,26 @@ import React from 'react';
 import 'app/modules/home/css/home.css';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-import ImageGallery from 'react-image-gallery';
-
-// tslint:disable-next-line:no-unused-variable
-import {
-  openFile,
-  byteSize,
-  Translate,
-  ICrudGetAllAction,
-  getSortState,
-  IPaginationBaseState,
-  getPaginationItemsNumber,
-  JhiPagination,
-  log
-} from 'react-jhipster';
+import { Button, Row } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeAmericas, faComments, faHome} from '@fortawesome/free-solid-svg-icons'
-import { getSession } from 'app/shared/reducers/authentication';
 import { IRootState } from 'app/shared/reducers';
 import { getPhotoEntities, reset } from 'app/entities/photo/photo.reducer';
-import { IPhoto } from 'app/shared/model/photo.model';
-import { IPhotoGallery } from 'app/shared/model/photo.gallery.model';
-// tslint:disable-next-line:no-unused-variable
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import { AUTHORITIES } from 'app/config/constants';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 import { IBasePropsRestaurant } from 'app/modules/home/choosen-restaurant-page/body/new.IState';
 
 export interface IRestaurantHeaderProps extends IBasePropsRestaurant, StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export interface IRestaurantHeaderState extends IPaginationBaseState {
+export interface IRestaurantHeaderState {
   currentImage: number;
   lightboxIsOpen: boolean;
 }
 
 export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IRestaurantHeaderState> {
   state: IRestaurantHeaderState = {
-    activePage: 0,
-    itemsPerPage: 0,
-    order: '',
-    sort: '',
     currentImage: 0,
     lightboxIsOpen: false
   };
@@ -87,7 +65,7 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
   }
 
   render() {
-    const { photoList, match, totalItems, account } = this.props;
+    const { photoList, account } = this.props;
     const { id, image, description, imageContentType, name, googleMapsLink, tripAdvisorLink, webPageLink } = this.props.restaurantEnt;
     const url = image
       ? `data:${imageContentType};base64,${image}`
@@ -97,7 +75,7 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
     let isUser = false;
     let isUnlogged = true;
 
-    let photoSet = photoList.filter((photo) => id === photo.restaurantId).map( photo => (
+    let photoSet = photoList.filter(photo => id === photo.restaurantId).map(photo => (
             {
                 src: `data:${photo.imageContentType};base64,${photo.image}`,
                 width: 1,
@@ -107,9 +85,8 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
             }
          ));
 
-
-      if (account !== null && account !== undefined && account.authorities !== undefined ) {
-          account.authorities.map((authority, i) => {
+      if (account !== null && account !== undefined && account.authorities !== undefined) {
+          account.authorities.map(authority => {
               if (authority === AUTHORITIES.ADMIN) {
                   isAdmin = true;
                   isUnlogged = false;
@@ -152,16 +129,15 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
           <div className="header-main-buttons col-lg-1 col-md-12 col-sm-12 col-xs-12">
               <a
                   className="header-link-button"
-                  // href="https://www.google.com/maps/place/Monster+Cook/@51.096124,17.0656949,13z/data=!4m8!1m2!2m1!1sRestaurants!3m4!1s0x470fc2a770038665:0xe88ca9353e0123fa!8m2!3d51.1040181!4d17.0873052"
                   href={ googleMapsLink }
                   style={ googleMapsLink ? showButton : hideButton}
                   target="_blank"
               >
                   <FontAwesomeIcon icon={faGlobeAmericas} />{' '}
                   <span className="d-xs-none d-md-inline">
-                                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
                       GMaps
-                            </span>
+                  </span>
               </a>
               <a
                   className="header-link-button"
@@ -171,9 +147,9 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
               >
                   <FontAwesomeIcon icon={faComments} />{' '}
                   <span className="d-xs-none d-md-inline d-lg-inline">
-                                {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
                       TripAdv
-                            </span>
+                  </span>
               </a>
               <a
                   className="header-link-button"
@@ -183,9 +159,9 @@ export class RestaurantHeader extends React.Component<IRestaurantHeaderProps, IR
               >
                   <FontAwesomeIcon icon={faHome} />{' '}
                   <span className="d-md-inline">
-                                 {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
+                      {/*<Translate contentKey="entity.action.edit">GoogleMaps</Translate>*/}
                       WebPage
-                            </span>
+                  </span>
               </a>
             {
                 (isAdmin || isUser) &&

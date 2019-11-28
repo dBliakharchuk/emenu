@@ -16,7 +16,7 @@ export const ACTION_TYPES = {
   RESET: 'menu/RESET'
 };
 
-const initialState = {
+const initialState: any = {
   loading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IMenu>,
@@ -121,7 +121,6 @@ export const getMenuEntities: ICrudGetAllAction<IMenu> = (page, size, sort) => {
     payload: axios.get<IMenu>(`${requestUrl}${sort ? '&' : '?'}cacheBuster=${new Date().getTime()}`)
   };
 };
-
 
 export const getEntity: ICrudGetAction<IMenu> = id => {
   const requestUrl = `${apiUrl}/${id}`;

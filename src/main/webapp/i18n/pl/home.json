@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "Witamy, Java Hipsterze!",
-    "subtitle": "To jest twoja strona domowa",
+    "subtitle": "Na tej stronie znajdziesz restauracje z Polski.",
     "logged": {
       "message": "Jesteś zalogowany jako użytkownik \"{{username}}\"."
     },

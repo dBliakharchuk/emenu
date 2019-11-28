@@ -2,22 +2,22 @@
   "emenuApp": {
     "category": {
       "home": {
-        "title": "Category",
-        "createLabel": "Dodaj Category",
-        "createOrEditLabel": "Dodaj lub edytuj: Category"
+        "title": "Kategorie",
+        "createLabel": "Dodaj Kategirię",
+        "createOrEditLabel": "Dodaj lub edytuj: Kategorię"
       },
-      "created": "Utworzono nowy obiekt typu Category z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Category z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Category z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Kategoria z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Kategoria z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Kategoria z identyfikatorem {{ param }}",
       "delete": {
         "question": "Czy na pewno chcesz usunąć Category {{ id }}?"
       },
       "detail": {
-        "title": "Category"
+        "title": "Kategoria"
       },
-      "name": "Name",
-      "description": "Description",
-      "menu": "Menu"
+      "name": "Nazwa",
+      "description": "Opis",
+      "menu": "Nazwa"
     }
   }
 }

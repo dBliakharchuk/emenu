@@ -26,21 +26,17 @@
     "clientFramework": "react",
     "useSass": false,
     "clientPackageManager": "yarn",
-    "testFrameworks": [
-      "protractor"
-    ],
+    "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": [
-      "en",
-      "de",
-      "pl"
-    ],
+    "languages": ["en", "de", "pl"],
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "skipServer": false,
-    "skipClient": false
+    "skipClient": false,
+    "herokuAppName": "emenu-web-app",
+    "herokuDeployType": "git"
   }
 }

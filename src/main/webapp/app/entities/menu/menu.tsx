@@ -24,6 +24,7 @@ import { IMenu } from 'app/shared/model/menu.model';
 import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import {IDish} from "app/shared/model/dish.model";
+import {IRestaurant} from "app/shared/model/restaurant.model";
 
 
 export interface IMenuProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -62,6 +63,12 @@ export class Menu extends React.Component<IMenuProps, IMenuState> {
     const { activePage, itemsPerPage, sort, order } = this.state;
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
+
+  findNameRestaurantById(restaurantID) {
+      const { restaurantList } = this.props;
+      const foundRestaurant = restaurantList.find(restaurant => (restaurant.id == restaurantID));
+      return (foundRestaurant !== undefined && foundRestaurant !== null) && foundRestaurant.name
+  }
 
   render() {
     const { menuList, match, totalItems, restaurantList, account } = this.props;
@@ -148,7 +155,8 @@ export class Menu extends React.Component<IMenuProps, IMenuState> {
                   </td>
                   <td>{menu.imageContent}</td>
                   <td>
-                    {menu.restaurantIdRestaurant ? <Link to={`restaurant/${menu.restaurantId}`}>{menu.restaurantIdRestaurant}</Link> : ''}
+                    {menu.restaurantIdRestaurant ? <Link to={`restaurant/${menu.restaurantId}`}>
+                        { this.findNameRestaurantById(menu.restaurantIdRestaurant)}</Link> : ''}
                   </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

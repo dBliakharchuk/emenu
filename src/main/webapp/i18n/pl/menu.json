@@ -15,11 +15,11 @@
       "detail": {
         "title": "Menu"
       },
-      "name": "Name",
-      "description": "Description",
-      "image": "Image",
-      "imageContent": "Image Content",
-      "restaurant": "Restaurant"
+      "name": "Nazwa",
+      "description": "Opis",
+      "image": "Zdjęcie",
+      "imageContent": "Kontent zdjęcia",
+      "restaurant": "Restauracja"
     }
   }
 }

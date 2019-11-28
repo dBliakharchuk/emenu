@@ -2,27 +2,27 @@
   "emenuApp": {
     "restaurant": {
       "home": {
-        "title": "Restaurant",
-        "createLabel": "Dodaj Restaurant",
-        "createOrEditLabel": "Dodaj lub edytuj: Restaurant"
+        "title": "Restauracja",
+        "createLabel": "Dodaj Restaurację",
+        "createOrEditLabel": "Dodaj lub edytuj: Restaurację"
       },
-      "created": "Utworzono nowy obiekt typu Restaurant z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Restaurant z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Restaurant z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Restauracja z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Restauracja z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Restauracja z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Restaurant {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Restaurację {{ id }}?"
       },
       "detail": {
-        "title": "Restaurant"
+        "title": "Restauracja"
       },
-      "name": "Name",
-      "description": "Description",
-      "image": "Image",
-      "googleMapsLink": "Google Maps Link",
-      "tripAdvisorLink": "Trip Advisor Link",
-      "webPageLink": "Web Page Link",
-      "idLocation": "Id Location",
-      "user": "User"
+      "name": "Nazwa",
+      "description": "Opis",
+      "image": "Zdjęcie",
+      "googleMapsLink": "Google Maps link",
+      "tripAdvisorLink": "Trip Advisor link",
+      "webPageLink": "Strona oficjalna Link",
+      "idLocation": "Id Adresu",
+      "user": "Urzytkownik"
     }
   }
 }

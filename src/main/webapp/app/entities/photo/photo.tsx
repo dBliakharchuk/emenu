@@ -33,6 +33,7 @@ import { getMenuEntities } from 'app/entities/menu/menu.reducer';
 import { getCategoryEntities } from 'app/entities/category/category.reducer';
 import { getSession } from "app/shared/reducers/authentication";
 import {IDish} from "app/shared/model/dish.model";
+import dish from "app/entities/dish/dish";
 
 export interface IPhotoProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -113,6 +114,18 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
       currentImage: this.state.currentImage + 1
     });
   }
+
+    findNameRestaurantById(restaurantID) {
+        const { restaurantList } = this.props;
+        const foundRestaurant = restaurantList.find(restaurant => (restaurant.id == restaurantID));
+        return (foundRestaurant !== undefined && foundRestaurant !== null) && foundRestaurant.name
+    }
+
+    findNameDishById(DishID) {
+        const { dishList } = this.props;
+        const foundDish = dishList.find(restaurant => (restaurant.id == DishID));
+        return (foundDish !== undefined && foundDish !== null) && foundDish.name
+    }
   render() {
       const { dishList, photoList, match, restaurantList, menuList, categoryList, account } = this.props;
       let isAdmin = false;
@@ -175,7 +188,7 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
             <Translate contentKey="emenuApp.photo.home.createLabel">Create new Photo</Translate>
           </Link>
         </h2>
-        <div className="gallery-main-container">
+        {/*<div className="gallery-main-container">
           <Gallery photos={photoSet} onClick={this.openLightbox} />
           <Lightbox
             images={photoSet}
@@ -185,7 +198,7 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
             currentImage={this.state.currentImage}
             isOpen={this.state.lightboxIsOpen}
           />
-        </div>
+        </div>*/}
         <div className="table-responsive">
           <Table responsive>
             <thead>
@@ -240,14 +253,14 @@ export class Photo extends React.Component<IPhotoProps, IPhotoState> {
                         {
                           /*(this.props.getRestaurantEntity(photo.restaurantIdRestaurant) != null) &&
                           this.props.restaurantEntity.id*/
-                          photo.restaurantIdRestaurant
+                          this.findNameRestaurantById(photo.restaurantIdRestaurant)
                         }
                       </Link>
                     ) : (
                       ''
                     )}
                   </td>
-                  <td>{photo.dishIdDish ? <Link to={`dish/${photo.dishId}`}>{photo.dishIdDish}</Link> : ''}</td>
+                  <td>{photo.dishIdDish ? <Link to={`dish/${photo.dishId}`}>{this.findNameDishById(photo.dishIdDish)}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${photo.id}`} color="info" size="sm">

@@ -65,6 +65,12 @@ export class Dish extends React.Component<IDishProps, IDishState> {
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
+  findNameCategoryById(categoryID) {
+    const { categoryList } = this.props;
+    const foundCategory = categoryList.find(category => (category.id == categoryID));
+    return (foundCategory !== undefined && foundCategory !== null) && foundCategory.name
+  }
+
   render() {
     const { dishList, match, totalItems, restaurantList, menuList, categoryList, account } = this.props;
       let isAdmin = false;
@@ -155,7 +161,7 @@ export class Dish extends React.Component<IDishProps, IDishState> {
                       </div>
                     ) : null}
                   </td>
-                  <td>{dish.categoryIdCategory ? <Link to={`category/${dish.categoryId}`}>{dish.categoryIdCategory}</Link> : ''}</td>
+                  <td>{dish.categoryIdCategory ? <Link to={`category/${dish.categoryId}`}>{ this.findNameCategoryById(dish.categoryIdCategory)}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${dish.id}`} color="info" size="sm">

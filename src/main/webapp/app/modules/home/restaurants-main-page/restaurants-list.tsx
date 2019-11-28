@@ -1,37 +1,32 @@
 import './search-style.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 import RestaurantComponent from './RestaurantComponent';
 import { RouteComponentProps } from 'react-router';
-import { IPaginationBaseState, Translate } from 'react-jhipster';
+import { IPaginationBaseState } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { getRestaurantEntities } from 'app/entities/restaurant/restaurant.reducer';
 import { getLocationEntities } from 'app/entities/location/location.reducer';
 import { connect } from 'react-redux';
-
-import { getUsers, updateUser } from 'app/modules/administration/user-management/user-management.reducer';
-import { getSession, login } from 'app/shared/reducers/authentication';
+import { getSession } from 'app/shared/reducers/authentication';
 import { AUTHORITIES } from 'app/config/constants';
-import Loader from 'app/modules/home/restaurants-main-page/loader.gif';
 
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export interface IRestaurantState extends IPaginationBaseState {
+export interface IRestaurantState {
   queryNameOfRes: string;
   queryLocationOfRes: string;
   results: any;
-  locationsRes: any,
+  locationsRes: any;
   loading: boolean;
   message: string;
 }
 
 /* Filter function for searching Restaurant name */
 function searchingFor(queryNameOfRes) {
-  return function(x) {
+  return x => {
     if (x != null) {
-      return (
-        (x.name.toLowerCase().includes(queryNameOfRes.toLowerCase()) || !queryNameOfRes)
-      );
+      return x.name.toLowerCase().includes(queryNameOfRes.toLowerCase()) || !queryNameOfRes;
     } else {
       return false;
     }
@@ -39,15 +34,13 @@ function searchingFor(queryNameOfRes) {
 }
 
 function searchingForLocation(queryLocation) {
-    return function(x) {
-        if (x != null) {
-            return (
-                (x.city.toLowerCase().includes(queryLocation.toLowerCase()) || !queryLocation)
-            );
-        } else {
-            return false;
-        }
-    };
+  return x => {
+    if (x != null) {
+      return x.city.toLowerCase().includes(queryLocation.toLowerCase()) || !queryLocation;
+    } else {
+      return false;
+    }
+  };
 }
 
 /* Main restaurants component */
@@ -76,11 +69,11 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
 
   /* Searching functions */
   fetchSearchResults = (updatedPageNo = 0, query) => {
-    const { results, locationsRes} = this.state;
+    const { results } = this.state;
     const resultNotFoundMsg = results.length ? 'There are no more search results. Please try a new search.' : '';
 
     this.setState({
-      results: results,
+      results: { results },
       message: resultNotFoundMsg,
       loading: false
     });
@@ -103,23 +96,23 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
     let locationList = this.props.locationList.filter(searchingForLocation(query));
 
     if (!query) {
-        this.setState({ queryLocationOfRes: '', locationsRes: locationList, message: '' });
+      this.setState({ queryLocationOfRes: '', locationsRes: locationList, message: '' });
     } else {
       this.setState({ queryLocationOfRes: query, locationsRes: locationList, loading: true, message: '' }, () => {
-            this.fetchSearchResults(1, query);
+        this.fetchSearchResults(1, query);
       });
     }
   };
 
   renderSearchResults = restaurantComponents => {
-      const { locationsRes, queryLocationOfRes } = this.state;
-      let finalRestaurantList = restaurantComponents;
+    const { locationsRes, queryLocationOfRes } = this.state;
+    let finalRestaurantList = restaurantComponents;
 
-      if (queryLocationOfRes !== '' && restaurantComponents !== null){
-          finalRestaurantList = restaurantComponents.filter(restaurant => {
-              return (locationsRes.find(location => location.id === restaurant.idLocationId));
-          });
-      }
+    if (queryLocationOfRes !== '' && restaurantComponents !== null) {
+      finalRestaurantList = restaurantComponents.filter(restaurant => {
+        return locationsRes.find(location => location.id === restaurant.idLocationId);
+      });
+    }
 
     if (restaurantComponents && Object.keys(finalRestaurantList).length) {
       return (
@@ -134,16 +127,15 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
 
   // get session who is logged in
   render() {
-    const url = 'https://www.zumoqr.com/assets/uploads/modeller/URL_Random_US.jpg';
     const { restaurantList, account } = this.props;
-    let { queryNameOfRes, queryLocationOfRes, message, loading, results } = this.state;
+    let { queryNameOfRes, queryLocationOfRes, message } = this.state;
     let restaurantComponents = null;
     let isUnlogged = true;
     let isAdmin = false;
     let isUser = false;
-    if (account !== null && account !== undefined && account.authorities !== undefined ) {
-      account.authorities.map((authority, i) => {
-        if (authority === AUTHORITIES.ADMIN){
+    if (account !== null && account !== undefined && account.authorities !== undefined) {
+      account.authorities.map(authority => {
+        if (authority === AUTHORITIES.ADMIN) {
           isAdmin = true;
           isUnlogged = false;
         } else if (authority === AUTHORITIES.USER) {
@@ -152,60 +144,60 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
         }
       });
 
-      console.log("isAdmin: " + isAdmin +  " isUser: " + isUser);
-      if ((isAdmin || isUnlogged) && account !== null && restaurantList) {
-          restaurantComponents = restaurantList.map((restaurant)=> restaurant);
+      if ((isAdmin || isUnlogged) && restaurantList) {
+        restaurantComponents = restaurantList.map(restaurant => restaurant);
       } else if (isUser && restaurantList) {
-          restaurantComponents = restaurantList.filter((restaurant) => (restaurant.userId === account.id));
+        restaurantComponents = restaurantList.filter(restaurant => restaurant.userId === account.id);
       } else {
         console.warn('Something went wrong, check if user or admin was registered!');
       }
     } else {
-        console.warn('Account session is null!!!');
+      console.warn('Account session is null!!!');
     }
 
     return (
-        <div className="row">
-            <div className="search-container col-xs-12 col-sm-12 col-md-12 ">
-                {/*Head*/}
-                {/*<h2 className="search-heading">Search Engine: React</h2>*/}
-                {/* Location searching */}
-                <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
-                    <input
-                        type="text"
-                        name="query"
-                        value={queryLocationOfRes}
-                        id="search-input"
-                        placeholder="Provide address of the restaurant"
-                        onChange={this.handleOnInputRestaurantLocationChange}
-                    />
-                    <i className="fa fa-search search-icon" aria-hidden="true" />
-                </label>
-                {/* Restaurant name searching */}
-                <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
-                    <input
-                        type="text"
-                        name="query"
-                        value={queryNameOfRes}
-                        id="search-input"
-                        placeholder="Provide name of the restaurant"
-                        onChange={this.handleOnInputRestaurantNameChange}
-                    />
-                    <i className="fa fa-search search-icon" aria-hidden="true" />
-                </label>
+      <div className="row">
+        <div className="search-container col-xs-12 col-sm-12 col-md-12 ">
+          {/*Head*/}
+          {/*<h2 className="search-heading">Search Engine: React</h2>*/}
+          {/* Location searching */}
+          <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
+            <input
+              type="text"
+              name="query"
+              value={queryLocationOfRes}
+              id="search-input"
+              placeholder="Search by ADDRESS of the restaurant"
+              onChange={this.handleOnInputRestaurantLocationChange}
+            />
+            <i className="fa fa-search search-icon" aria-hidden="true" />
+          </label>
+          {/* Restaurant name searching */}
+          <label className="search-label col-xs-12 col-sm-12 col-md-12" htmlFor="search-input">
+            <input
+              type="text"
+              name="query"
+              value={queryNameOfRes}
+              id="search-input"
+              placeholder="Search by NAME of the restaurant"
+              onChange={this.handleOnInputRestaurantNameChange}
+            />
+            <i className="fa fa-search search-icon" aria-hidden="true" />
+          </label>
 
-                <h1 className="list-restaurants-title col-xs-12 col-sm-12 col-md-12">List of restaurants in <u>{ queryLocationOfRes !== '' ? queryLocationOfRes : 'the application'} </u></h1>
-                {/*Error Message*/}
-                {message && <p className="message col-xs-12 col-sm-12 col-md-12">{message}</p>}
+          <h1 className="list-restaurants-title col-xs-12 col-sm-12 col-md-12">
+            List of restaurants in <u>{queryLocationOfRes !== '' ? queryLocationOfRes : 'the application'} </u>
+          </h1>
+          {/*Error Message*/}
+          {message && <p className="message col-xs-12 col-sm-12 col-md-12">{message}</p>}
 
-                {/*Loader*/}
-                <img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />
+          {/*Loader*/}
+          {/*<img src={Loader} className={`search-loading ${loading ? 'show' : 'hide'} col-xs-12 col-sm-12 col-md-12`} alt="loader" />*/}
 
-                {this.renderSearchResults(restaurantComponents)}
-            </div>
+          {this.renderSearchResults(restaurantComponents)}
         </div>
+      </div>
     );
-
   }
 }
 

@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "Welcome to EMenu",
-    "subtitle": "You will find here eMenu from restaurants whole Wroclaw",
+    "subtitle": "You will find here eMenu from restaurants in Poland",
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."
     },

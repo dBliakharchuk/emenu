@@ -6,7 +6,6 @@ a:hover {
     text-decoration: none;
 }
 
-
 .popup-content > .modal {
   font-size: 14px;
   position: relative;
@@ -15,8 +14,6 @@ a:hover {
   height: auto;
   margin: 0;
 }
-
-
 
 .modal > .header {
   width: 100%;
@@ -30,10 +27,10 @@ a:hover {
 }
 .modal > .actions {
   width: 100%;
-  padding: 15px;
+  padding-left: 30%;
+  padding-top: 270px;
   margin: auto;
   text-align: center;
-
 }
 .modal > .close {
   cursor: pointer;
@@ -110,6 +107,7 @@ a:hover {
   position: relative;
   float: left;
   padding: 5px;
+  font-size: 16px;
 }
 
 .dish-popup-gallery {
@@ -122,6 +120,15 @@ a:hover {
   position: relative;
   float: left;
 }
+
+.MuiGridListTileBar-actionIcon > div > button {
+    color: whitesmoke !important;
+}
+
+.MuiIconButton-root:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
 
 /*CSS for main title in dish list*/
 .body-edit-buttons {

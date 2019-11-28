@@ -53,6 +53,12 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
+  findNameMenuById(menuID) {
+    const { menuList } = this.props;
+    const foundMenu = menuList.find(menu => (menu.id == menuID));
+    return (foundMenu !== undefined && foundMenu !== null) && foundMenu.name
+  }
+
   render() {
       const { categoryList, match, totalItems, menuList, restaurantList, account } = this.props;
       let isAdmin = false;
@@ -77,6 +83,7 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
               })
           })
       }
+
 
     return (
       <div>
@@ -117,7 +124,7 @@ export class Category extends React.Component<ICategoryProps, ICategoryState> {
                   </td>
                   <td>{category.name}</td>
                   <td>{category.description}</td>
-                  <td>{category.menuIdMenu ? <Link to={`menu/${category.menuId}`}>{category.menuIdMenu}</Link> : ''}</td>
+                  <td>{category.menuIdMenu ? <Link to={`menu/${category.menuId}`}>{ this.findNameMenuById(category.menuIdMenu)}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${category.id}`} color="info" size="sm">

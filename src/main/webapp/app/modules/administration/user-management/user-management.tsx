@@ -18,6 +18,7 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { getUsers, updateUser } from './user-management.reducer';
 import { IRootState } from 'app/shared/reducers';
+import arrayContaining = jasmine.arrayContaining;
 
 export interface IUserManagementProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
@@ -117,17 +118,25 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                 </td>
                 <td>{user.login}</td>
                 <td>{user.email}</td>
-                <td>
-                  {user.activated ? (
-                    <Button color="success" onClick={this.toggleActive(user)}>
-                      Activated
-                    </Button>
-                  ) : (
-                    <Button color="danger" onClick={this.toggleActive(user)}>
-                      Deactivated
-                    </Button>
-                  )}
-                </td>
+                  {user.login !== "admin" ?
+                      <td>
+                          {user.activated ? (
+                              <Button color="success" onClick={this.toggleActive(user)}>
+                                  Activated
+                              </Button>
+                          ) : (
+                              <Button color="danger" onClick={this.toggleActive(user)}>
+                                  Deactivated
+                              </Button>
+                          )}
+                      </td>
+                  :
+                      <td>
+                          <Button color="success">
+                              Admin
+                          </Button>
+                      </td>
+                  }
                 <td>{user.langKey}</td>
                 <td>
                   {user.authorities
@@ -153,7 +162,11 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                         <Translate contentKey="entity.action.view">View</Translate>
                       </span>
                     </Button>
-                    <Button tag={Link} to={`${match.url}/${user.login}/edit`} color="primary" size="sm">
+                    <Button
+                        tag={Link}
+                        to={`${match.url}/${user.login}/edit`} color="primary" size="sm"
+                        disabled={user.login === "admin" && account.login !== "admin"}
+                      >
                       <FontAwesomeIcon icon="pencil-alt" />{' '}
                       <span className="d-none d-md-inline">
                         <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -164,7 +177,7 @@ export class UserManagement extends React.Component<IUserManagementProps, IPagin
                       to={`${match.url}/${user.login}/delete`}
                       color="danger"
                       size="sm"
-                      disabled={account.login === user.login}
+                      disabled={account.login === user.login || user.login === "admin" }
                     >
                       <FontAwesomeIcon icon="trash" />{' '}
                       <span className="d-none d-md-inline">

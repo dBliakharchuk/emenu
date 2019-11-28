@@ -2,25 +2,25 @@
   "emenuApp": {
     "ingredientToDish": {
       "home": {
-        "title": "Ingredient To Dish",
-        "createLabel": "Dodaj Ingredient To Dish",
-        "createOrEditLabel": "Dodaj lub edytuj: Ingredient To Dish"
+        "title": "Składniki w potrawach",
+        "createLabel": "Dodaj Składnik do potrawy",
+        "createOrEditLabel": "Dodaj lub edytuj: Składnik w potrawie"
       },
-      "created": "Utworzono nowy obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Ingredient To Dish z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Składnik w potrawie identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Składnik w potrawie z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Składnik w potrawie z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Ingredient To Dish {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Składnik w potrawie {{ id }}?"
       },
       "detail": {
-        "title": "Ingredient To Dish"
+        "title": "Składnik w potrawie"
       },
-      "unit": "Unit",
-      "weight": "Weight",
-      "isMain": "Is Main",
-      "isHidden": "Is Hidden",
-      "toIngredient": "To Ingredient",
-      "toDish": "To Dish"
+      "unit": "Jednostka",
+      "weight": "Waga",
+      "isMain": "Czy główny",
+      "isHidden": "Czy ukryty",
+      "toIngredient": "Do Składniku",
+      "toDish": "Do Potrawy"
     }
   }
 }

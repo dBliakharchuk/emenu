@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-// tslint:disable-next-line:no-unused-variable
+import { Button, Row, Table } from 'reactstrap';
 import {
   openFile,
   byteSize,
   Translate,
-  ICrudGetAllAction,
   getSortState,
   IPaginationBaseState,
   getPaginationItemsNumber,
@@ -18,11 +16,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getRestaurantEntities, getRestaurantEntitiesByUserId } from './restaurant.reducer';
 import { IRestaurant } from 'app/shared/model/restaurant.model';
-// tslint:disable-next-line:no-unused-variable
-import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
+import { AUTHORITIES } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import {getSession} from "app/shared/reducers/authentication";
-import {IDish} from "app/shared/model/dish.model";
+import {getLocationEntities} from "app/entities/location/location.reducer";
 
 export interface IRestaurantProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -36,6 +33,7 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
   componentDidMount() {
     this.getEntities();
     this.props.getSession();
+    this.props.getLocationEntities();
   }
 
   sort = prop => () => {
@@ -60,6 +58,12 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
     this.props.getEntities(activePage - 1, itemsPerPage, `${sort},${order}`);
   };
 
+  findLocationById(locationID) {
+    const { locationList } = this.props;
+    const locationFound = locationList.find(location => (location.id == locationID));
+    return (locationFound !== undefined && locationFound !== null) && locationFound.city
+  }
+
 
   render() {
     const { restaurantList, match, totalItems, account } = this.props;
@@ -77,7 +81,6 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
         });
     }
 
-     console.log(account);
     if (isAdmin) {
         finalListOfRes = restaurantList;
     } else if (isUser) {
@@ -120,11 +123,13 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                   <Translate contentKey="emenuApp.restaurant.webPageLink">Web Page Link</Translate> <FontAwesomeIcon icon="sort" />
                 </th>*/}
                 <th>
-                  <Translate contentKey="emenuApp.restaurant.idLocation">Id Location</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="emenuApp.restaurant.idLocation">Location</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="emenuApp.restaurant.user">User</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
+                  {isAdmin &&
+                    <th>
+                        <Translate contentKey="emenuApp.restaurant.user">ID User</Translate> <FontAwesomeIcon icon="sort" />
+                    </th>
+                  }
                 <th />
               </tr>
             </thead>
@@ -155,9 +160,9 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
                   <td>{restaurant.tripAdvisorLink}</td>
                   <td>{restaurant.webPageLink}</td>*/}
                   <td>
-                    {restaurant.idLocationId ? <Link to={`location/${restaurant.idLocationId}`}>{restaurant.idLocationId}</Link> : ''}
+                    {restaurant.idLocationId ? <Link to={`location/${restaurant.idLocationId}`}>{ this.findLocationById(restaurant.idLocationId)}</Link> : ''}
                   </td>
-                  <td>{restaurant.userId ? restaurant.userId : ''}</td>
+                  {isAdmin && <td>{restaurant.userId ? restaurant.userId : ''}</td>}
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${restaurant.id}`} color="info" size="sm">
@@ -198,15 +203,17 @@ export class Restaurant extends React.Component<IRestaurantProps, IRestaurantSta
   }
 }
 
-const mapStateToProps = ({ restaurant, authentication }: IRootState) => ({
+const mapStateToProps = ({ restaurant, authentication, location }: IRootState) => ({
   restaurantList: restaurant.entities,
   totalItems: restaurant.totalItems,
-  account: authentication.account
+  account: authentication.account,
+  locationList: location.entities
 });
 
 const mapDispatchToProps = {
   getEntities: getRestaurantEntities,
   getSession,
+  getLocationEntities,
   getRestaurantEntitiesByUserId
 };
 

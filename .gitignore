@@ -1,4 +1,4 @@
-######################
+heroku pg:psql -c "update databasechangeloglock set locked=false;"######################
 # Project Specific
 ######################
 /target/www/**

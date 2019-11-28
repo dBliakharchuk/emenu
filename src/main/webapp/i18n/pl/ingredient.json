@@ -2,21 +2,21 @@
   "emenuApp": {
     "ingredient": {
       "home": {
-        "title": "Ingredient",
-        "createLabel": "Dodaj Ingredient",
-        "createOrEditLabel": "Dodaj lub edytuj: Ingredient"
+        "title": "Składniki",
+        "createLabel": "Dodaj Składnik",
+        "createOrEditLabel": "Dodaj lub edytuj: Składnij"
       },
-      "created": "Utworzono nowy obiekt typu Ingredient z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Ingredient z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Ingredient z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Składnik z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Składnik z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Składnik z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Ingredient {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Składni {{ id }}?"
       },
       "detail": {
-        "title": "Ingredient"
+        "title": "Składnik"
       },
-      "name": "Name",
-      "isAllergic": "Is Allergic"
+      "name": "Nazwa",
+      "isAllergic": "Czy alergen"
     }
   }
 }
