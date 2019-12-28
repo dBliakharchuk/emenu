@@ -189,31 +189,35 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.3.tgz#6310a047f12d21a1036fb031317219892440416f"
   integrity sha512-4zAPlpDEh2VwXswwr/t8xGNDGg8RQiPxtxZ3qQEXyQsBV39ptTdESCjuBvGze1nLMVrxmTIKmnO/nAV8Tqjjzg==
 
-"@fortawesome/fontawesome-common-types@^0.2.12":
-  version "0.2.17"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.17.tgz#d8c36e6f6f3b3415fa1f83eaffe4f41bd313715c"
-  integrity sha512-DEYsEb/iiGVoMPQGjhG2uOylLVuMzTxOxysClkabZ5n80Q3oFDWGnshCLKvOvKoeClsgmKhWVrnnqvsMI1cAbw==
+"@fortawesome/fontawesome-common-types@^0.2.26":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.26.tgz#6e0b13a752676036f8196f8a1500d53a27b4adc1"
+  integrity sha512-CcM/fIFwZlRdiWG/25xE/wHbtyUuCtqoCTrr6BsWw7hH072fR++n4L56KPydAr3ANgMJMjT8v83ZFIsDc7kE+A==
 
-"@fortawesome/fontawesome-svg-core@1.2.12":
-  version "1.2.12"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.12.tgz#9732617b1e484435f6946645d7f9ad248f12c437"
-  integrity sha512-cqTfa3vZ+Z9UYQnmLfCOwyLnf0Xcoxkmm/BSaI29Yikzu9zIeD4es7lBZMDqLOXYSEQC+rCr8caxFlGJcJVA+w==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.12"
+"@fortawesome/fontawesome-free@^5.11.2":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.0.tgz#8ceb9f09edfb85ea18a6c7bf098f6f5dd5ffd62b"
+  integrity sha512-vKDJUuE2GAdBERaQWmmtsciAMzjwNrROXA5KTGSZvayAsmuTGjam5z6QNqNPCwDfVljLWuov1nEC3mEQf/n6fQ==
 
-"@fortawesome/free-solid-svg-icons@5.6.3":
-  version "5.6.3"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.6.3.tgz#1d7f6669ccd6a1ea673699e41f7e32c81401a260"
-  integrity sha512-ld8Gfp1KrncOpFRheThUDlD6/Ro9ZJGqfCEMXlO/x1Cg7ltLc5iYDG7yxDowLcmFY2BGSmxIIU3ZMW5FVTrfwQ==
+"@fortawesome/fontawesome-svg-core@^1.2.12":
+  version "1.2.26"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.26.tgz#671569271d6b532cdea5e3deb8ff16f8b7ac251d"
+  integrity sha512-3Dfd/v2IztP1TxKOxZiB5+4kaOZK9mNy0KU1vVK7nFlPWz3gzxrCWB+AloQhQUoJ8HhGqbzjliK89Vl7PExGbw==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.12"
+    "@fortawesome/fontawesome-common-types" "^0.2.26"
 
-"@fortawesome/react-fontawesome@0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.4.tgz#18d61d9b583ca289a61aa7dccc05bd164d6bc9ad"
-  integrity sha512-GwmxQ+TK7PEdfSwvxtGnMCqrfEm0/HbRHArbUudsYiy9KzVCwndxa2KMcfyTQ8El0vROrq8gOOff09RF1oQe8g==
+"@fortawesome/free-solid-svg-icons@^5.6.3":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.12.0.tgz#8decac5844e60453cc0c7c51437d1461df053a35"
+  integrity sha512-CnpsWs6GhTs9ekNB3d8rcO5HYqRkXbYKf2YNiAlTWbj5eVlPqsd/XH1F9If8jkcR1aegryAbln/qYeKVZzpM0g==
   dependencies:
-    humps "^2.0.1"
+    "@fortawesome/fontawesome-common-types" "^0.2.26"
+
+"@fortawesome/react-fontawesome@^0.1.4":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.8.tgz#cb6d4dd3aeec45b6ff2d48c812317a6627618511"
+  integrity sha512-I5h9YQg/ePA3Br9ISS18fcwOYmzQYDSM1ftH03/8nHkiqIVHtUyQBw482+60dnzvlr82gHt3mGm+nDUp159FCw==
+  dependencies:
     prop-types "^15.5.10"
 
 "@jest/console@^24.7.1":
@@ -2344,6 +2348,11 @@ commander@~2.19.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
   integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
+
+commander@~2.20.3:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
 common-tags@^1.4.0:
   version "1.8.0"
@@ -4635,9 +4644,9 @@ handle-thing@^2.0.0:
   integrity sha512-d4sze1JNC454Wdo2fkuyzCr6aHcbL6PGGuFAz0Li/NcOm1tCHGnWDRmJP85dh9IhQErTc2svWFEX5xHIOo//kQ==
 
 handlebars@^4.0.1, handlebars@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.1.tgz#6e4e41c18ebe7719ae4d38e5aca3d32fa3dd23d3"
-  integrity sha512-3Zhi6C0euYZL5sM0Zcy7lInLXKQ+YLcF/olbN010mzGQ4XVm50JeyBnMqofHh696GrciGruC7kCcApPDJvVgwA==
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.3.tgz#5cf75bd8714f7605713511a56be7c349becb0482"
+  integrity sha512-3yPecJoJHK/4c6aZhSvxOyG4vJKDshV36VHp0iVCDVh7o9w2vwi3NSnL2MMPj3YdduqaBcu7cGbggJQM0br9xA==
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -4969,11 +4978,6 @@ https-proxy-agent@^2.2.1:
   dependencies:
     agent-base "^4.1.0"
     debug "^3.1.0"
-
-humps@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
-  integrity sha1-3QLqYIG9BWjcXQcxhEY5V7qe+ao=
 
 husky@1.1.0:
   version "1.1.0"
@@ -7444,9 +7448,9 @@ negotiator@0.6.1:
   integrity sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
 
 neo-async@^2.5.0, neo-async@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
-  integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
+  integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -11281,11 +11285,11 @@ uglify-js@3.4.x:
     source-map "~0.6.1"
 
 uglify-js@^3.1.4:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.3.tgz#d490bb5347f23025f0c1bc0dee901d98e4d6b063"
-  integrity sha512-rIQPT2UMDnk4jRX+w4WO84/pebU2jiLsjgIyrCktYgSvx28enOE3iYQMr+BD1rHiitWnDmpu0cY/LfIEpKcjcw==
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.7.3.tgz#f918fce9182f466d5140f24bb0ff35c2d32dcc6a"
+  integrity sha512-7tINm46/3puUA4hCkKYo4Xdts+JDaVC9ZPRcG8Xw9R4nhO/gZgUM3TENq8IF4Vatk8qCig4MzP/c8G4u2BkVQg==
   dependencies:
-    commander "~2.19.0"
+    commander "~2.20.3"
     source-map "~0.6.1"
 
 ultron@~1.1.0:
