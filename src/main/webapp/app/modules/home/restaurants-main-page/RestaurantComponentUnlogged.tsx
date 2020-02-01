@@ -45,13 +45,13 @@ class RestaurantComponentUnlogged extends React.Component<IRestaurantComponentPr
         <Card className="container-card-restaurant">
           <CardActionArea>
             <CardMedia
-              /*component="img"*/
+              component="img"
               className="container-card-restaurant-media"
-              /*alt={name}*/
-              /*height="190"*/
+              alt={name}
+              height="190"
               image={url}
               title={name}
-              /*top="0"*/
+              // top="0"
             />
             <CardContent>
               <Typography gutterBottom variant="h6" component="h6">

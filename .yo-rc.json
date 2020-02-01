@@ -25,7 +25,7 @@
     "jwtSecretKey": "eb953d094f32c524ea6671268075d1fd773dded8",
     "clientFramework": "react",
     "useSass": false,
-    "clientPackageManager": "yarn",
+    "clientPackageManager": "npm",
     "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "enableTranslation": true,
@@ -36,7 +36,7 @@
     "otherModules": [],
     "skipServer": false,
     "skipClient": false,
-    "herokuAppName": "emenu-web-app",
+    "herokuAppName": "emenu-heroku",
     "herokuDeployType": "git"
   }
 }

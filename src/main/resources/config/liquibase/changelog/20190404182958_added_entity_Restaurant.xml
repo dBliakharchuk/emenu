@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-    
+
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -26,22 +26,22 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="description" type="varchar(255)">
+            <column name="description" type="varchar(2000)">
                 <constraints nullable="true" />
             </column>
 
             <column name="image" type="longblob">
                 <constraints nullable="true" />
             </column>
-            <column name="image_content_type" type="varchar(255)">
+            <column name="image_content_type" type="varchar(400)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="google_maps_link" type="varchar(255)">
+            <column name="google_maps_link" type="varchar(400)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="trip_advisor_link" type="varchar(255)">
+            <column name="trip_advisor_link" type="varchar(400)">
                 <constraints nullable="true" />
             </column>
 
@@ -57,7 +57,7 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

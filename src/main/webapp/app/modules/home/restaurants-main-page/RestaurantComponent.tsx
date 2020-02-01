@@ -44,12 +44,12 @@ class RestaurantComponent extends React.Component<IRestaurantComponentProps, IRe
         <Card className="container-card-restaurant">
           <CardActionArea>
             <CardMedia
-              /*component="img"*/
+              component="img"
               className="container-card-restaurant-media"
               image={url}
               title={name}
-              /*alt={name}*/
-              /*height = "190"*/
+              alt={name}
+              height="190"
               /*top="0"*/
             />
             <CardContent>

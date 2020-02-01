@@ -39,21 +39,21 @@
 }
 
 .search-label-dishes {
-    position: relative;
-    padding: 0 4px 4px 0;
+  position: relative;
+  padding: 0 4px 4px 0;
 }
 
-.search-label-dishes > #search-input {
-    height: 50px;
+.search-label-dishes > .search-input {
+  height: 50px;
 }
 
 .restaurant-body > label {
-    font-size: 25px;
-    color: black;
-    font-weight: 500;
-    width: 100%;
-    text-align: center;
-    padding: 10px 0 10px 0;
+  font-size: 25px;
+  color: black;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 10px 0;
 }
 
 .search-container input {
@@ -76,10 +76,8 @@
 }
 
 .search-label-dishes > .search-icon {
-    top: +20%;
+  top: +20%;
 }
-
-
 
 /* Results */
 .results-container {
@@ -116,20 +114,20 @@
 }
 
 @media (max-width: 576px) {
-    .restaurants-container > .nav-item {
-        padding-left: 15%;
-        padding-right: 15%;
-    }
+  .restaurants-container > .nav-item {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .restaurant-body {
-        padding: 0;
-    }
-    .search-container-dishes {
-        padding: 0;
-    }
-    .restaurant-dishes {
-        padding: 0 0 0 15px;
-    }
+  .restaurant-body {
+    padding: 0;
+  }
+  .search-container-dishes {
+    padding: 0;
+  }
+  .restaurant-dishes {
+    padding: 0 0 0 15px;
+  }
 }

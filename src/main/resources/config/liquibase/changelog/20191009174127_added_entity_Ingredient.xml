@@ -20,7 +20,7 @@
     <changeSet id="20191009174127-1" author="jhipster">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="restaurant"/>
+                <tableExists tableName="ingredient"/>
             </not>
         </preConditions>
         <createTable tableName="ingredient">

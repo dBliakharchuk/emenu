@@ -363,7 +363,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -373,7 +372,7 @@
                                 <artifactItem>
                                     <groupId>com.heroku</groupId>
                                     <artifactId>webapp-runner</artifactId>
-                                    <version>${webapp-runner.version</version>
+                                    <version>9.0.30.0</version>
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
@@ -557,10 +556,10 @@
                         <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                         <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost:3306/emenu</url>
-                        <defaultSchemaName>emenu</defaultSchemaName>
-                        <username>root</username>
-                        <password></password>
+                        <url>jdbc:mysql://fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/owbwy48bp9tlpio2</url>
+                        <defaultSchemaName>owbwy48bp9tlpio2</defaultSchemaName>
+                        <username>rnvg6gfj5pqs13la</username>
+                        <password>zufq6clqyxj43yc7</password>
                         <referenceUrl>hibernate:spring:react.emenu.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                         <verbose>true</verbose>
                         <logging>debug</logging>
@@ -1153,11 +1152,11 @@
                         <configuration combine.self="override">
                             <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                             <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-                            <driver></driver>
-                            <url>${env.JDBC_DATABASE_URL}</url>
-                            <defaultSchemaName></defaultSchemaName>
-                            <username>${env.JDBC_DATABASE_USERNAME}</username>
-                            <password>${env.JDBC_DATABASE_PASSWORD}</password>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/owbwy48bp9tlpio2</url>
+                            <defaultSchemaName>owbwy48bp9tlpio2</defaultSchemaName>
+                            <username>rnvg6gfj5pqs13la</username>
+                            <password>zufq6clqyxj43yc7</password>
                             <referenceUrl>hibernate:spring:react.emenu.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                             <verbose>true</verbose>
                             <logging>debug</logging>

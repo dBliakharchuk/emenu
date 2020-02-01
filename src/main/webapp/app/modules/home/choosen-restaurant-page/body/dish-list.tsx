@@ -211,7 +211,6 @@ class DishList extends React.Component<IDishProps, IDishState> {
         }
       });
     }
-    console.log(categoryLabel);
 
     return (
       <div className="row col-lg-12 col-md-12 col-sm-12 col-xs-12">

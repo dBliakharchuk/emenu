@@ -12,15 +12,15 @@
 
 eureka:
     instance:
-        hostname: emenu-web-app.herokuapp.com
+        hostname: emenu-heroku.herokuapp.com
         non-secure-port: 80
         prefer-ip-address: false
 
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: ${JDBC_DATABASE_URL}
-        username: ${JDBC_DATABASE_USERNAME}
-        password: ${JDBC_DATABASE_PASSWORD}
+        url: jdbc:mysql://fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/owbwy48bp9tlpio2?autoReconnect=true&useSSL=false
+        username: rnvg6gfj5pqs13la
+        password: zufq6clqyxj43yc7
         hikari:
             maximumPoolSize: 8

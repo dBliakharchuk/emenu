@@ -166,7 +166,7 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
               type="text"
               name="query"
               value={queryLocationOfRes}
-              id="search-input"
+              className="search-input"
               placeholder="Search by ADDRESS of the restaurant"
               onChange={this.handleOnInputRestaurantLocationChange}
             />
@@ -178,7 +178,7 @@ export class RestaurantsList extends React.Component<IRestaurantProps, IRestaura
               type="text"
               name="query"
               value={queryNameOfRes}
-              id="search-input"
+              className="search-input"
               placeholder="Search by NAME of the restaurant"
               onChange={this.handleOnInputRestaurantNameChange}
             />
