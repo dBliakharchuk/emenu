@@ -1,4 +1,8 @@
-# emenu
+# Emenu
+
+## Check application on heroku web server:
+
+### https://emenu-heroku.herokuapp.com/
 
 ## Development
 
